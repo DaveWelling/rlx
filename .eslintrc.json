@@ -61,7 +61,6 @@
         "import/extensions": [1, { "json": 2, "css": 2, "mjs": 2, "js": 2 }],
         "import/no-named-as-default": 0,
         "import/no-unresolved": [2, { "ignore": ["lib_ui"] }],
-        "react-hooks/rules-of-hooks": 2,
-        "react-hooks/exhaustive-deps": 1
+        "react-hooks/rules-of-hooks": 2
     }
 }

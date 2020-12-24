@@ -1,7 +1,7 @@
 {
-    "name": "react-loki-xstate",
+    "name": "rlx",
     "version": "1.0.0",
-    "description": "",
+    "description": "React Loki XState Prototype",
     "main": "index.js",
     "type": "module",
     "scripts": {
