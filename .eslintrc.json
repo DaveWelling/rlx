@@ -12,7 +12,8 @@
         "browser": true,
         "node": true,
         "jquery": false,
-        "mocha": true
+        "mocha": true,
+        "jest": true
     },
     "settings": {
         "react": {
