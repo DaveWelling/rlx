@@ -8,6 +8,8 @@ const rc = createElement;
 const Input = styled.input`
     margin: 6px;
     border-radius: 3px;
+    border: thin solid black;
+    padding: 8px;
 `;
 
 export default (props) => {

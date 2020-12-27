@@ -8,7 +8,7 @@ const rc = createElement;
 export const ActiveRecordContext = createContext();
 
 export default function ActiveRecord({ recordType, children }) {
-    const [activeRecord, setActiveRecord] = useState();
+    const [activeRecord, setActiveRecord] = useState({ recordType });
     const [subscribe] = useEventSink();
     useEffect(() => {
         function onSet(_id) {
@@ -33,7 +33,7 @@ export default function ActiveRecord({ recordType, children }) {
         const unsubscribes = [
             subscribe(`new_${recordType}`, onSet),
             subscribe(`edit_${recordType}`, onSet),
-            subscribe(`cancel_${recordType}`, () => setActiveRecord(undefined)),
+            subscribe(`cancel_${recordType}`, () => setActiveRecord({ recordType })),
         ];
         return () => unsubscribes.forEach((u) => u());
     }, []);

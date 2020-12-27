@@ -11,7 +11,7 @@ export default () => {
     return rc(Form, {
             title: 'Widget Form',
             actionButtons: [
-                rc(ActionButton, { title: 'Cancel', actionType: 'cancel'})
+                rc(ActionButton, { key: 'widget-form-cancel', title: 'Cancel', actionType: 'cancel'})
             ]
         },
         rc(ShortText, {

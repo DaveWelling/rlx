@@ -3,11 +3,11 @@ import { createElement } from 'react';
 import styled from 'styled-components';
 import '../index.css';
 import SummaryDetail from './SummaryDetail.mjs';
-import AddButton from './AddButton.mjs';
 import Grid from './Grid.mjs';
 import WidgetForm from './WidgetForm.mjs';
 import EventBoundary from './EventBoundary.mjs';
 import ActiveRecord from './ActiveRecord.mjs';
+import ActionButton from './ActionButton.mjs';
 
 const App = styled.div`
     background-color: rgba(0, 0, 0, 0.95);
@@ -29,7 +29,7 @@ export default () => {
                 rc(SummaryDetail, null,
                     rc('div', null,
                         rc(Grid, {recordType}),
-                        rc(AddButton, {recordType})
+                        rc(ActionButton, {actionType: 'new', title: 'Add Widget'})
                     ),
                     rc(WidgetForm)
                 )

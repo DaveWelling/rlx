@@ -28,6 +28,6 @@ export default ({ recordType }) => {
     }
     // prettier-ignore
     return rc(Grid, null,
-        data.map((w) =>rc(Row, { id: w._id, 'data-id': w._id, onClick }, w.title))
+        data.map((w) =>rc(Row, { id: w._id, key: w._id, 'data-id': w._id, onClick }, w.title))
     );
 };
