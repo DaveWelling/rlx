@@ -1,18 +1,22 @@
-import styled from 'styled-components';
 import React from 'react';
+import Form from './Form.mjs';
+import ShortText from './formElements/ShortText.mjs';
+import ActionButton from './ActionButton.mjs';
+import ActionButtonMjs from './ActionButton.mjs';
+
 const rc = React.createElement;
 
-const Form = styled.form`
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 4px;
-    border-radius: 2px;
-    height: 100%;
-`;
-
-// prettier-ignore
-export default ()=>rc(Form, null,
-    rc('div', null, 'Widget Form'),
-    rc('label', null,
-        rc('input', { type: 'textbox' })
-    )
-);
+export default () => {
+    // prettier-ignore
+    return rc(Form, {
+            title: 'Widget Form',
+            actionButtons: [
+                rc(ActionButton, { title: 'Cancel', actionType: 'cancel'})
+            ]
+        },
+        rc(ShortText, {
+            title: 'title',
+            propertyName: 'title'
+        }),
+    );
+};

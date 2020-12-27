@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import useLokiView from '../hooks/useLokiView.mjs';
+import useEventSink from '../hooks/useEventSink.mjs';
+
 const rc = React.createElement;
 
 const Grid = styled.div`
@@ -17,9 +20,14 @@ const Row = styled.p`
     cursor: pointer;
 `;
 
-// prettier-ignore
-export default ({ data, onClick }) =>
-    rc(Grid, null,
-        data.map((w) =>rc(Row, { id: w._id, onClick }, w.title)
-    )
-);
+export default ({ recordType }) => {
+    const [data] = useLokiView(recordType, `${recordType}_default`, {});
+    const [, publish] = useEventSink();
+    function onClick(e) {
+        publish(`edit_${recordType}`, e.target.dataset.id);
+    }
+    // prettier-ignore
+    return rc(Grid, null,
+        data.map((w) =>rc(Row, { id: w._id, 'data-id': w._id, onClick }, w.title))
+    );
+};

@@ -29,7 +29,6 @@ it('Simple subscribe/publish', () => {
     const { getByText } = render(rc(Harness));
     const display = getByText('nobody');
     const button = getByText(/click me/i);
-    expect(display.innerHTML).toInclude('nobody');
     fireEvent.click(button);
     expect(display.innerHTML).toInclude('world');
 });
