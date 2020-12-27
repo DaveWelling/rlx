@@ -13,11 +13,11 @@ const Input = styled.input`
 `;
 
 export default (props) => {
-    const { actionType, title } = props;
+    const { actionType, title, disabled } = props;
     const [, publish] = useEventSink();
     const { recordType } = useActiveRecord();
     function onClick() {
         publish(`${actionType}_${recordType}`);
     }
-    return rc(Input, { type: 'button', value: title, onClick });
+    return rc(Input, { type: 'button', value: title, onClick, disabled });
 };

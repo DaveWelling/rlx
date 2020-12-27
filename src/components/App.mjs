@@ -15,6 +15,11 @@ const App = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+`;
+
+const AppTitle = styled.h1`
+    margin: 6px;
 `;
 
 const rc = createElement;
@@ -23,7 +28,7 @@ const recordType = 'widget';
 export default () => {
     // prettier-ignore
     return rc(App, null,
-        rc('h1', null, 'Hello React Loki XState'),
+        rc(AppTitle, null, 'Hello React Loki XState'),
         rc(EventBoundary, {logEvents: true},
             rc(ActiveRecord, {recordType},
                 rc(SummaryDetail, null,

@@ -1,7 +1,7 @@
 import { createElement, createContext, useState, useEffect } from 'react';
 import cuid from 'cuid';
 import useEventSink from '../hooks/useEventSink.mjs';
-import db from '../persistence/database.mjs';
+import db from '../services/persistence/database.mjs';
 
 const rc = createElement;
 
@@ -11,7 +11,7 @@ export default function ActiveRecord({ recordType, children }) {
     const [activeRecord, setActiveRecord] = useState({ recordType });
     const [subscribe] = useEventSink();
     useEffect(() => {
-        function onSet(_id) {
+        function onSet(activationVerb, _id) {
             let record,
                 isNew = true;
             if (_id) {
@@ -24,14 +24,16 @@ export default function ActiveRecord({ recordType, children }) {
                 record = { _id: cuid() };
             }
             setActiveRecord({
+                activationVerb,
                 record,
                 isNew,
                 recordType,
             });
         }
         const unsubscribes = [
-            subscribe(`new_${recordType}`, onSet),
-            subscribe(`edit_${recordType}`, onSet),
+            subscribe(`view_${recordType}`, (_id) => onSet('view', _id)),
+            subscribe(`new_${recordType}`, () => onSet('new')),
+            subscribe(`edit_${recordType}`, (_id) => onSet('edit', _id)),
             subscribe(`cancel_${recordType}`, () => setActiveRecord({ recordType })),
         ];
         return () => unsubscribes.forEach((u) => u());

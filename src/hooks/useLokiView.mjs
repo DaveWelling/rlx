@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import db from '../persistence/database.mjs';
+import db from '../services/persistence/database.mjs';
 import throttle from 'lodash.throttle';
 const upsert = {};
 export default (collectionName, viewName, viewCriteria) => {

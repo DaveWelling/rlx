@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import useFormControl from './useFormControl.mjs';
+import useFormControl from '../../hooks/useFormControl.mjs';
 import styled from 'styled-components';
 
 const rc = createElement;
