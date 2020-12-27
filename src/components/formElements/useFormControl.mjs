@@ -5,12 +5,12 @@ import useEventSink from '../../hooks/useEventSink.mjs';
 export default (props) => {
     const {
         disabled,
-        activeRecord: { changedRecord, recordType },
+        activeRecord: { record, recordType },
     } = useContext(FormContext);
     const [, publish] = useEventSink();
     const { title, propertyName } = props;
 
-    const [value, setValue] = useState(changedRecord[propertyName]);
+    const [value, setValue] = useState(record[propertyName]);
     return {
         title,
         disabled,

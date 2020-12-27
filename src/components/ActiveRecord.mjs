@@ -24,8 +24,7 @@ export default function ActiveRecord({ recordType, children }) {
                 record = { _id: cuid() };
             }
             setActiveRecord({
-                initialRecord: record,
-                changedRecord: { ...record },
+                record,
                 isNew,
                 recordType,
             });

@@ -33,7 +33,7 @@ export default ({ children }) => {
         );
     }
     const activeRecord = useActiveRecord();
-    if (activeRecord.initialRecord == null) {
+    if (activeRecord.record == null) {
         return rc(SummaryOnly, null, children[0]);
     }
     return rc(SummaryDetail, { gutterSize: 5, sizes: [25, 75] }, children);

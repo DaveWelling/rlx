@@ -1,8 +1,15 @@
+import xstate from 'xstate';
+const { Machine } = xstate;
+
 export default function getFormFsm(record, recordType, isNew) {
+    return Machine(getConfig(record, recordType, isNew), {});
+}
+
+export function getConfig(record, recordType, isNew) {
     return {
         id: `${recordType}Form`,
         initial: 'view',
-        context: { oldRecord: record, newRecord: record, recordType, isNew },
+        context: { newRecord: { ...record }, recordType, isNew },
         states: {
             empty: {},
             view: {},
