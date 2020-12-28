@@ -1,5 +1,4 @@
 import { createElement } from 'react';
-
 import styled from 'styled-components';
 import '../index.css';
 import SummaryDetail from './SummaryDetail.mjs';
@@ -27,15 +26,15 @@ const rc = createElement;
 const recordType0 = 'widget';
 const recordType1 = 'foo';
 
-export default () => {
+export default function Application() {
     // prettier-ignore
     return rc(App, null,
         rc(AppTitle, null, 'Hello React Loki XState'),
         rc(EventBoundary, {logEvents: true},
-            rc(ActiveRecord, {recordType0},
+            rc(ActiveRecord, {recordType: recordType0},
                 rc(SummaryDetail, null,
                     rc('div', null,
-                        rc(Grid, {recordType0}),
+                        rc(Grid, {recordType: recordType0}),
                         rc(ActionButton, {actionType: 'new', title: 'Add Widget'})
                     ),
                     rc(WidgetForm)
@@ -43,10 +42,10 @@ export default () => {
             )
         ),
         rc(EventBoundary, {logEvents: true},
-            rc(ActiveRecord, {recordType1},
+            rc(ActiveRecord, {recordType: recordType1},
                 rc(SummaryDetail, null,
                     rc('div', null,
-                        rc(Grid, {recordType1}),
+                        rc(Grid, {recordType: recordType1}),
                         rc(ActionButton, {actionType: 'new', title: 'Add Foo'})
                     ),
                     rc(FooForm)
@@ -54,4 +53,4 @@ export default () => {
             )
         )
     );
-};
+}

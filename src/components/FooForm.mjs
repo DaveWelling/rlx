@@ -4,18 +4,20 @@ import ShortText from './formElements/ShortText.mjs';
 
 const rc = React.createElement;
 
-export default () => {
+export default function FooForm() {
     // prettier-ignore
     return rc(Form, {
             title: 'Foo Form'
         },
         rc(ShortText, {
             title: 'title',
-            propertyName: 'title'
+            propertyName: 'title',
+            defaultValue: ''
         }),
         rc(ShortText, {
             title: 'Description',
-            propertyName: 'description'
+            propertyName: 'description',
+            defaultValue: ''
         }),
     );
-};
+}

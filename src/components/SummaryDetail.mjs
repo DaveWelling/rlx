@@ -5,7 +5,7 @@ import useActiveRecord from '../hooks/useActiveRecord.mjs';
 
 const rc = createElement;
 
-const SummaryDetail = styled(Split)`
+const StyledSummaryDetail = styled(Split)`
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: row;
@@ -26,7 +26,7 @@ const SummaryOnly = styled.div`
     flex-direction: row;
 `;
 
-export default ({ children }) => {
+export default function SummaryDetail({ children }) {
     if (children.length !== 2) {
         throw new Error(
             'SummaryDetail component requires exactly two children.  The first should be a grid (summary) or similar and the second should be a form (detail) or similar.'
@@ -36,5 +36,5 @@ export default ({ children }) => {
     if (activeRecord.record == null) {
         return rc(SummaryOnly, null, children[0]);
     }
-    return rc(SummaryDetail, { gutterSize: 5, sizes: [25, 75] }, children);
-};
+    return rc(StyledSummaryDetail, { gutterSize: 5, sizes: [25, 75] }, children);
+}

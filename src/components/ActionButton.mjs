@@ -12,7 +12,7 @@ const Input = styled.input`
     padding: 8px;
 `;
 
-export default (props) => {
+export default function ActionButton(props) {
     const { actionType, title, disabled } = props;
     const [, publish] = useEventSink();
     const { recordType } = useActiveRecord();
@@ -20,4 +20,4 @@ export default (props) => {
         publish(`${actionType}_${recordType}`);
     }
     return rc(Input, { type: 'button', value: title, onClick, disabled });
-};
+}

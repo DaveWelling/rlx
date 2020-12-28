@@ -6,7 +6,7 @@ const rc = createElement;
 
 export const FormContext = createContext();
 
-const Form = styled.form`
+const StyledForm = styled.form`
     background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -25,12 +25,12 @@ const Title = styled.h3`
     padding: 6px;
 `;
 
-export default ({ children, title }) => {
+export default function Form({ children, title }) {
     const context = useFormMachine();
     const { isDirty } = context;
     // prettier-ignore
     return rc(FormContext.Provider, { value: context },
-        rc(Form, null,
+        rc(StyledForm, null,
             rc(Title, null, title),
             rc(FormBody, null, children),
             rc('div', null,
@@ -39,4 +39,4 @@ export default ({ children, title }) => {
             )
         )
     );
-};
+}

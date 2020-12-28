@@ -1,29 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useReducer } from 'react';
 import db from '../services/persistence/database.mjs';
 import throttle from 'lodash.throttle';
-const upsert = {};
-export default (collectionName, viewName, viewCriteria) => {
+
+/**
+ * Similar to useSelector from react-redux but with a loki backing store
+ * https://github.com/reduxjs/react-redux/blob/96bf941751a8460c5cf64027348f05d332e19a20/src/hooks/useSelector.js
+ * @param collectionName The loki collection
+ * @param viewName The name of the dynamic view in loki
+ * @param viewCriteria MongoDB find syntax
+ */
+export default function useLokiView(collectionName, viewName, viewCriteria) {
+    // Trick to force a new render when loki reports a change to the view
+    const [, forceRender] = useReducer((s) => s + 1, 0);
     const collection = db.getCollection(collectionName);
     let view = collection.getDynamicView(viewName);
+    // Lazy creation of dynamic view.
     if (!view) {
-        upsert[collectionName] = (record) => {
-            const dbEntry = collection.by('_id', record._id);
-            if (!dbEntry) {
-                collection.insert(record);
-            } else {
-                collection.update({
-                    ...dbEntry,
-                    ...record,
-                });
-            }
-        };
         view = collection.addDynamicView(viewName);
         view.applyFind(viewCriteria);
     }
-    let [viewData, setViewData] = useState(view.data());
-    useEffect(() => {
-        const onRebuild = throttle((view) => setViewData(view.data()), 100);
+    useLayoutEffect(() => {
+        // Throttle renders - may need to revisit for something like an
+        // import of a file which could create many dynamic view rebuilds
+        const onRebuild = throttle(() => forceRender(), 250);
         view.addListener('rebuild', onRebuild);
+        return () => view.removeListener('rebuild', onRebuild);
     }, []);
-    return [viewData, upsert[collectionName]];
-};
+    return [view.data()];
+}

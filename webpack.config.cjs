@@ -10,7 +10,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const __USE_XSTATE_INSPECTOR__ = true;
 
 module.exports = {
-    devtool: isProduction ? false : 'eval-source-map',
+    devtool: isProduction ? false : 'source-map',
     mode: isProduction ? 'production' : 'development',
     entry: {
         main: ['./src/index.mjs'],
@@ -34,6 +34,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             __USE_XSTATE_INSPECTOR__,
+            __PRODUCTION__: isProduction,
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',

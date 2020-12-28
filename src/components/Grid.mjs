@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';
 
 const rc = React.createElement;
 
-const Grid = styled.div`
+const StyledGrid = styled.div`
     background-color: black;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -20,14 +20,17 @@ const Row = styled.p`
     cursor: pointer;
 `;
 
-export default ({ recordType }) => {
+function Grid({ recordType }) {
     const [data] = useLokiView(recordType, `${recordType}_default`, {});
     const [, publish] = useEventSink();
     function onClick(e) {
         publish(`edit_${recordType}`, e.target.dataset.id);
     }
     // prettier-ignore
-    return rc(Grid, null,
+    return rc(StyledGrid, null,
         data.map((w) =>rc(Row, { id: w._id, key: w._id, 'data-id': w._id, onClick }, w.title))
     );
-};
+}
+Grid.whyDidYouRender = true;
+
+export default Grid;

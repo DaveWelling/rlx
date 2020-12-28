@@ -9,7 +9,7 @@ const Input = styled.input`
     padding: 3px;
 `;
 
-export default (props) => {
+export default function ShortText(props) {
     const { title, value, setValue, disabled } = useFormControl(props);
 
     function onChange(e) {
@@ -21,4 +21,4 @@ export default (props) => {
         title,
         rc(Input, { disabled, type: 'textbox', value, onChange })
     );
-};
+}

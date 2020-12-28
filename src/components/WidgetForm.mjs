@@ -4,14 +4,15 @@ import ShortText from './formElements/ShortText.mjs';
 
 const rc = React.createElement;
 
-export default () => {
+export default function WidgetForm() {
     // prettier-ignore
     return rc(Form, {
             title: 'Widget Form'
         },
         rc(ShortText, {
             title: 'title',
-            propertyName: 'title'
+            propertyName: 'title',
+            defaultValue: ''
         }),
     );
-};
+}

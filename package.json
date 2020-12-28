@@ -12,6 +12,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@welldone-software/why-did-you-render": "^6.0.4",
         "@xstate/react": "^1.2.2",
         "cuid": "^2.1.8",
         "lodash.debounce": "^4.0.8",
