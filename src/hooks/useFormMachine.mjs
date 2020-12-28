@@ -4,7 +4,6 @@ import { useMachine } from '@xstate/react';
 import formMachine from '../stateMachines/formMachine/index.mjs';
 import useActiveRecord from '../hooks/useActiveRecord.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';
-import get from 'lodash.get';
 
 export default function useFormMachine() {
     const activeRecord = useActiveRecord();

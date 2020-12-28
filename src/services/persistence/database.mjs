@@ -11,6 +11,13 @@ for (let i = 0; i < NUM_WIDGETS; i++) {
         widgetCol.insert({ _id: cuid(), title: `widget ${i}` });
     }
 }
+const fooCol = db.addCollection('foo', { indices: ['title'] });
+for (let i = 0; i < NUM_WIDGETS; i++) {
+    const w = fooCol.by('title', i);
+    if (!w) {
+        fooCol.insert({ _id: cuid(), title: `foo ${i}` });
+    }
+}
 
 export default db;
 
