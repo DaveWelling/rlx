@@ -22,6 +22,10 @@ const AppTitle = styled.h1`
     margin: 6px;
 `;
 
+const Summary = styled.div`
+    min-width: 250px;
+`;
+
 const rc = createElement;
 const recordType0 = 'widget';
 const recordType1 = 'foo';
@@ -33,8 +37,8 @@ export default function Application() {
         rc(EventBoundary, {logEvents: true},
             rc(ActiveRecord, {recordType: recordType0},
                 rc(SummaryDetail, null,
-                    rc('div', null,
-                        rc(Grid, {recordType: recordType0}),
+                    rc(Summary, null,
+                        rc(Grid, {title: `Select a ${recordType0}`, recordType: recordType0}),
                         rc(ActionButton, {actionType: 'new', title: 'Add Widget'})
                     ),
                     rc(WidgetForm)
@@ -44,8 +48,8 @@ export default function Application() {
         rc(EventBoundary, {logEvents: true},
             rc(ActiveRecord, {recordType: recordType1},
                 rc(SummaryDetail, null,
-                    rc('div', null,
-                        rc(Grid, {recordType: recordType1}),
+                    rc(Summary, null,
+                        rc(Grid, {title: `Select a ${recordType1}`, recordType: recordType1}),
                         rc(ActionButton, {actionType: 'new', title: 'Add Foo'})
                     ),
                     rc(FooForm)

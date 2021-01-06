@@ -8,8 +8,12 @@ const rc = createElement;
 const StyledSummaryDetail = styled(Split)`
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
+    margin: 8px;
     flex-direction: row;
     .gutter {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+        background-repeat: no-repeat;
+        background-position: 50%;
         background-color: rgba(255, 255, 255, 0.2);
         border-style: solid;
         border-width: thin;
@@ -18,12 +22,16 @@ const StyledSummaryDetail = styled(Split)`
         border-bottom: none;
         cursor: ew-resize;
     }
+    border: 4px solid rgba(255, 255, 255, 0.075);
 `;
 
 const SummaryOnly = styled.div`
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
+    margin: 8px;
     flex-direction: row;
+    min-width: 300px;
+    border: 4px solid rgba(255, 255, 255, 0.075);
 `;
 
 export default function SummaryDetail({ children }) {

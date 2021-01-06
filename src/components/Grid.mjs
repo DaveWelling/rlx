@@ -19,8 +19,16 @@ const Row = styled.p`
     text-align: center;
     cursor: pointer;
 `;
+const GridTitle = styled.h3`
+    margin: 6px;
+    color: rgba(255, 255, 255, 0.8);
+`;
 
-function Grid({ recordType }) {
+const GridBody = styled.div`
+    margin-left: 16px;
+`;
+
+function Grid({ recordType, title }) {
     const [data] = useLokiView(recordType, `${recordType}_default`, {});
     const [, publish] = useEventSink();
     function onClick(e) {
@@ -28,7 +36,10 @@ function Grid({ recordType }) {
     }
     // prettier-ignore
     return rc(StyledGrid, null,
-        data.map((w) =>rc(Row, { id: w._id, key: w._id, 'data-id': w._id, onClick }, w.title))
+        rc(GridTitle, null, title),
+        rc(GridBody, null,
+            data.map((w) =>rc(Row, { id: w._id, key: w._id, 'data-id': w._id, onClick }, w.title))
+        )
     );
 }
 Grid.whyDidYouRender = true;
