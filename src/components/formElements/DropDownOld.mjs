@@ -1,18 +1,19 @@
 import { createElement } from 'react';
 import useFormControl from '../../hooks/useFormControl.mjs';
 import styled from 'styled-components';
+import useLokiView from '../../hooks/useLokiView.mjs';
 
 const rc = createElement;
 
-const Input = styled.input`
+const Select = styled.select`
     margin: 6px;
     padding: 3px;
-    border-radius: 3px;
-    border: none;
 `;
 
-export default function ShortText(props) {
+export default function DropDown(props) {
     const { title, value, setValue, disabled } = useFormControl(props);
+    const { otherRecordType } = props;
+    const [data] = useLokiView(otherRecordType, `${otherRecordType}_default`, {});
 
     function onChange(e) {
         setValue(e.target.value);
@@ -21,6 +22,8 @@ export default function ShortText(props) {
     // prettier-ignore
     return rc('label', null,
         title,
-        rc(Input, { disabled, type: 'textbox', value, onChange })
+        rc(Select, { disabled, onChange },
+            data.map(r=>rc('option', {selected: r._id === value._id, value: r._id}, r.title))
+        )
     );
 }

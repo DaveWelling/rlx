@@ -11,7 +11,7 @@ export default function FooForm() {
             title: 'Foo Form'
         },
         rc(ShortText, {
-            title: 'title',
+            title: 'Title',
             propertyName: 'title',
             defaultValue: ''
         }),

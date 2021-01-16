@@ -1,4 +1,4 @@
-# React Loki and XState
+# React, Loki and XState
 
 Motivation described here:
 https://theredcircuit.com/posts/reactLokiXstate/
