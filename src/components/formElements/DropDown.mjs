@@ -1,5 +1,5 @@
 import { useCombobox } from 'downshift';
-import { createElement, useState, useRef, useCallback } from 'react';
+import { createElement, useState, useRef } from 'react';
 import { FixedSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import styled from 'styled-components';
@@ -39,7 +39,7 @@ const itemToString = item => (item == null ? '' : item.title);
 const getItems = search => items.filter(n => n.title.toLowerCase().includes(search));
 
 const Menu = styled('ul')({
-    width: 297
+    width: 300
 });
 const Item = styled('li')(
     {
@@ -154,15 +154,17 @@ function ItemRenderer({ data, index, style }) {
 
 export default function DropDown() {
     const [items, setItems] = useState(getItems(''));
-
     const listRef = useRef();
 
-    // const rowVirtualizer = useVirtual({
-    //     size: items.length,
-    //     parentRef: listRef,
-    //     estimateSize: useCallback(() => 20, []),
-    //     overscan: 2
-    // });
+    // If there are more items to be loaded then add an extra row to hold a loading indicator.
+    const itemCount = hasNextPage ? items.length + 1 : items.length;
+
+    // Only load 1 page of items at a time.
+    // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
+    const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
+
+    // Every row is loaded except for our loading indicator row.
+    const isItemLoaded = index => !hasNextPage || index < items.length;
 
     const {
         getInputProps,
@@ -196,27 +198,37 @@ export default function DropDown() {
     return rc(Label, getLabelProps(),
         'Choose an element:',
         rc(SansLabel, null,
-            rc(InputAndButton, getComboboxProps(),
+            rc(InputAndButton, {
+                ...getComboboxProps(),
+                style: isOpen ? { borderRadius: '3px 3px 0 0'} : {}
+            },
                 rc(Input, inputProps),
                 rc(ControllerButton, {type:'button', ...getToggleButtonProps()},
                     rc(ArrowIcon, {isOpen})
                 )
             ),
             rc(Menu, getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} }),
-                isOpen && rc(FixedSizeList, {
-                        ref:listRef,
-                        width:297,
-                        height:items.length < 5 ? items.length * 42 : 200,
-                        itemCount:items.length,
-                        itemSize: 32,
-                        style: {overflowX: 'hidden'},
-                        itemData: {
-                            items,
-                            getItemProps,
-                            highlightedIndex,
-                            selectedItem
-                        }
-                    }, ItemRenderer
+                isOpen && rc(InfiniteLoader, {
+                        isItemLoaded,
+                        itemCount,
+                        loadMoreItems
+                    },
+                    rc(FixedSizeList, {
+                            ref:listRef,
+                            width:300,
+                            height:items.length < 5 ? items.length * 42 : 200,
+                            itemCount:items.length,
+                            itemSize: 32,
+                            style: {overflowX: 'hidden'},
+                            itemData: {
+                                items,
+                                getItemProps,
+                                highlightedIndex,
+                                selectedItem
+                            }
+                        },
+                        ItemRenderer
+                    )
                 )
             )
         )

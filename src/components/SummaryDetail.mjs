@@ -10,8 +10,17 @@ const StyledSummaryDetail = styled(Split)`
     display: flex;
     margin: 8px;
     flex-direction: row;
-    .gutter {
+
+    .gutter.gutter-vertical {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+        cursor: ns-resize;
+    }
+
+    .gutter.gutter-horizontal {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+        cursor: ew-resize;
+    }
+    .gutter {
         background-repeat: no-repeat;
         background-position: 50%;
         background-color: rgba(255, 255, 255, 0.2);
@@ -20,7 +29,6 @@ const StyledSummaryDetail = styled(Split)`
         border-color: black;
         border-top: none;
         border-bottom: none;
-        cursor: ew-resize;
     }
     border: 4px solid rgba(255, 255, 255, 0.075);
 `;
