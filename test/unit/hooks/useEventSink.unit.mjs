@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import rtl from '@testing-library/react';
-import EventBoundary from '../../src/components/EventBoundary.mjs';
-import useEventSink from '../../src/hooks/useEventSink.mjs';
+import EventBoundary from '../../../src/components/EventBoundary.mjs';
+import useEventSink from '../../../src/hooks/useEventSink.mjs';
 import expect from 'expect';
 import 'jsdom-global/register.js';
 

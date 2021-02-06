@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 const rc = React.createElement;
 
@@ -26,10 +28,11 @@ const GridTitle = styled.h3`
 
 const GridBody = styled.div`
     margin-left: 16px;
+    min-height: 100px;
 `;
 
 function Grid({ recordType, title }) {
-    const [data] = useLokiView(recordType, `${recordType}_default`, {});
+    const [data, itemCount] = useLokiView(recordType, `${recordType}_default`);
     const [, publish] = useEventSink();
     function onClick(e) {
         publish(`edit_${recordType}`, e.target.dataset.id);
@@ -38,7 +41,20 @@ function Grid({ recordType, title }) {
     return rc(StyledGrid, null,
         rc(GridTitle, null, title),
         rc(GridBody, null,
-            data.map((w) =>rc(Row, { id: w._id, key: w._id, 'data-id': w._id, onClick }, w.title))
+            rc(AutoSizer, null, ({height, width})=>
+                rc(List, {
+                    style: {overflowX: 'hidden'},
+                    height,
+                    width,
+                    itemCount,
+                    itemSize: 35
+                },
+                    ({index, style}) =>{
+                        return rc(Row, { id: data[index]._id, key: data[index]._id, 'data-id': data[index]._id, onClick, style }, data[index].title);
+                    }
+                )
+            )
+
         )
     );
 }
