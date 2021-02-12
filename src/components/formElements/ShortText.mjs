@@ -11,6 +11,10 @@ const Input = styled.input`
     border: none;
 `;
 
+const Label = styled.label`
+    display: inline-block;
+`;
+
 export default function ShortText(props) {
     const { title, value, setValue, disabled } = useFormControl(props);
 
@@ -19,7 +23,7 @@ export default function ShortText(props) {
     }
 
     // prettier-ignore
-    return rc('label', null,
+    return rc(Label, null,
         title,
         rc(Input, { disabled, type: 'textbox', value, onChange })
     );

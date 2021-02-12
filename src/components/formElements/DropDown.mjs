@@ -1,42 +1,14 @@
 import { useCombobox } from 'downshift';
 import { createElement, useState, useRef } from 'react';
 import { FixedSizeList } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
 import styled from 'styled-components';
+import useLokiView from '../../hooks/useLokiView.mjs';
+import useFormControl from '../../hooks/useFormControl.mjs';
+const MAX_LEXICAL_VALUE = '\uffff';
 
 const rc = createElement;
 
-const items = [
-    { id: 0, title: 'Neptunium' },
-    { id: 1, title: 'Plutonium' },
-    { id: 2, title: 'Americium' },
-    { id: 3, title: 'Curium' },
-    { id: 4, title: 'Berkelium' },
-    { id: 50, title: 'Californium' },
-    { id: 60, title: 'Einsteinium' },
-    { id: 70, title: 'Fermium' },
-    { id: 80, title: 'Mendelevium' },
-    { id: 90, title: 'Nobelium' },
-    { id: 100, title: 'Lawrencium' },
-    { id: 110, title: 'Rutherfordium' },
-    { id: 120, title: 'Dubnium' },
-    { id: 130, title: 'Seaborgium' },
-    { id: 140, title: 'Bohrium' },
-    { id: 150, title: 'Hassium' },
-    { id: 160, title: 'Meitnerium' },
-    { id: 170, title: 'Darmstadtium' },
-    { id: 180, title: 'Roentgenium' },
-    { id: 190, title: 'Copernicium' },
-    { id: 200, title: 'Nihonium' },
-    { id: 210, title: 'Flerovium' },
-    { id: 220, title: 'Moscovium' },
-    { id: 240, title: 'Livermorium' },
-    { id: 250, title: 'Tennessine' },
-    { id: 260, title: 'Oganesson' }
-];
-
 const itemToString = item => (item == null ? '' : item.title);
-const getItems = search => items.filter(n => n.title.toLowerCase().includes(search));
 
 const Menu = styled('ul')({
     width: 300
@@ -152,19 +124,16 @@ function ItemRenderer({ data, index, style }) {
     );
 }
 
-export default function DropDown() {
-    const [items, setItems] = useState(getItems(''));
+export default function DropDown(props) {
+    const { title, value, setValue, disabled } = useFormControl(props);
+    const { defaultValue, otherRecordType } = props || {};
+    const [criteria, setCriteria] = useState({ sort: 'title' });
+    const [items, itemCount] = useLokiView(
+        otherRecordType,
+        `${otherRecordType}_default`,
+        criteria
+    );
     const listRef = useRef();
-
-    // If there are more items to be loaded then add an extra row to hold a loading indicator.
-    const itemCount = hasNextPage ? items.length + 1 : items.length;
-
-    // Only load 1 page of items at a time.
-    // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
-    const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
-
-    // Every row is loaded except for our loading indicator row.
-    const isItemLoaded = index => !hasNextPage || index < items.length;
 
     const {
         getInputProps,
@@ -179,16 +148,29 @@ export default function DropDown() {
         openMenu
     } = useCombobox({
         defaultIsOpen: false,
-        items,
         itemToString,
+        items,
+        initialSelectedItem: value,
         onInputValueChange: ({ inputValue, selectedItem }) => {
-            const searchText = selectedItem.title === inputValue ? '' : inputValue.toLowerCase();
-            setItems(getItems(searchText));
+            const searchText = selectedItem?.title === inputValue ? '' : inputValue;
+            setCriteria({
+                sort: 'title',
+                find: {
+                    title: {
+                        $between: [searchText, searchText + MAX_LEXICAL_VALUE]
+                    }
+                }
+            });
         },
         onSelectedItemChange: ({ selectedItem }) => {
-            setItems(getItems(''));
+            setCriteria({ sort: 'title' });
+            setValue(selectedItem);
         },
-        scrollIntoView: () => {}
+        scrollIntoView: () => {
+            // Need index of current value to do this.
+            // Not sure it is worth it.
+            //listRef.current.scrollToItem(200);
+        }
     });
     const inputProps = getInputProps({ type: 'text' });
     // Open the menu if the input gets focus.
@@ -208,16 +190,11 @@ export default function DropDown() {
                 )
             ),
             rc(Menu, getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} }),
-                isOpen && rc(InfiniteLoader, {
-                        isItemLoaded,
-                        itemCount,
-                        loadMoreItems
-                    },
-                    rc(FixedSizeList, {
+                isOpen && rc(FixedSizeList, {
                             ref:listRef,
                             width:300,
-                            height:items.length < 5 ? items.length * 42 : 200,
-                            itemCount:items.length,
+                            height:itemCount < 5 ? itemCount * 42 : 200,
+                            itemCount,
                             itemSize: 32,
                             style: {overflowX: 'hidden'},
                             itemData: {
@@ -228,7 +205,7 @@ export default function DropDown() {
                             }
                         },
                         ItemRenderer
-                    )
+
                 )
             )
         )

@@ -14,7 +14,7 @@ import isEqual from 'lodash.isequal';
 export default function useLokiView(collectionName, viewName, viewCriteria) {
     // Default sort to _id so that (in the absence of another sort)
     // paging is still consistent and fast
-    const { find, sort = '_id', pageSize, page } = viewCriteria || {};
+    const { find, sort = '_id', pageSize } = viewCriteria || {};
     // Trick to force a new render when loki reports a change to the view
     const [, forceRender] = useReducer(s => s + 1, 0);
     const collection = db.getCollection(collectionName);
@@ -36,12 +36,18 @@ export default function useLokiView(collectionName, viewName, viewCriteria) {
             onRebuild.cancel();
         };
     }, []);
-    return getPage(view, viewCriteria);
+    let data;
+    if (pageSize != null) {
+        data = getPage(view, viewCriteria) || [];
+    } else {
+        data = view.data() || [];
+    }
+
+    return [data, view.count(), view];
 }
 
 function getPage(view, viewCriteria) {
-    const { find, sort, pageSize, page = 0 } = viewCriteria || {};
-    if (pageSize == null) return [view.data(), view.count(), view];
+    const { pageSize, page = 0 } = viewCriteria || {};
 
     if (view.sortDirty || view.resultsdirty) {
         view.performSortPhase({
@@ -52,8 +58,7 @@ function getPage(view, viewCriteria) {
         pageSize,
         pageStart: pageSize * page
     });
-    const rsdata = resultSet.data();
-    return [rsdata, view.count(), view];
+    return resultSet.data();
 }
 
 function ensureIndexIfPaging(view, viewCriteria) {

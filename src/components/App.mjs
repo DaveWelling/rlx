@@ -15,6 +15,7 @@ const App = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     font-family: Arial, Helvetica, sans-serif;
 `;
 
@@ -23,7 +24,9 @@ const AppTitle = styled.h1`
 `;
 
 const Summary = styled.div`
-    min-width: 250px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
 `;
 
 const rc = createElement;
@@ -32,8 +35,8 @@ const recordType1 = 'foo';
 
 export default function Application() {
     // prettier-ignore
-    return rc(App, null,
-        rc(AppTitle, null, 'Hello React Loki XState'),
+    return rc(App, {name: 'app'},
+        rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),
         rc(EventBoundary, {logEvents: true},
             rc(ActiveRecord, {recordType: recordType0},
                 rc(SummaryDetail, null,

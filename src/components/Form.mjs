@@ -14,7 +14,7 @@ const StyledForm = styled.form`
 
 const FormBody = styled.fieldset`
     padding: 6px;
-    margin: 3px;
+    margin: 4px 8px 4px 8px;
     border-radius: 2px;
     border: none;
     background-color: rgba(255, 255, 255, 0.05);
@@ -25,15 +25,20 @@ const Title = styled.h3`
     padding: 6px;
 `;
 
+const FormFooter = styled.footer`
+    display: flex;
+    justify-content: flex-end;
+`;
+
 export default function Form({ children, title }) {
     const context = useFormMachine();
     const { isDirty } = context;
     // prettier-ignore
     return rc(FormContext.Provider, { value: context },
-        rc(StyledForm, null,
-            rc(Title, null, title),
-            rc(FormBody, null, children),
-            rc('div', null,
+        rc(StyledForm, {name: 'form'},
+            rc(Title, {name: 'form-title'}, title),
+            rc(FormBody, {name: 'form-body'}, children),
+            rc(FormFooter, {name: 'form-footer'},
                 rc(ActionButton, { key: 'widget-form-cancel', title: 'Cancel', actionType: 'cancel'}),
                 rc(ActionButton, { disabled: !isDirty, key: 'widget-form-submit', title: 'Save', actionType: 'submit'})
             )

@@ -13,6 +13,6 @@ export default function WidgetForm() {
             title: 'title',
             propertyName: 'title',
             defaultValue: ''
-        }),
+        })
     );
 }

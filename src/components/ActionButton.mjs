@@ -10,6 +10,7 @@ const Input = styled.input`
     border-radius: 3px;
     border: thin solid black;
     padding: 8px;
+    max-width: 200px;
 `;
 
 export default function ActionButton(props) {

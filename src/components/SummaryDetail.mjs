@@ -10,6 +10,7 @@ const StyledSummaryDetail = styled(Split)`
     display: flex;
     margin: 8px;
     flex-direction: row;
+    flex-grow: 1;
 
     .gutter.gutter-vertical {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
@@ -38,6 +39,7 @@ const SummaryOnly = styled.div`
     display: flex;
     margin: 8px;
     flex-direction: row;
+    flex-grow: 1;
     min-width: 300px;
     border: 4px solid rgba(255, 255, 255, 0.075);
 `;
@@ -50,7 +52,11 @@ export default function SummaryDetail({ children }) {
     }
     const activeRecord = useActiveRecord();
     if (activeRecord.record == null) {
-        return rc(SummaryOnly, null, children[0]);
+        return rc(SummaryOnly, { name: 'summary-only' }, children[0]);
     }
-    return rc(StyledSummaryDetail, { gutterSize: 5, sizes: [25, 75] }, children);
+    return rc(
+        StyledSummaryDetail,
+        { name: 'summary-detail', gutterSize: 5, sizes: [25, 75] },
+        children
+    );
 }
