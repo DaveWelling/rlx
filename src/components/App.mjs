@@ -23,7 +23,7 @@ const AppTitle = styled.h1`
     margin: 6px;
 `;
 
-const Summary = styled.div`
+const Summary = styled.div.attrs({ name: 'summary' })`
     min-width: 300px;
     display: flex;
     flex-direction: column;
