@@ -2,7 +2,7 @@
     "name": "rlx_web",
     "version": "1.0.0",
     "description": "React Loki XState Prototype",
-    "main": "index.js",
+    "main": "src/index.mjs",
     "type": "module",
     "scripts": {
         "test": "mocha --config=./test/.mocharc.json",
@@ -13,6 +13,7 @@
     "license": "ISC",
     "dependencies": {
         "@welldone-software/why-did-you-render": "^6.0.4",
+        "react": "^16.14.0",
         "react-dom": "^16.14.0"
     },
     "devDependencies": {

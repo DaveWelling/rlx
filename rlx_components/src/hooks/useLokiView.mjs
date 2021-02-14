@@ -1,4 +1,4 @@
-import { useLayoutEffect, useReducer, useRef } from 'react';
+import { useLayoutEffect, useReducer } from 'react';
 import services from 'rlx_services';
 const { database: db } = services.persistence.database;
 import throttle from 'lodash.throttle';

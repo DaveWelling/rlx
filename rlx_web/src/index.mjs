@@ -1,6 +1,7 @@
 import './whyDidYouRender.mjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 import components from 'rlx_components';
 const { App } = components;
 const rc = React.createElement;

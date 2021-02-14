@@ -1,15 +1,13 @@
 import { createElement } from 'react';
 import styled from 'styled-components';
 
-import '../index.css';
-
-import SummaryDetail from './SummaryDetail.mjs';
-import Grid from './Grid.mjs';
-import WidgetForm from './WidgetForm.mjs';
-import FooForm from './FooForm.mjs';
-import EventBoundary from './EventBoundary.mjs';
-import ActiveRecord from './ActiveRecord.mjs';
-import ActionButton from './ActionButton.mjs';
+import SummaryDetail from './components/SummaryDetail.mjs';
+import Grid from './components/Grid.mjs';
+import WidgetForm from './components/WidgetForm.mjs';
+import FooForm from './components/FooForm.mjs';
+import EventBoundary from './components/EventBoundary.mjs';
+import ActiveRecord from './components/ActiveRecord.mjs';
+import ActionButton from './components/ActionButton.mjs';
 
 const App = styled.div`
     background-color: rgba(0, 0, 0, 0.95);
