@@ -1,6 +1,5 @@
 import { useLayoutEffect, useReducer } from 'react';
-import services from 'rlx_services';
-const { database: db } = services.persistence.database;
+import { database } from 'rlx_services';
 import throttle from 'lodash.throttle';
 import cuid from 'cuid';
 import isEqual from 'lodash.isequal';
@@ -18,7 +17,7 @@ export default function useLokiView(collectionName, viewName, viewCriteria) {
     const { find, sort = '_id', pageSize } = viewCriteria || {};
     // Trick to force a new render when loki reports a change to the view
     const [, forceRender] = useReducer(s => s + 1, 0);
-    const collection = db.getCollection(collectionName);
+    const collection = database.getCollection(collectionName);
     let view = collection.getDynamicView(viewName);
     // Lazy creation of dynamic view.
     if (!view) {

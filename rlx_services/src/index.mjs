@@ -2,6 +2,8 @@
 
 // @create-index
 
+export { default as database } from './database.mjs';
 export { default as eventSink } from './eventSink.mjs';
-export * as stateMachines from './stateMachines/index.mjs';
-export * as services from './services/index.mjs';
+export { default as persistence } from './persistence.mjs';
+export { default as validation } from './validation.mjs';
+export { default as formMachine } from './formMachine/index.mjs';

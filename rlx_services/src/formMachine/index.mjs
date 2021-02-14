@@ -1,9 +1,12 @@
 import { Machine } from 'xstate';
-import * as services from '../../services/index.mjs';
+import * as services from '../index.mjs';
 import * as actions from './actions.mjs';
 
 export default function getFormFsm(record, recordType, isNew, activationVerb) {
-    return Machine(getConfig(record, recordType, isNew, activationVerb), { services, actions });
+    return Machine(getConfig(record, recordType, isNew, activationVerb), {
+        services,
+        actions
+    });
 }
 
 export function getConfig(record, recordType, isNew, activationVerb) {
@@ -18,15 +21,15 @@ export function getConfig(record, recordType, isNew, activationVerb) {
                 on: {
                     [`change_${recordType}`]: {
                         target: '.dirty',
-                        actions: 'mergeChanges',
-                    },
+                        actions: 'mergeChanges'
+                    }
                 },
                 states: {
                     ready: {},
                     dirty: {
                         initial: 'valid',
                         on: {
-                            [`submit_${recordType}`]: '.submitting',
+                            [`submit_${recordType}`]: '.submitting'
                         },
                         states: {
                             valid: {},
@@ -39,26 +42,26 @@ export function getConfig(record, recordType, isNew, activationVerb) {
                                             id: 'validate',
                                             src: 'validation',
                                             onDone: 'saving',
-                                            onError: `#${recordType}Form.edit.dirty.invalid`,
-                                        },
+                                            onError: `#${recordType}Form.edit.dirty.invalid`
+                                        }
                                     },
                                     saving: {
                                         invoke: {
                                             id: 'save',
                                             src: 'persistence',
                                             onDone: `#${recordType}Form.submitted`,
-                                            onError: `#${recordType}Form.edit.dirty.invalid`,
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
+                                            onError: `#${recordType}Form.edit.dirty.invalid`
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             submitted: {
-                type: 'final',
-            },
-        },
+                type: 'final'
+            }
+        }
     };
 }

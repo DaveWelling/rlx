@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useMachine } from '@xstate/react';
-
-import formMachine from '../stateMachines/formMachine/index.mjs';
+import { formMachine } from 'rlx_services';
 import useActiveRecord from '../hooks/useActiveRecord.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';
 
@@ -10,12 +9,10 @@ export default function useFormMachine() {
     const { recordType, record, isNew, activationVerb } = activeRecord;
     const [subscribe] = useEventSink();
     // Create one machine per record action
-    const machine = useMemo(() => formMachine(record, recordType, isNew, activationVerb), [
-        record,
-        recordType,
-        isNew,
-        activationVerb,
-    ]);
+    const machine = useMemo(
+        () => formMachine(record, recordType, isNew, activationVerb),
+        [record, recordType, isNew, activationVerb]
+    );
     // eslint-disable-next-line no-undef
     const [state, send] = useMachine(machine, { devTools: __USE_XSTATE_INSPECTOR__ });
 
@@ -27,7 +24,7 @@ export default function useFormMachine() {
             subscribe(`submit_${recordType}`, () => send(`submit_${recordType}`))
         ];
         // Return a cleanup function for the unmount
-        return () => unsubscribes.forEach((u) => u());
+        return () => unsubscribes.forEach(u => u());
     }, [recordType, send]);
     const isDirty = state.matches('edit.dirty');
     const disabled = state.matches('view') || state.matches('edit.dirty.submitting');
@@ -35,7 +32,7 @@ export default function useFormMachine() {
         isDirty,
         disabled,
         oldRecord: record,
-        newRecord: state.context.newRecord,
+        newRecord: state.context.newRecord
     };
     return context;
 }
