@@ -8,24 +8,23 @@ import FooForm from './components/FooForm.mjs';
 import EventBoundary from './components/EventBoundary.mjs';
 import ActiveRecord from './components/ActiveRecord.mjs';
 import ActionButton from './components/ActionButton.mjs';
+import { View, h1 } from './components/primitives.mjs';
 
-const App = styled.div`
+const App = styled(View)`
     background-color: rgba(0, 0, 0, 0.95);
     color: white;
     height: 100%;
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
     font-family: Arial, Helvetica, sans-serif;
 `;
 
-const AppTitle = styled.h1`
+const AppTitle = styled(h1)`
     margin: 6px;
 `;
 
-const Summary = styled.div.attrs({ name: 'summary' })`
+const Summary = styled(View).attrs({ name: 'summary' })`
     min-width: 300px;
-    display: flex;
     flex-direction: column;
 `;
 

@@ -14,7 +14,8 @@
     "workspaces": [
         "rlx_components",
         "rlx_services",
-        "rlx_web"
+        "rlx_web",
+        "rlx_web-primitives"
     ],
     "dependencies": {},
     "devDependencies": {

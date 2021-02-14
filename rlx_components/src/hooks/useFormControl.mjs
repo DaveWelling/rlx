@@ -8,14 +8,16 @@ export default function useFormControl(props) {
     const [, publish] = useEventSink();
     const { title, propertyName, defaultValue } = props;
 
-    const [value, setValue] = useState(newRecord.hasOwnProperty(propertyName) ? newRecord[propertyName] : defaultValue);
+    const [value, setValue] = useState(
+        newRecord.hasOwnProperty(propertyName) ? newRecord[propertyName] : defaultValue
+    );
     return {
         title,
         disabled,
         value,
-        setValue: (newValue) => {
+        setValue: newValue => {
             setValue(newValue);
             publish(`change_${recordType}`, { [propertyName]: newValue });
-        },
+        }
     };
 }

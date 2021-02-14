@@ -13,36 +13,40 @@ module.exports = {
     devtool: isProduction ? false : 'source-map',
     mode: isProduction ? 'production' : 'development',
     entry: {
-        main: ['./src/index.mjs'],
+        main: ['./src/index.mjs']
     },
+    //alias: { primitives: path.resolve('../rlx-web-primitives') },
     output: {
         filename: '[fullhash].js',
         globalObject: 'this',
-        chunkFilename: '[chunkhash].js',
+        chunkFilename: '[chunkhash].js'
     },
     devServer: {
         contentBase: './src',
         port: 8081,
-        host: '0.0.0.0',
+        host: '0.0.0.0'
     },
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
-            },
-        ],
+                use: ['style-loader', 'css-loader']
+            }
+        ]
     },
     plugins: [
         new webpack.DefinePlugin({
             __USE_XSTATE_INSPECTOR__,
-            __PRODUCTION__: isProduction,
+            __PRODUCTION__: isProduction
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './src/index.html',
+            template: './src/index.html'
         }),
         // Make browser version avoid using Node specific stuff
-        new webpack.NormalModuleReplacementPlugin(/^fs$/, path.resolve(__dirname, 'fakeFs.cjs')),
-    ],
+        new webpack.NormalModuleReplacementPlugin(
+            /^fs$/,
+            path.resolve(__dirname, 'fakeFs.cjs')
+        )
+    ]
 };

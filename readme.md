@@ -16,3 +16,5 @@ https://theredcircuit.com/posts/reactLokiXstatePart3/
 -   Why do you always declare functions on your react exports?
     -   Because then the component or hook name will appear in stack traces (or the inspector **Component** tree) instead of `__WEBPACK_DEFAULT_EXPORT__`.
         -   For example `export default function useLokiView() { /* hook code */ }` will give the function name in the stack as `useLokiView`, whereas `export default ()=>{ /* hook code */ }` will give it as `__WEBPACK_DEFAULT_EXPORT__`.
+-   Why didn't you use react-native-web instead of creating your own primitives?
+    -   The react-native code is consumed by react-native-web - which results in a cascade of dependencies, some of which (e.g. flow) require babel to run before tests can run which would slow down tests immensely.

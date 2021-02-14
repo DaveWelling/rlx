@@ -2,9 +2,16 @@ import Split from 'react-split';
 import styled from 'styled-components';
 import { createElement } from 'react';
 import useActiveRecord from '../hooks/useActiveRecord.mjs';
+import { View } from './primitives.mjs';
 
 const rc = createElement;
+// TODO: Handle small screen sizes - how to measure consistently
+// between RN and web?
 
+// TODO:  This Split is not going to work in React Native
+// There is also not a good replacement.  We aren't
+// really using RN for tablet stuff though, so maybe not
+// a big deal.
 const StyledSummaryDetail = styled(Split)`
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
@@ -34,7 +41,7 @@ const StyledSummaryDetail = styled(Split)`
     border: 4px solid rgba(255, 255, 255, 0.075);
 `;
 
-const SummaryOnly = styled.div`
+const SummaryOnly = styled(View)`
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     margin: 8px;

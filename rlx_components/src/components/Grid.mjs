@@ -4,19 +4,20 @@ import useLokiView from '../hooks/useLokiView.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
-
+import { View, Text, h3 } from './primitives.mjs';
 const rc = React.createElement;
 
-const StyledGrid = styled.div`
+//TODO:  The majority of this might need to be extracted as a
+// primitive - or at least autosizer and List
+const StyledGrid = styled(View)`
     background-color: black;
     padding-top: 2px;
     padding-bottom: 2px;
     border: solid thin rgba(255, 255, 255, 0.1);
     flex-grow: 1;
-    display: flex;
     flex-direction: column;
 `;
-const Row = styled.p`
+const Row = styled(Text)`
     border: none;
     border-bottom: gray thin solid;
     background-color: rgba(255, 255, 255, 0.1);
@@ -25,12 +26,12 @@ const Row = styled.p`
     line-height: 33px;
     height: 35px;
 `;
-const GridTitle = styled.h3`
+const GridTitle = styled(h3)`
     margin: 6px;
     color: rgba(255, 255, 255, 0.8);
 `;
 
-const GridBody = styled.div`
+const GridBody = styled(View)`
     margin-left: 16px;
     margin-right: 8px;
     margin-bottom: 8px;
