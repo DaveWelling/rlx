@@ -1,7 +1,8 @@
 import './whyDidYouRender.mjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.mjs';
+import components from 'rlx_components';
+const { App } = components;
 const rc = React.createElement;
 
 async function startup() {

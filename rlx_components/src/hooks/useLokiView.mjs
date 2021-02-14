@@ -1,5 +1,6 @@
 import { useLayoutEffect, useReducer, useRef } from 'react';
-import db from '../services/persistence/database.mjs';
+import services from 'rlx_services';
+const { database: db } = services.persistence.database;
 import throttle from 'lodash.throttle';
 import cuid from 'cuid';
 import isEqual from 'lodash.isequal';

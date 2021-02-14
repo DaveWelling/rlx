@@ -1,0 +1,17 @@
+{
+    "name": "rlx_services",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha",
+        "updateIndexes": "create-index -o index.mjs --recursive --ignoreUnsafe --banner //Call_[npm_run_updateIndexes]_to_update_this_file. ./src -x js mjs"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "lokijs": "^1.5.11",
+        "xstate": "^4.15.2"
+    }
+}

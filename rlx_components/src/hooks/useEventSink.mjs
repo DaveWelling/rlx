@@ -1,5 +1,6 @@
 import React from 'react';
-import eventSink from '../eventSink.mjs';
+import services from 'rlx_services';
+const { eventSink } = services;
 import { EventBoundaryContext } from '../components/EventBoundary.mjs';
 
 // Inspired by https://kentcdodds.com/blog/how-to-use-react-context-effectively
