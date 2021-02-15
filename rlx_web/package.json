@@ -13,8 +13,8 @@
     "license": "ISC",
     "dependencies": {
         "@welldone-software/why-did-you-render": "^6.0.4",
-        "react": "^16.14.0",
-        "react-dom": "^16.14.0"
+        "react": "16.13.1",
+        "react-dom": "16.13.1"
     },
     "devDependencies": {
         "@xstate/inspect": "^0.3.0",

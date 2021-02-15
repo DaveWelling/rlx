@@ -8,10 +8,10 @@
         "start": "react-native run-android",
         "test": "jest",
         "lint": "eslint .",
-        "haul": "haul start"
+        "haul": "haul start --eager android"
     },
     "workspaces": [
-        "../components"
+        "../rlx_native-primitives"
     ],
     "dependencies": {
         "react": "16.13.1",

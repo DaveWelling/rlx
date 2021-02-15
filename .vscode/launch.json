@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Haul",
+            "program": "${workspaceFolder}/rlxNative/node_modules/@haul-bundler/cli/bin/haul.js",
+            "request": "launch",
+            "skipFiles": ["<node_internals>/**"],
+            "type": "pwa-node",
+            "args": ["start", "--eager", "android"],
+            "cwd": "${workspaceFolder}/rlxNative"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
