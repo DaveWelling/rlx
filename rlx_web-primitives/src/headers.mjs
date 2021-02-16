@@ -9,20 +9,20 @@ h6 is 11.2px (0.7em)
 */
 
 export const h1 = styled.p.attrs({ name: 'h1' })`
-    font-size: 32;
+    font-size: 32px;
 `;
 export const h2 = styled.p.attrs({ name: 'h2' })`
-    font-size: 24;
+    font-size: 24px;
 `;
 export const h3 = styled.p.attrs({ name: 'h3' })`
-    font-size: 20.8;
+    font-size: 20.8px;
 `;
 export const h4 = styled.p.attrs({ name: 'h4' })`
-    font-size: 16;
+    font-size: 16px;
 `;
 export const h5 = styled.p.attrs({ name: 'h5' })`
-    font-size: 12.8;
+    font-size: 12.8px;
 `;
 export const h6 = styled.p.attrs({ name: 'h6' })`
-    font-size: 11.2;
+    font-size: 11.2px;
 `;

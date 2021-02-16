@@ -1,4 +1,5 @@
-import { Machine } from 'xstate';
+import * as xstate from 'xstate';
+const { Machine } = xstate.default || xstate;
 import * as services from '../index.mjs';
 import * as actions from './actions.mjs';
 

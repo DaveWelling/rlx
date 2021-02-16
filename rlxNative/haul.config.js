@@ -11,6 +11,23 @@ const transform = ({ bundleName, env, runtime, config }) => {
         // of RN specific stuff to happen in this project rather than in dependencies (that don't care about RN).
         'react-native': path.resolve('./node_modules/react-native')
     };
+    // Remove babel-loader, as it handles both .ts(x) and .js(x) files
+    // removeRuleByTest(config.module.rules, /\.[jt]sx?$/);
+    // config.module.rules = [
+    //     ...config.module.rules,
+
+    //     // Re-add the babel-loader, now only for .js(x)
+    //     {
+    //         test: /\.jsx?$/,
+    //         loader: require.resolve('babel-loader'),
+    //         options: {
+    //             plugins: [
+    //                 require.resolve('@haul-bundler/core/build/utils/fixRequireIssues'),
+    //                 require.resolve('@babel/plugin-proposal-export-namespace-from')
+    //             ]
+    //         }
+    //     }
+    // ];
 };
 export default makeConfig({
     bundles: {
@@ -20,3 +37,13 @@ export default makeConfig({
         }
     }
 });
+
+// const removeRuleByTest = (moduleConfig, test) => {
+//     const index = moduleConfig.findIndex(rule => {
+//         if (rule.test) {
+//             return rule.test.toString() === test.toString();
+//         }
+//         return false;
+//     });
+//     moduleConfig.splice(index, 1);
+// };

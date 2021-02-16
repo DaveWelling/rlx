@@ -23,7 +23,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './src',
-        port: 8081,
+        port: 8082,
         host: '0.0.0.0'
     },
     module: {

@@ -2,6 +2,25 @@
 
 // @create-index
 
+import {
+    ActionButton,
+    ActiveRecord,
+    EventBoundary,
+    FooForm,
+    Form,
+    Grid,
+    SummaryDetail,
+    WidgetForm
+} from './components/index.mjs';
+export const components = {
+    ActionButton,
+    ActiveRecord,
+    EventBoundary,
+    FooForm,
+    Form,
+    Grid,
+    SummaryDetail,
+    WidgetForm
+};
 export { default as App } from './App.mjs';
-export * as components from './components/index.mjs';
-export * as hooks from './hooks/index.mjs';
+//export * as hooks from './hooks/index.mjs';
