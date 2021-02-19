@@ -12,7 +12,7 @@ import {
     List
 } from 'rlx_native-primitives';
 //import { database } from 'rlx_services';
-import { useLokiView, EventBoundary, Grid } from 'rlx_components-native';
+import { useLokiView, EventBoundary, Grid, ActionButton } from 'rlx_components-native';
 import styled from 'styled-components';
 const rc = React.createElement;
 
@@ -38,7 +38,7 @@ export default function App() {
             rc(Form, null,
                 rc(Fieldset, null,
                     rc(Text, null, 'hello world'),
-                    rc(Button, {title: 'hello button'}),
+                    rc(ActionButton, {actionType: 'new', title: 'New Button'}),
                     rc(Label, null,
                         'a label title',
                         rc(TextInput, {value: 'some value'})

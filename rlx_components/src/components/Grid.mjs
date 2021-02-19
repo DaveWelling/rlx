@@ -5,7 +5,7 @@ import useEventSink from '../hooks/useEventSink.mjs';
 import { View, h3, List } from './primitives.mjs';
 const rc = React.createElement;
 
-const StyledGrid = styled(View)`
+const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
     background-color: black;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -20,7 +20,7 @@ const GridTitle = styled(h3)`
     color: rgba(255, 255, 255, 0.8);
 `;
 
-const GridBody = styled(View)`
+const GridBody = styled(View).attrs({ name: 'GridBody' })`
     margin-left: 16px;
     margin-right: 8px;
     margin-bottom: 8px;
@@ -35,10 +35,10 @@ function Grid({ recordType, title }) {
         publish(`edit_${recordType}`, _id);
     }
     // prettier-ignore
-    return rc(StyledGrid, {name: 'grid'},
-        rc(GridTitle, {name: 'grid-title'}, title),
-        rc(GridBody, {name: 'grid-body'},
-            rc(List, { data, itemCount, onClick })
+    return rc(StyledGrid, null,
+        rc(GridTitle, null, title),
+        rc(GridBody, null,
+            rc(List, { name: 'List', data, itemCount, onClick })
         )
     );
 }

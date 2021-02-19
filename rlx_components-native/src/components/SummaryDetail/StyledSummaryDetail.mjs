@@ -1,18 +1,11 @@
 import Split from 'react-split';
 import styled from 'styled-components';
-import { createElement } from 'react';
-import useActiveRecord from '../hooks/useActiveRecord.mjs';
-import { View } from './primitives.mjs';
-
-const rc = createElement;
-// TODO: Handle small screen sizes - how to measure consistently
-// between RN and web?
 
 // TODO:  This Split is not going to work in React Native
 // There is also not a good replacement.  We aren't
 // really using RN for tablet stuff though, so maybe not
 // a big deal.
-const StyledSummaryDetail = styled(Split)`
+export default styled(Split).attrs({ name: 'StyledSummaryDetail' })`
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     margin: 8px;
@@ -40,30 +33,3 @@ const StyledSummaryDetail = styled(Split)`
     }
     border: 4px solid rgba(255, 255, 255, 0.075);
 `;
-
-const SummaryOnly = styled(View)`
-    background-color: rgba(255, 255, 255, 0.1);
-    display: flex;
-    margin: 8px;
-    flex-direction: row;
-    flex-grow: 1;
-    min-width: 300px;
-    border: 4px solid rgba(255, 255, 255, 0.075);
-`;
-
-export default function SummaryDetail({ children }) {
-    if (children.length !== 2) {
-        throw new Error(
-            'SummaryDetail component requires exactly two children.  The first should be a grid (summary) or similar and the second should be a form (detail) or similar.'
-        );
-    }
-    const activeRecord = useActiveRecord();
-    if (activeRecord.record == null) {
-        return rc(SummaryOnly, { name: 'summary-only' }, children[0]);
-    }
-    return rc(
-        StyledSummaryDetail,
-        { name: 'summary-detail', gutterSize: 5, sizes: [25, 75] },
-        children
-    );
-}

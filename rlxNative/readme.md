@@ -1,8 +1,10 @@
 # rlxnative
 
-To get your machine set up, use the `React Native CLI Quickstart` tab here: https://reactnative.dev/docs/0.62/environment-setup. Make sure you're not on the `Expo CLI QuickStart` tab but the `React Native CLI Quickstart`. It is for version `0.62.0` and we are using version `0.60.0` but it doesn't look like there much discrepancy between two versions concerning the setup.
+To get your machine set up, use the `React Native CLI Quickstart` tab here: https://reactnative.dev/docs/environment-setup. Make sure you're not on the `Expo CLI QuickStart` tab but the `React Native CLI Quickstart`.
 
-This app uses Haul to do the bundling so that we can have Webpack. Webpack/Haul are needed because Metro does not support Dynamic Imports. Every time I end up using Metro, I feel a little like it would be nice to meet the react-native people would decided to use Metro ... and then punch them in the face. If it were just platform specific code, there is this: https://facebook.github.io/react-native/docs/platform-specific-code, but we need to dynamically load based on use case as well.
+This app uses Haul to do the bundling so that we can have Webpack. Every time I end up using Metro, I feel a little like it would be nice to meet the react-native people who decide to continue using Metro over webpack ... and punch them in the face. I'm sure there are a lot of things I don't know or understand about the decision.
+
+Currently, platform-specific-code (e.g. _.native.js or _.android.js) does not work with '.mjs' files in haul. Maybe that would work better in metro?
 
 Recently on haul there is a problem where something is calling the response event, but
 but not sending a response - which makes rlxNative\node_modules\@haul-bundler\core\build\server\Server.js crash on line 175.
@@ -14,11 +16,9 @@ server.events.on('response', request => {
       if ('statusCode' in request.response) {
 ```
 
-Also - Be aware that several important things are stored in packages\siloUiReactNative\android\gradle.properties - such as the maximum size of the AsyncStorage database (which, in Android, is actually Sqllite) used by LokiJs for persistent storage.
-
 ### Installing via NPM
 
-React native does not like going to the root of the workspace to do things, so this is actually a separate npm workspace. To install dependencies, go to the ./packages/siloUiReactNative subdirectory and do `npm i`. It doesn't seem to have a problem with peer dependencies like the web ui. I don't know why.
+React native does not like going to the root of the workspace to do things, so this is actually a separate npm workspace. To install dependencies, go to the ./packages/rlxNative subdirectory and do `npm i`. It doesn't seem to have a problem with peer dependencies like the web ui. I don't know why.
 
 ### Visor
 
@@ -26,11 +26,11 @@ It is recommended to use [Vysor](https://www.vysor.io/) for android development.
 
 ### Running the RN app:
 
-1. If you are running against localhost docker containers, ensure your device can access TCP port 8888 for the docker executable. Here's how on windows: ![Windows Firewall Rule](./.READMEPICS/WindowsFirewallRule.PNG) and here's how on MacOS: ![MacOS Firewall Rule](./.READMEPICS/MacFirewallRule.PNG) although, it may work without any firewall rules.
+1. If you are running against localhost docker containers, ensure your device can access TCP port 8888 for the docker executable. Here's how on windows: ![Windows Firewall Rule](../.READMEPICS/WindowsFirewallRule.PNG) and here's how on MacOS: ![MacOS Firewall Rule](../.READMEPICS/MacFirewallRule.PNG) although, it may work without any firewall rules.
 1. Make sure your device is attached to your machine and USB debugging is turned on (google it if you don't know how).
-1. Ensure ./package/siloUiReactNative/src/config.js `host` value is your 'http://\<local IP>:8888'. If you need to change the hosts file on the device: https://www.howtogeek.com/140576/how-to-edit-the-hosts-file-on-android-and-block-web-sites/ You may not need to do this.
+1. Ensure ./package/rlxNative/src/config.js `host` value is your 'http://\<local IP>:8888'. If you need to change the hosts file on the device: https://www.howtogeek.com/140576/how-to-edit-the-hosts-file-on-android-and-block-web-sites/ You may not need to do this.
 
-1. Open two terminals in the ./packages/siloUiReactNative directory
+1. Open two terminals in the ./packages/rlxNative directory
 1. In the first one, enter `npm run haul`
 1. In the second one, enter `npm start`.
 

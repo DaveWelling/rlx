@@ -1,20 +1,19 @@
-import * as xstate from 'xstate';
-const { Machine } = xstate.default || xstate;
+import { Machine } from 'xstate/es/index.js';
 import * as services from '../index.mjs';
 import * as actions from './actions.mjs';
 
-export default function getFormFsm(record, recordType, isNew, activationVerb) {
-    return Machine(getConfig(record, recordType, isNew, activationVerb), {
+export default function getFormFsm(recordType, activationVerb, machineContext) {
+    return Machine(getConfig(recordType, activationVerb, machineContext), {
         services,
         actions
     });
 }
 
-export function getConfig(record, recordType, isNew, activationVerb) {
+export function getConfig(recordType, activationVerb, context) {
     return {
         id: `${recordType}Form`,
         initial: activationVerb === 'view' ? 'view' : 'edit',
-        context: { newRecord: { ...record }, recordType, isNew },
+        context,
         states: {
             view: {},
             edit: {
@@ -61,6 +60,7 @@ export function getConfig(record, recordType, isNew, activationVerb) {
                 }
             },
             submitted: {
+                entry: 'raiseSuccess',
                 type: 'final'
             }
         }

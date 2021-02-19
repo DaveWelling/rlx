@@ -4,6 +4,8 @@ import { FixedSizeList } from 'react-window';
 import styled from 'styled-components';
 import useLokiView from '../../hooks/useLokiView.mjs';
 import useFormControl from '../../hooks/useFormControl.mjs';
+import { View } from '../primitives.mjs';
+
 const MAX_LEXICAL_VALUE = '\uffff';
 
 const rc = createElement;
@@ -76,7 +78,7 @@ function ArrowIcon({ isOpen }) {
     );
 }
 
-const InputAndButton = styled('div')({
+const InputAndButton = styled(View).attrs({ name: 'InputAndButton' })({
     display: 'flex',
     flexDirection: 'row',
     background: 'white',
@@ -94,7 +96,8 @@ const Input = styled('input')({
 
 const Label = styled('label')({
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
 });
 
 const SansLabel = styled('div')({

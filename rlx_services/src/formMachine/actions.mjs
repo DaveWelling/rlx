@@ -1,5 +1,4 @@
-import * as xstate from 'xstate';
-const { assign } = xstate.default || xstate;
+import { assign } from 'xstate/es/index.js';
 export const mergeChanges = assign((context, event) => {
     return {
         newRecord: {
@@ -8,3 +7,7 @@ export const mergeChanges = assign((context, event) => {
         }
     };
 });
+export const raiseSuccess = context => {
+    const { publish, recordType } = context;
+    publish(`submit_${recordType}_success`);
+};

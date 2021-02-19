@@ -9,8 +9,9 @@ const rc = createElement;
 
 export const FormContext = createContext();
 
-const StyledForm = styled(PrimitiveForm)`
+const StyledForm = styled(PrimitiveForm).attrs({ name: 'StyledForm' })`
     background-color: rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
 `;
 
 const Title = styled(h3)`

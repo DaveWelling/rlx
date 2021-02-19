@@ -1,32 +1,19 @@
-import { createElement, createContext, useState, useEffect } from 'react';
+import react from 'react';
 import cuid from 'cuid';
 import useEventSink from '../hooks/useEventSink.mjs';
 import { database } from 'rlx_services';
-
+// Avoid `Can't import the named export '<function name>' from non EcmaScript module`
+// by doing the
+const { createElement, createContext, useState, useEffect } = react;
 const rc = createElement;
 
 export const ActiveRecordContext = createContext();
 
 export default function ActiveRecord({ recordType, children }) {
     const [activeRecord, setActiveRecord] = useState({ recordType });
-    const [subscribe, publish] = useEventSink();
+    const [subscribe] = useEventSink();
     useEffect(() => {
         function onSet(activationVerb, _id) {
-            // If it exists, clear out the existing active record first.
-            if (activeRecord?.record != null && activeRecord.record._id !== _id) {
-                // If you don't do this, xstate won't see the Form component unmount
-                // and it will not start a new form state machine.
-                // There is probably a better way, but I couldn't think of it
-                // in a reasonable amount of time.
-                publish(`cancel_${activeRecord.recordType}`);
-                // Wait until the Form component unmounts.
-                setTimeout(
-                    // Republish the original event
-                    () => publish(`${activationVerb}_${activeRecord.recordType}`, _id),
-                    1
-                );
-                return;
-            }
             let record,
                 isNew = true;
             if (_id) {
@@ -55,6 +42,6 @@ export default function ActiveRecord({ recordType, children }) {
             )
         ];
         return () => unsubscribes.forEach(u => u());
-    }, [activeRecord]);
+    }, []);
     return rc(ActiveRecordContext.Provider, { value: activeRecord }, children);
 }

@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 // FYI - To use the xstate inspector (https://github.com/davidkpiano/xstate/tree/master/packages/xstate-inspect)
 // You will need to enable pop-ups in your browser and set `devTools:true`
 // in your `useMachine` or `interpret` method options object (2nd param).
-const __USE_XSTATE_INSPECTOR__ = true;
+const __USE_XSTATE_INSPECTOR__ = false;
 
 module.exports = {
     devtool: isProduction ? false : 'source-map',
