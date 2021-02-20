@@ -2,7 +2,7 @@
     "name": "rlx_web",
     "version": "1.0.0",
     "description": "React Loki XState Prototype",
-    "main": "src/index.mjs",
+    "main": "src/index.js",
     "scripts": {
         "test": "mocha --config=./test/.mocharc.json",
         "start": "webpack serve"

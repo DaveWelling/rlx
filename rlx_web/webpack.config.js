@@ -1,0 +1,52 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+// FYI - To use the xstate inspector (https://github.com/davidkpiano/xstate/tree/master/packages/xstate-inspect)
+// You will need to enable pop-ups in your browser and set `devTools:true`
+// in your `useMachine` or `interpret` method options object (2nd param).
+const __USE_XSTATE_INSPECTOR__ = false;
+
+module.exports = {
+    devtool: isProduction ? false : 'source-map',
+    mode: isProduction ? 'production' : 'development',
+    entry: {
+        main: ['./src/index.js']
+    },
+    //alias: { primitives: path.resolve('../rlx-web-primitives') },
+    output: {
+        filename: '[fullhash].js',
+        globalObject: 'this',
+        chunkFilename: '[chunkhash].js'
+    },
+    devServer: {
+        contentBase: './src',
+        port: 8082,
+        host: '0.0.0.0'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            __USE_XSTATE_INSPECTOR__,
+            __PRODUCTION__: isProduction
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './src/index.html'
+        }),
+        // Make browser version avoid using Node specific stuff
+        new webpack.NormalModuleReplacementPlugin(
+            /^fs$/,
+            path.resolve(__dirname, 'fakeFs.js')
+        )
+    ]
+};
