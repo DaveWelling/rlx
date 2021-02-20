@@ -29,9 +29,8 @@
  * https://github.com/facebook/fbjs/blob/21a9acd33be05549b936951a6196ec4b21568575/packages/fbjs/src/core/ExecutionEnvironment.js
  */
 const canUseDOM = !!(
-    typeof window !== 'undefined' &&
-    window.document &&
-    window.document.createElement
+    (typeof window !== 'undefined' && window.document) //&&
+    //window.document.createElement
 );
 
 const win = canUseDOM

@@ -1,14 +1,14 @@
 import styled from 'styled-components';
-import { createElement } from 'react';
+import react from 'react';
 import useActiveRecord from '../../hooks/useActiveRecord.mjs';
 import useWindowDimensions from '../../utilities/useWindowDimensions';
-import { View } from '../primitives.js';
-import StyledSummaryDetail from './StyledSummaryDetail.mjs';
+import { View } from '../primitives';
+import StyledSummaryDetail from './StyledSummaryDetail';
 
 // TODO: Extract this as part of theming.
 const MOBILE_BREAKPOINT = 479;
 
-const rc = createElement;
+const rc = react.createElement;
 // TODO: Handle small screen sizes - how to measure consistently
 // between RN and web?
 

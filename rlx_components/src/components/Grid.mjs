@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';
-import { View, h3, List } from './primitives.mjs';
+import { View, h3, List, Text } from './primitives';
 const rc = React.createElement;
 
 const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
@@ -28,8 +28,34 @@ const GridBody = styled(View).attrs({ name: 'GridBody' })`
     flex-grow: 1;
 `;
 
+const Row = styled(Text)`
+    border: none;
+    border-bottom: gray thin solid;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    cursor: pointer;
+    line-height: 33px;
+    height: 35px;
+`;
+
+const ItemRenderer = ({ data, index, style }) => {
+    const { items, onClick } = data;
+    return rc(
+        Row,
+        {
+            name: 'grid-row',
+            id: items[index]._id,
+            key: items[index]._id,
+            'data-id': items[index]._id,
+            onClick: e => onClick(e.target.dataset.id),
+            style
+        },
+        items[index].title
+    );
+};
+
 function Grid({ recordType, title }) {
-    const [data, itemCount] = useLokiView(recordType, `${recordType}_default`);
+    const [items, itemCount] = useLokiView(recordType, `${recordType}_default`);
     const [, publish] = useEventSink();
     function onClick(_id) {
         publish(`edit_${recordType}`, _id);
@@ -38,7 +64,7 @@ function Grid({ recordType, title }) {
     return rc(StyledGrid, null,
         rc(GridTitle, null, title),
         rc(GridBody, null,
-            rc(List, { name: 'List', data, itemCount, onClick })
+            rc(List, { itemData: {items, onClick}, itemCount, ItemRenderer })
         )
     );
 }

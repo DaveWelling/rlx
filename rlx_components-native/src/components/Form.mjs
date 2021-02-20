@@ -1,13 +1,15 @@
-import { createElement, createContext } from 'react';
+import react from 'react';
 import useFormMachine from '../hooks/useFormMachine.mjs';
 import styled from 'styled-components';
 import ActionButton from './ActionButton.mjs';
+// eslint-disable-next-line
 import * as primitives from './primitives';
+// eslint-disable-next-line
 const { Form: PrimitiveForm, Fieldset, h3, View } = primitives;
 
-const rc = createElement;
+const rc = react.createElement;
 
-export const FormContext = createContext();
+export const FormContext = react.createContext();
 
 const StyledForm = styled(PrimitiveForm).attrs({ name: 'StyledForm' })`
     background-color: rgba(0, 0, 0, 0.1);
@@ -19,6 +21,7 @@ const Title = styled(h3)`
 `;
 
 const FormFooter = styled(View)`
+    flex-direction: row;
     justify-content: flex-end;
 `;
 

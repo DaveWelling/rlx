@@ -1,4 +1,4 @@
 import styled from 'styled-components';
 export default styled.div.attrs({ name: 'view' })`
-    display: flex;
+    display: ${props => (props.block ? 'block' : 'flex')};
 `;

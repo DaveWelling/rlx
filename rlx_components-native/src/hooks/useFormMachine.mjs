@@ -1,5 +1,7 @@
-import { useEffect, useMemo } from 'react';
-import { useMachine } from '@xstate/react';
+import react from 'react';
+const { useEffect, useMemo } = react;
+import xstateReact from '@xstate/react';
+const { useMachine } = xstateReact;
 import { formMachine } from 'rlx_services';
 import useActiveRecord from '../hooks/useActiveRecord.mjs';
 import useEventSink from '../hooks/useEventSink.mjs';

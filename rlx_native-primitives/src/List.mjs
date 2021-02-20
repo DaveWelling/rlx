@@ -16,9 +16,14 @@ const Row = styled(Text)`
     border-bottom-color: gray;
 `;
 
+const BoundedFlatList = styled(FlatList).attrs({ name: 'BoundedFlatList' })`
+    flex-grow: 0;
+    flex: 1;
+`;
+
 export default props => {
     const { data, onClick } = props;
-    return rc(FlatList, {
+    return rc(BoundedFlatList, {
         name: 'list',
         data,
         renderItem: ({ item }) => {

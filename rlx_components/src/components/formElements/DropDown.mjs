@@ -1,33 +1,27 @@
 import { useCombobox } from 'downshift';
-import { createElement, useState, useRef } from 'react';
-import { FixedSizeList } from 'react-window';
+import { createElement, useState } from 'react';
 import styled from 'styled-components';
 import useLokiView from '../../hooks/useLokiView.mjs';
 import useFormControl from '../../hooks/useFormControl.mjs';
-import { View } from '../primitives.mjs';
+import { View, Svg, Path, TextInput, Label, List } from '../primitives';
 
+// Width of input and dropdown menu
+const SELECT_WIDTH = 300;
 const MAX_LEXICAL_VALUE = '\uffff';
 
 const rc = createElement;
 
 const itemToString = item => (item == null ? '' : item.title);
 
-const Menu = styled('ul')({
-    width: 300
+const Menu = styled(View).attrs({ name: 'Menu', block: true })({
+    width: SELECT_WIDTH,
+    height: props => (props.itemCount < 5 ? props.itemCount * 42 + 'px' : '200px')
 });
-const Item = styled('li')(
+const Item = styled(View).attrs({ name: 'Item', block: true })(
     {
         position: 'relative',
         cursor: 'pointer',
-        display: 'block',
-        border: 'none',
-        textAlign: 'left',
-        borderTop: 'none',
         lineHeight: '32px',
-        textTransform: 'none',
-        boxShadow: 'none',
-        whiteSpace: 'normal',
-        wordWrap: 'normal',
         background: '#ffffff10',
         padding: '0 6px 0 6px',
         overflowX: 'hidden'
@@ -41,30 +35,32 @@ const Item = styled('li')(
         }
         if (isSelected) {
             styles.push({
-                fontWeight: '700'
+                fontWeight: '700',
+                background: 'rgba(255,255,255,.03)'
             });
         }
         return styles;
     }
 );
 
-const ControllerButton = styled('button')({
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    width: 32,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: 'transparent',
-    height: '1.5em',
-    outlineWidth: 0
-});
+const ControllerButton = styled(View)`
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    outline-width: 0;
+    border-radius: 0;
+    padding: 9px 6px 9px 6px;
+    margin: 0;
+`;
 
 function ArrowIcon({ isOpen }) {
     return rc(
-        'svg',
+        Svg,
         {
             viewBox: '0 0 20 20',
             preserveAspectRatio: 'none',
@@ -74,7 +70,7 @@ function ArrowIcon({ isOpen }) {
             strokeWidth: '1.1px',
             transform: isOpen ? 'rotate(180)' : undefined
         },
-        rc('path', { d: 'M1,6 L10,15 L19,6' })
+        rc(Path, { d: 'M1,6 L10,15 L19,6' })
     );
 }
 
@@ -83,24 +79,22 @@ const InputAndButton = styled(View).attrs({ name: 'InputAndButton' })({
     flexDirection: 'row',
     background: 'white',
     borderRadius: 3,
-    width: 300
+    width: SELECT_WIDTH
 });
 
-const Input = styled('input')({
-    padding: 3,
+const Input = styled(TextInput)({
     flexGrow: 1,
     background: 'transparent',
-    border: 'none',
     outlineWidth: 0
 });
 
-const Label = styled('label')({
+const FlexLabel = styled(Label).attrs({ name: 'FlexLabel' })({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap'
 });
 
-const SansLabel = styled('div')({
+const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })({
     marginLeft: 6
 });
 
@@ -123,15 +117,14 @@ function ItemRenderer({ data, index, style }) {
 }
 
 export default function DropDown(props) {
-    const { title, value, setValue, disabled } = useFormControl(props);
+    const { title, value, setValue, disabled, _id } = useFormControl(props);
     const { defaultValue, otherRecordType } = props || {};
     const [criteria, setCriteria] = useState({ sort: 'title' });
     const [items, itemCount] = useLokiView(
         otherRecordType,
-        `${otherRecordType}_default`,
+        `${otherRecordType}_${_id}`,
         criteria
     );
-    const listRef = useRef();
 
     const {
         getInputProps,
@@ -163,11 +156,6 @@ export default function DropDown(props) {
         onSelectedItemChange: ({ selectedItem }) => {
             setCriteria({ sort: 'title' });
             setValue(selectedItem);
-        },
-        scrollIntoView: () => {
-            // Need index of current value to do this.
-            // Not sure it is worth it.
-            //listRef.current.scrollToItem(200);
         }
     });
     const inputProps = getInputProps({ type: 'text' });
@@ -175,7 +163,7 @@ export default function DropDown(props) {
     inputProps.onFocus = () => !isOpen && openMenu();
     inputProps.onBlur = () => {};
     // prettier-ignore
-    return rc(Label, getLabelProps(),
+    return rc(FlexLabel, getLabelProps(),
         'Choose an element:',
         rc(SansLabel, null,
             rc(InputAndButton, {
@@ -187,22 +175,17 @@ export default function DropDown(props) {
                     rc(ArrowIcon, {isOpen})
                 )
             ),
-            rc(Menu, getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} }),
-                isOpen && rc(FixedSizeList, {
-                            ref:listRef,
-                            width:300,
-                            height:itemCount < 5 ? itemCount * 42 : 200,
+            rc(Menu, { itemCount, ...getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} })},
+                isOpen && rc(List, {
                             itemCount,
-                            itemSize: 32,
-                            style: {overflowX: 'hidden'},
                             itemData: {
                                 items,
                                 getItemProps,
                                 highlightedIndex,
                                 selectedItem
-                            }
-                        },
-                        ItemRenderer
+                            },
+                            ItemRenderer
+                        }
 
                 )
             )

@@ -4,8 +4,7 @@
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaVersion": 2018,
-        "allowImportExportEverywhere": true,
-        "sourceType": "module"
+        "allowImportExportEverywhere": true
     },
     "env": {
         "es2017": true,

@@ -1,6 +1,7 @@
 import { withPolyfills, makeConfig } from '@haul-bundler/preset-0.60';
 import path from 'path';
-
+import webpack from 'webpack';
+const __USE_XSTATE_INSPECTOR__ = false;
 const transform = ({ bundleName, env, runtime, config }) => {
     config.resolve.alias = {
         'styled-components': path.resolve(
@@ -11,6 +12,10 @@ const transform = ({ bundleName, env, runtime, config }) => {
         // of RN specific stuff to happen in this project rather than in dependencies (that don't care about RN).
         'react-native': path.resolve('./node_modules/react-native')
     };
+    config.plugins = [
+        ...config.plugins,
+        new webpack.DefinePlugin({ __USE_XSTATE_INSPECTOR__ })
+    ];
     // Remove babel-loader, as it handles both .ts(x) and .js(x) files
     // removeRuleByTest(config.module.rules, /\.[jt]sx?$/);
     // config.module.rules = [

@@ -1,7 +1,7 @@
 /**
  * https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/useWindowDimensions/index.js
  */
-import Dimensions from './dimensions.mjs';
+import Dimensions from './dimensions';
 import { useEffect, useState } from 'react';
 
 export default function useWindowDimensions() {

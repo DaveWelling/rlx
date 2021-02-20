@@ -8,7 +8,7 @@ import FooForm from './components/FooForm.mjs';
 import EventBoundary from './components/EventBoundary.mjs';
 import ActiveRecord from './components/ActiveRecord.mjs';
 import ActionButton from './components/ActionButton.mjs';
-import { View, h1 } from './components/primitives.mjs';
+import { View, h1 } from './components/primitives';
 import useWindowDimensions from './utilities/useWindowDimensions.mjs';
 
 // TODO: Extract this as part of theming.
