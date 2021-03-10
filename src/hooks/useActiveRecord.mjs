@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ActiveRecordContext } from '../components/ActiveRecord.mjs';
+import { ActiveRecordContext } from '../contexts/ActiveRecordProvider.mjs';
 
 export default function useActiveRecord() {
     return useContext(ActiveRecordContext);

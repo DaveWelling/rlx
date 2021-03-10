@@ -6,10 +6,17 @@ const rc = React.createElement;
 
 export const EventBoundaryContext = React.createContext();
 
+/**
+ * @param {Object} props
+ * @param {import('react').ReactNode} props.children
+ * @param {boolean} props.logEvents
+ * @returns {import('react').ReactNode} ReactNode
+ */
 export default function EventBoundaryProvider({ children, logEvents }) {
     const context = {
         subscriptions: {},
-        logEvents,
+        logEvents
     };
+
     return rc(EventBoundaryContext.Provider, { value: context }, children);
 }

@@ -1,12 +1,14 @@
 import { createElement } from 'react';
 import styled from 'styled-components';
 import '../index.css';
+
+import ActiveRecordProvider from '../contexts/ActiveRecord.mjs';
+import EventBoundaryProvider from '../contexts/EventBoundary.mjs';
+
 import SummaryDetail from './SummaryDetail.mjs';
 import Grid from './Grid.mjs';
 import WidgetForm from './WidgetForm.mjs';
 import FooForm from './FooForm.mjs';
-import EventBoundary from './EventBoundary.mjs';
-import ActiveRecord from './ActiveRecord.mjs';
 import ActionButton from './ActionButton.mjs';
 
 const App = styled.div`
@@ -37,8 +39,8 @@ export default function Application() {
     // prettier-ignore
     return rc(App, {name: 'app'},
         rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),
-        rc(EventBoundary, {logEvents: true},
-            rc(ActiveRecord, {recordType: recordType0},
+        rc(EventBoundaryProvider, {logEvents: true},
+            rc(ActiveRecordProvider, {recordType: recordType0},
                 rc(SummaryDetail, null,
                     rc(Summary, null,
                         rc(Grid, {title: `Select a ${recordType0}`, recordType: recordType0}),
@@ -48,8 +50,8 @@ export default function Application() {
                 )
             )
         ),
-        rc(EventBoundary, {logEvents: true},
-            rc(ActiveRecord, {recordType: recordType1},
+        rc(EventBoundaryProvider, {logEvents: true},
+            rc(ActiveRecordProvider, {recordType: recordType1},
                 rc(SummaryDetail, null,
                     rc(Summary, null,
                         rc(Grid, {title: `Select a ${recordType1}`, recordType: recordType1}),
