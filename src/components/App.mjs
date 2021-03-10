@@ -1,12 +1,14 @@
 import { createElement } from 'react';
 import styled from 'styled-components';
 import '../index.css';
+
 import ActiveRecordProvider from '../contexts/ActiveRecord.mjs';
+import EventBoundaryProvider from '../contexts/EventBoundary.mjs';
+
 import SummaryDetail from './SummaryDetail.mjs';
 import Grid from './Grid.mjs';
 import WidgetForm from './WidgetForm.mjs';
 import FooForm from './FooForm.mjs';
-import EventBoundaryProvider from '../contexts/EventBoundary.mjs';
 import ActionButton from './ActionButton.mjs';
 
 const App = styled.div`
