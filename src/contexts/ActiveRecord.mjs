@@ -7,6 +7,12 @@ const rc = createElement;
 
 export const ActiveRecordContext = createContext();
 
+/**
+ * @param {Object} props
+ * @param {string} props.recordType
+ * @param {import('react').ReactNode} props.children
+ * @returns {import('react').ReactNode[] } ReactNode
+ */
 export default function ActiveRecordProvider({ recordType, children }) {
     const [activeRecord, setActiveRecord] = useState({ recordType });
     const [subscribe] = useEventSink();
