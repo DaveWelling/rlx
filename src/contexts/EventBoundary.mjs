@@ -9,7 +9,8 @@ export const EventBoundaryContext = React.createContext();
 export default function EventBoundaryProvider({ children, logEvents }) {
     const context = {
         subscriptions: {},
-        logEvents,
+        logEvents
     };
+
     return rc(EventBoundaryContext.Provider, { value: context }, children);
 }

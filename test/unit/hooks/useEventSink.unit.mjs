@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import rtl from '@testing-library/react';
-import EventBoundary from '../../../src/components/EventBoundary.mjs';
+import EventBoundaryProvider from '../../../src/contexts/EventBoundary.mjs';
 import useEventSink from '../../../src/hooks/useEventSink.mjs';
 import expect from 'expect';
 import 'jsdom-global/register.js';
@@ -11,7 +11,11 @@ const rc = React.createElement;
 
 function Publisher() {
     const [, publish] = useEventSink();
-    return rc('input', { type: 'button', value: 'click me', onClick: () => publish('hello', 'world') });
+    return rc('input', {
+        type: 'button',
+        value: 'click me',
+        onClick: () => publish('hello', 'world')
+    });
 }
 
 function Subscriber() {
@@ -22,7 +26,7 @@ function Subscriber() {
 }
 
 function Harness() {
-    return rc(EventBoundary, null, rc(Publisher), rc(Subscriber));
+    return rc(EventBoundaryProvider, null, rc(Publisher), rc(Subscriber));
 }
 
 it('Simple subscribe/publish', () => {

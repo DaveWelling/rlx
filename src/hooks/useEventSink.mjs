@@ -1,6 +1,6 @@
 import React from 'react';
 import eventSink from '../eventSink.mjs';
-import { EventBoundaryContext } from '../components/EventBoundary.mjs';
+import { EventBoundaryContext } from '../contexts/EventBoundary.mjs';
 
 // Inspired by https://kentcdodds.com/blog/how-to-use-react-context-effectively
 // See EventBoundary.mjs for the other half of this.
