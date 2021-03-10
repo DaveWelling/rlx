@@ -7,7 +7,7 @@ const rc = createElement;
 
 export const ActiveRecordContext = createContext();
 
-export default function ActiveRecord({ recordType, children }) {
+export default function ActiveRecordProvider({ recordType, children }) {
     const [activeRecord, setActiveRecord] = useState({ recordType });
     const [subscribe] = useEventSink();
     useEffect(() => {
@@ -27,16 +27,16 @@ export default function ActiveRecord({ recordType, children }) {
                 activationVerb,
                 record,
                 isNew,
-                recordType,
+                recordType
             });
         }
         const unsubscribes = [
-            subscribe(`view_${recordType}`, (_id) => onSet('view', _id)),
+            subscribe(`view_${recordType}`, _id => onSet('view', _id)),
             subscribe(`new_${recordType}`, () => onSet('new')),
-            subscribe(`edit_${recordType}`, (_id) => onSet('edit', _id)),
-            subscribe(`cancel_${recordType}`, () => setActiveRecord({ recordType })),
+            subscribe(`edit_${recordType}`, _id => onSet('edit', _id)),
+            subscribe(`cancel_${recordType}`, () => setActiveRecord({ recordType }))
         ];
-        return () => unsubscribes.forEach((u) => u());
+        return () => unsubscribes.forEach(u => u());
     }, []);
     return rc(ActiveRecordContext.Provider, { value: activeRecord }, children);
 }

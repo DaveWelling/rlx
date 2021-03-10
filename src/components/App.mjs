@@ -1,12 +1,12 @@
 import { createElement } from 'react';
 import styled from 'styled-components';
 import '../index.css';
+import ActiveRecord from '../contexts/ActiveRecordProvider.mjs';
 import SummaryDetail from './SummaryDetail.mjs';
 import Grid from './Grid.mjs';
 import WidgetForm from './WidgetForm.mjs';
 import FooForm from './FooForm.mjs';
 import EventBoundary from './EventBoundary.mjs';
-import ActiveRecord from './ActiveRecord.mjs';
 import ActionButton from './ActionButton.mjs';
 
 const App = styled.div`
