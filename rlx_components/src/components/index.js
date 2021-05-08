@@ -10,4 +10,3 @@ export { default as Form } from './Form';
 export { default as Grid } from './Grid';
 export { default as SummaryDetail } from './SummaryDetail/index';
 export { default as WidgetForm } from './WidgetForm';
-export * as primitives from './primitives';

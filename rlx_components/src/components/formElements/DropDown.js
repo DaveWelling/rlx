@@ -3,7 +3,7 @@ import { createElement, useState } from 'react';
 import styled from 'styled-components';
 import useLokiView from '../../hooks/useLokiView';
 import useFormControl from '../../hooks/useFormControl';
-import { View, Svg, Path, TextInput, Label, List } from '../primitives';
+import { View, Svg, Path, TextInput, Label, List } from 'rlx_primitives';
 
 // Width of input and dropdown menu
 const SELECT_WIDTH = 300;

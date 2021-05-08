@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { createElement } from 'react';
 import useActiveRecord from '../../hooks/useActiveRecord';
 import useWindowDimensions from '../../utilities/useWindowDimensions';
-import { View } from '../primitives';
+import { View } from 'rlx_primitives';
 import StyledSummaryDetail from './StyledSummaryDetail';
 
 // TODO: Extract this as part of theming.

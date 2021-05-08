@@ -2,7 +2,7 @@ import { createElement, createContext } from 'react';
 import useFormMachine from '../hooks/useFormMachine';
 import styled from 'styled-components';
 import ActionButton from './ActionButton';
-import * as primitives from './primitives';
+import * as primitives from 'rlx_primitives';
 const { Form: PrimitiveForm, Fieldset, h3, View } = primitives;
 
 const rc = createElement;
@@ -19,6 +19,7 @@ const Title = styled(h3)`
 `;
 
 const FormFooter = styled(View)`
+    flex-direction: row;
     justify-content: flex-end;
 `;
 

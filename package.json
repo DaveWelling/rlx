@@ -6,7 +6,10 @@
     "type": "commonjs",
     "scripts": {
         "test": "mocha --config=./test/.mocharc.json",
-        "start": "webpack serve"
+        "start": "webpack serve",
+        "android": "react-native start",
+        "add": "npm install --package-lock-only --no-package-lock --prefix",
+        "postadd": "npm install"
     },
     "keywords": [],
     "author": "",
@@ -15,8 +18,7 @@
         "rlx_components",
         "rlx_services",
         "rlx_web",
-        "rlx_web-primitives",
-        "rlx_native-primitives"
+        "rlx_primitives"
     ],
     "dependencies": {
         "react-error-boundary": "^3.1.0"
@@ -36,7 +38,7 @@
         "mocha": "^8.2.1"
     },
     "peerDependencies": {
-        "react": "16.13.1",
-        "react-dom": "16.13.1"
+        "react": "17.0.1",
+        "react-dom": "17.0.1"
     }
 }

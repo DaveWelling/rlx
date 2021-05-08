@@ -8,7 +8,7 @@ import FooForm from './components/FooForm';
 import EventBoundary from './components/EventBoundary';
 import ActiveRecord from './components/ActiveRecord';
 import ActionButton from './components/ActionButton';
-import { View, h1 } from './components/primitives';
+import { View, h1 } from 'rlx_primitives';
 import useWindowDimensions from './utilities/useWindowDimensions';
 
 // TODO: Extract this as part of theming.

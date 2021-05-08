@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView';
 import useEventSink from '../hooks/useEventSink';
-import { View, h3, List, Text } from './primitives';
+import { View, h3, List, Text } from 'rlx_primitives';
 const rc = React.createElement;
 
 const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
@@ -10,7 +10,7 @@ const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
     padding-top: 2px;
     padding-bottom: 2px;
     border-style: solid;
-    border-width: thin;
+    border-width: 1px;
     border-color: rgba(255, 255, 255, 0.1);
     flex-grow: 1;
     flex-direction: column;

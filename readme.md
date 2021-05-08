@@ -18,7 +18,7 @@ https://theredcircuit.com/posts/reactLokiXstatePart3/
         -   For example `export default function useLokiView() { /* hook code */ }` will give the function name in the stack as `useLokiView`, whereas `export default ()=>{ /* hook code */ }` will give it as `__WEBPACK_DEFAULT_EXPORT__`.
 -   Why didn't you use react-native-web instead of creating your own primitives?
     -   The react-native code is consumed by react-native-web - which results in a cascade of dependencies, some of which (e.g. flow) require babel to run before tests can run which would slow down tests immensely.
--   Why did you fix the react version to "react": "16.13.1"?
+-   Why did you fix the react version to "react": "17.0.1"?
     -   Because react-native does. If I don't follow suit, then NPM will fail because peer-dependencies do not match (unless I use the --legacy-peer-deps flag). I have no idea why react-native locks it. Assuming react follows semver rules, there should be no reason for it that I can think of. Perhaps react-native has dependencies on react internals?
 -   Why do you add a name attribute to your styled components (e.g. `const DetailOnly = styled(View).attrs({ name: 'DetailOnly' })`?
     -   Styled components creates dynamic class names, so adding this attribute makes it easier to see where the styles are used in the DOM.

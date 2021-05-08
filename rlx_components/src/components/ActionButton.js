@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import useEventSink from '../hooks/useEventSink';
 import useActiveRecord from '../hooks/useActiveRecord';
-import { Button } from './primitives';
+import { Button } from 'rlx_primitives';
 
 const rc = createElement;
 

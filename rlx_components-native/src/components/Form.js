@@ -3,7 +3,7 @@ import useFormMachine from '../hooks/useFormMachine';
 import styled from 'styled-components';
 import ActionButton from './ActionButton';
 // eslint-disable-next-line
-import * as primitives from './primitives';
+import * as primitives from 'rlx_primitives';
 // eslint-disable-next-line
 const { Form: PrimitiveForm, Fieldset, h3, View } = primitives;
 

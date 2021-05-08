@@ -17,7 +17,7 @@
         "lodash.get": "^4.4.2",
         "lodash.isequal": "^4.5.0",
         "lodash.throttle": "^4.1.1",
-        "react-dom": "16.13.1",
+        "react-dom": "17.0.1",
         "react-split": "^2.0.9",
         "react-virtual": "^2.3.2",
         "react-virtualized-auto-sizer": "^1.0.4",
@@ -26,6 +26,6 @@
         "styled-components": "^5.2.1"
     },
     "peerDependencies": {
-        "react": "16.13.1"
+        "react": "17.0.1"
     }
 }

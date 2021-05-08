@@ -1,6 +1,6 @@
 import react from 'react';
 import useFormControl from '../../hooks/useFormControl';
-import { TextInput, Label } from '../primitives';
+import { TextInput, Label } from 'rlx_primitives';
 
 const rc = react.createElement;
 
