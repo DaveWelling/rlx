@@ -15,6 +15,11 @@ module.exports = {
     entry: {
         main: ['./src/index.js']
     },
+    resolve: {
+        alias: {
+            react: path.resolve('../node_modules/react')
+        }
+    },
     //alias: { primitives: path.resolve('../rlx-web-primitives') },
     output: {
         filename: '[fullhash].js',

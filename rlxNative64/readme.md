@@ -1,0 +1,11 @@
+-   To just reload some JavaScript changes:
+    -   `adb shell input text "RR"`
+    -   If you are on a screen with an active text box, this might just type "RR" into the box. In that case:
+        -   `adb shell input keyevent KEYCODE_MENU`
+        -   Then click the 'Reload' option.
+-   To stop the app:
+    -   `adb shell am force-stop com.rlxnative64`
+-   To start the app (without doing a full build):
+    -   `adb shell am start -n com.rlxnative64/com.rlxnative64.MainActivity`
+-   To stop the app and clear all data (without uninstalling):
+    -   `adb shell pm clear com.silouireactnative`

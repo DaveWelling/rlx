@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView';
 import useEventSink from '../hooks/useEventSink';
-import { View, h3, List } from 'rlx_primitives';
+import { View, h3, List, Text } from 'rlx_primitives';
 const rc = React.createElement;
 
 const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
@@ -28,6 +28,19 @@ const GridBody = styled(View).attrs({ name: 'GridBody' })`
     flex-grow: 1;
 `;
 
+const Row = styled(Text)`
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    border-color: transparent;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: gray;
+`;
+
+const RowDetail = item => rc(Text, null, item.title);
+
 function Grid({ recordType, title }) {
     const [data, itemCount] = useLokiView(recordType, `${recordType}_default`);
     const [, publish] = useEventSink();
@@ -38,7 +51,7 @@ function Grid({ recordType, title }) {
     return rc(StyledGrid, {name: 'grid'},
         rc(GridTitle, {name: 'grid-title'}, title),
         rc(GridBody, {name: 'grid-body'},
-            rc(List, { data, itemCount, onClick })
+            rc(List, { data, itemCount, onClick, Row }, RowDetail)
         )
     );
 }

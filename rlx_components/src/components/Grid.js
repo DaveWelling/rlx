@@ -29,30 +29,17 @@ const GridBody = styled(View).attrs({ name: 'GridBody' })`
 `;
 
 const Row = styled(Text)`
-    border: none;
-    border-bottom: gray thin solid;
     background-color: rgba(255, 255, 255, 0.1);
     text-align: center;
-    cursor: pointer;
-    line-height: 33px;
-    height: 35px;
+    height: 36px;
+    line-height: 36px;
+    border-color: transparent;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: gray;
 `;
 
-const ItemRenderer = ({ data, index, style }) => {
-    const { items, onClick } = data;
-    return rc(
-        Row,
-        {
-            name: 'grid-row',
-            id: items[index]._id,
-            key: items[index]._id,
-            'data-id': items[index]._id,
-            onClick: e => onClick(e.target.dataset.id),
-            style
-        },
-        items[index].title
-    );
-};
+const RowDetail = item => item.title;
 
 function Grid({ recordType, title }) {
     const [items, itemCount] = useLokiView(recordType, `${recordType}_default`);
@@ -64,7 +51,7 @@ function Grid({ recordType, title }) {
     return rc(StyledGrid, null,
         rc(GridTitle, null, title),
         rc(GridBody, null,
-            rc(List, { itemData: {items, onClick}, itemCount, ItemRenderer })
+            rc(List, { itemData: {items, onClick}, itemCount, Row }, RowDetail)
         )
     );
 }

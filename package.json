@@ -18,7 +18,8 @@
         "rlx_components",
         "rlx_services",
         "rlx_web",
-        "rlx_primitives"
+        "rlx_primitives",
+        "rlx_components-native"
     ],
     "dependencies": {
         "react-error-boundary": "^3.1.0"

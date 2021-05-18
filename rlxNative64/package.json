@@ -3,9 +3,10 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
+        "serve": "npx react-native webpack-start",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
-        "start": "react-native start --reset-cache",
+        "start": "react-native start",
         "test": "jest",
         "lint": "eslint .",
         "**GENKEY COMMENT**": "genKey will only be used to create new APK signing keys",
@@ -16,6 +17,8 @@
     "dependencies": {
         "react": "^17.0.2",
         "react-native": "0.64.0",
+        "react-native-drop-shadow": "^0.0.2",
+        "react-native-svg": "^12.1.1",
         "styled-components": "^5.3.0"
     },
     "devDependencies": {

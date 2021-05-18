@@ -2,7 +2,7 @@ import './whyDidYouRender';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import * as components from 'rlx_components';
+import * as components from 'rlx_components-native';
 const { App } = components;
 const rc = React.createElement;
 

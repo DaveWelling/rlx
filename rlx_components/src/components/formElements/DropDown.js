@@ -68,7 +68,7 @@ function ArrowIcon({ isOpen }) {
             fill: 'transparent',
             stroke: '#979797',
             strokeWidth: '1.1px',
-            transform: isOpen ? 'rotate(180)' : undefined
+            transform: isOpen ? 'rotate(180)' : 'rotate(0)'
         },
         rc(Path, { d: 'M1,6 L10,15 L19,6' })
     );

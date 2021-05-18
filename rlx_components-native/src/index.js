@@ -7,3 +7,4 @@ export { default as ShortText } from './components/formElements/ShortText';
 export { default as Form } from './components/Form';
 export { default as SummaryDetail } from './components/SummaryDetail/index';
 export { default as WidgetForm } from './components/WidgetForm';
+export { default as App } from './App';

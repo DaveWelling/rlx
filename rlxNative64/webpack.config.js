@@ -125,7 +125,11 @@ module.exports = {
         alias: {
             'react-native': reactNativePath,
             'styled-components': path.resolve('./node_modules/styled-components/native'),
-            react: path.resolve('./node_modules/react')
+            react: path.resolve('./node_modules/react'),
+            'react-native-drop-shadow': path.resolve(
+                './node_modules/react-native-drop-shadow'
+            ),
+            'react-native-svg': path.resolve('./node_modules/react-native-svg')
         }
     },
     /**
@@ -208,6 +212,11 @@ module.exports = {
         ]
     },
     plugins: [
+        // Make browser version avoid using Node specific stuff
+        new webpack.NormalModuleReplacementPlugin(
+            /^fs$/,
+            path.resolve(__dirname, 'fakeFs.js')
+        ),
         /**
          * Various libraries like React and React rely on `process.env.NODE_ENV` / `__DEV__`
          * to distinguish between production and development
