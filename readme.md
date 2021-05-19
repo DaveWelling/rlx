@@ -13,7 +13,9 @@ https://theredcircuit.com/posts/reactLokiXstatePart3/
 
 <ul>
 
-This uses npm workspaces. The web workspaces can be installed in the root directory of the project by just running `npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
+In order to share code between the web and native app, this project is a monorepo and uses npm workspaces which requires npm 7.
+
+The web workspaces can be installed in the root directory of the project by just running `npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
 
 The native workspace must be installed from the /rlxNative64 subdirectory using the same commands:
 `npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
