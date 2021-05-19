@@ -9,6 +9,17 @@ https://theredcircuit.com/posts/reactLokiXstatePart2/
 I intend to write a part 3 to discuss the XState machine used for the form.
 https://theredcircuit.com/posts/reactLokiXstatePart3/
 
+## Installation
+
+<ul>
+
+This uses npm workspaces. The web workspaces can be installed in the root directory of the project by just running `npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
+
+The native workspace must be installed from the /rlxNative64 subdirectory using the same commands:
+`npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
+
+</ul>
+
 ### Questions
 
 -   Why do you have `rc()` (short for `react.createElement()`) calls instead of JSX?
