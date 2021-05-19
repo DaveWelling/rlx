@@ -1,3 +1,13 @@
+-   To begin debugging
+
+    -   Be sure your device is attached and usb debugging is enabled
+    -   Be sure you are in the rlxNative64 directory of a console
+    -   `npm run serve` - this will start your javascript bundling server
+    -   open a new console and run `npm run android` - this will build the native app and deploy it to your device
+        -   When this finishes, the app will start on the device and request the javascript build from the bundling server
+        -   When you make Javascript only changes, you do not need to rerun this (see below). However, if you install a new package that has native elements, you will need to rerun this.
+        -   Also, if your adb connection somehow is messed up `npm run android` will usually fix it.
+
 -   To just reload some JavaScript changes:
     -   `adb shell input text "RR"`
     -   If you are on a screen with an active text box, this might just type "RR" into the box. In that case:
