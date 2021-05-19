@@ -7,6 +7,10 @@
         -   When this finishes, the app will start on the device and request the javascript build from the bundling server
         -   When you make Javascript only changes, you do not need to rerun this (see below). However, if you install a new package that has native elements, you will need to rerun this.
         -   Also, if your adb connection somehow is messed up `npm run android` will usually fix it.
+    -   In a browser, open http://localhost:8081/debugger-ui - hit f12 to view the debugging tools. Do not use the reload button in this UI. It sucks and will often lock your app somehow.
+    -   In your console: `adb shell input keyevent KEYCODE_MENU`
+        -   this will open the debugging menu.
+        -   Select the debug option. This will allow you to put breakpoints in the code using the browser ui above. Alternatively, you can put `debugger;` in your code and it will stop there.
 
 -   To just reload some JavaScript changes:
     -   `adb shell input text "RR"`
