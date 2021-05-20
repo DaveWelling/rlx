@@ -15,10 +15,26 @@ https://theredcircuit.com/posts/reactLokiXstatePart3/
 
 In order to share code between the web and native app, this project is a monorepo and uses npm workspaces which requires npm 7.
 
+There are effectively 2 workspaces:
+
 The web workspaces can be installed in the root directory of the project by just running `npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
 
-The native workspace must be installed from the /rlxNative64 subdirectory using the same commands:
+The native workspace must be installed from the _`/rlxNative64`_ subdirectory using the same commands:
 `npm i` (or `npm i --legacy-peer-deps` if it gives you trouble with dependencies).
+
+</ul>
+
+## General Development
+
+<ul>
+As code is shared between the web and the native app, you will probably want to run both while developing. React Native is very particular about things, and will simply not render when it encounters something it doesn't like, but is also harder to debug.
+So, you'll probably will want 3 consoles open
+
+| Console | Relative Path  | Command           | Browser                           |
+| ------- | -------------- | ----------------- | --------------------------------- |
+| 1       | _/rlx_web_     | `npm start`       | http://localhost:8082             |
+| 2       | _/rlxNative64_ | `npm run serve`   | n/a                               |
+| 3       | _/rlxNative64_ | `npm run android` | http://localhost:8081/debugger-ui |
 
 </ul>
 
