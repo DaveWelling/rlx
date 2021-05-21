@@ -6,4 +6,5 @@ export default styled.fieldset.attrs({ name: 'fieldset' })`
     border: none;
     background-color: rgba(255, 255, 255, 0.05);
     flex-grow: 1;
+    overflow-y: auto;
 `;

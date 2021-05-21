@@ -8,8 +8,9 @@
         "test": "mocha --config=./test/.mocharc.json",
         "start": "webpack serve",
         "android": "react-native start",
-        "add": "npm install --package-lock-only --no-package-lock --prefix",
-        "postadd": "npm install"
+        "ADD SCRIPT (below) USAGE": "npm run add -- submodule0 somepackage",
+        "add": "npm install --legacy-peer-deps --package-lock-only --no-package-lock --prefix",
+        "postadd": "npm install --legacy-peer-deps "
     },
     "keywords": [],
     "author": "",

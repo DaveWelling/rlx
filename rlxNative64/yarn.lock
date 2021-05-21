@@ -930,6 +930,7 @@
     "jest-resolve" "^26.6.2"
     "jest-util" "^26.6.2"
     "jest-worker" "^26.6.2"
+    "node-notifier" "^8.0.0"
     "slash" "^3.0.0"
     "source-map" "^0.6.0"
     "string-length" "^4.0.1"
@@ -2960,6 +2961,7 @@
     "estraverse" "^5.2.0"
     "esutils" "^2.0.2"
     "optionator" "^0.8.1"
+    "source-map" "~0.6.1"
   optionalDependencies:
     "source-map" "~0.6.1"
 
@@ -3615,6 +3617,11 @@
   "integrity" "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@^2.1.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -4421,6 +4428,7 @@
     "@types/node" "*"
     "anymatch" "^3.0.3"
     "fb-watchman" "^2.0.0"
+    "fsevents" "^2.1.2"
     "graceful-fs" "^4.2.4"
     "jest-regex-util" "^26.0.0"
     "jest-serializer" "^26.6.2"
@@ -4828,6 +4836,8 @@
   "integrity" "sha1-NzaitCi4e72gzIO1P6PWM6NcKug="
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-2.4.0.tgz"
   "version" "2.4.0"
+  dependencies:
+    "graceful-fs" "^4.1.6"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
@@ -4835,6 +4845,8 @@
   "integrity" "sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss="
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz"
   "version" "4.0.0"
+  dependencies:
+    "graceful-fs" "^4.1.6"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
@@ -4896,6 +4908,8 @@
   "integrity" "sha1-QIhDO0azsbolnXh4XY6W9zugJDk="
   "resolved" "https://registry.npmjs.org/klaw/-/klaw-1.3.1.tgz"
   "version" "1.3.1"
+  dependencies:
+    "graceful-fs" "^4.1.9"
   optionalDependencies:
     "graceful-fs" "^4.1.9"
 
@@ -6229,6 +6243,11 @@
   dependencies:
     "logkitty" "^0.7.1"
 
+"react-native-exception-handler@^2.10.10":
+  "integrity" "sha512-otAXGoZDl1689OoUJWN/rXxVbdoZ3xcmyF1uq/CsizdLwwyZqVGd6d+p/vbYvnF996FfEyAEBnHrdFxulTn51w=="
+  "resolved" "https://registry.npmjs.org/react-native-exception-handler/-/react-native-exception-handler-2.10.10.tgz"
+  "version" "2.10.10"
+
 "react-native-svg@^12.1.1":
   "integrity" "sha512-NIAJ8jCnXGCqGWXkkJ1GTzO4a3Md5at5sagYV8Vh4MXYnL4z5Rh428Wahjhh+LIjx40EE5xM5YtwyJBqOIba2Q=="
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.1.1.tgz"
@@ -6593,13 +6612,13 @@
   "resolved" "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz"
   "version" "2.2.8"
 
-"rlx_components-native@file:C:\\code\\backbone\\RLX\\rlx_components-native":
+"rlx_components-native@file:D:\\Temp\\junk\\rlx\\rlx_components-native":
   "resolved" "file:../rlx_components-native"
   "version" "1.0.0"
   dependencies:
     "@xstate/react" "^1.2.2"
     "cuid" "^2.1.8"
-    "downshift" "^6.1.3"
+    "downshift" "file:../../downshift"
     "lodash.debounce" "^4.0.8"
     "lodash.get" "^4.4.2"
     "lodash.isequal" "^4.5.0"
@@ -6612,13 +6631,13 @@
     "react-window-infinite-loader" "^1.0.5"
     "styled-components" "^5.2.1"
 
-"rlx_components@file:C:\\code\\backbone\\RLX\\rlx_components":
+"rlx_components@file:D:\\Temp\\junk\\rlx\\rlx_components":
   "resolved" "file:../rlx_components"
   "version" "1.0.0"
   dependencies:
     "@xstate/react" "^1.2.2"
     "cuid" "^2.1.8"
-    "downshift" "^6.1.3"
+    "downshift" "file:../../downshift"
     "lodash.debounce" "^4.0.8"
     "lodash.get" "^4.4.2"
     "lodash.isequal" "^4.5.0"
@@ -6631,11 +6650,11 @@
     "react-window-infinite-loader" "^1.0.5"
     "styled-components" "^5.2.1"
 
-"rlx_primitives@file:C:\\code\\backbone\\RLX\\rlx_primitives":
+"rlx_primitives@file:D:\\Temp\\junk\\rlx\\rlx_primitives":
   "resolved" "file:../rlx_primitives"
   "version" "1.0.0"
 
-"rlx_services@file:C:\\code\\backbone\\RLX\\rlx_services":
+"rlx_services@file:D:\\Temp\\junk\\rlx\\rlx_services":
   "resolved" "file:../rlx_services"
   "version" "1.0.0"
   dependencies:

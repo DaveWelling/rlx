@@ -1,31 +1,53 @@
 import { useCombobox } from 'downshift';
-import { createElement, useState } from 'react';
-import styled from 'styled-components';
+import { createElement, useState, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import useLokiView from '../../hooks/useLokiView';
 import useFormControl from '../../hooks/useFormControl';
-import { View, Svg, Path, TextInput, Label, List, Text } from 'rlx_primitives';
 
+import {
+    View,
+    Svg,
+    Path,
+    TextInput,
+    Label,
+    List,
+    Text,
+    webOnlyProperties,
+    webOnlyStyles,
+    nativeOnlyProperties,
+    ErrorBoundary,
+    Modal
+} from 'rlx_primitives';
+
+// TODO: Extract this as part of theming.
+const MOBILE_BREAKPOINT = 479;
 // Width of input and dropdown menu
-const SELECT_WIDTH = 300;
+const SELECT_WIDTH = '300px';
 const MAX_LEXICAL_VALUE = '\uffff';
 
 const rc = createElement;
 
 const itemToString = item => (item == null ? '' : item.title);
 const RowDetail = item => rc(Text, null, itemToString(item));
-//const RowDetail = ({ item }) => itemToString(item);
+
 const Menu = styled(View).attrs({ name: 'Menu', block: true })({
-    width: SELECT_WIDTH,
-    height: props => (props.itemCount < 5 ? props.itemCount * 42 + 'px' : '200px')
+    width: props => (props.theme.mobile ? '100%' : SELECT_WIDTH),
+    height: props => {
+        if (props?.style?.visibility === 'collapse') return 0;
+        if (props?.theme.mobile) return '100%';
+        return props.itemCount < 5 ? props.itemCount * 42 + 'px' : '200px';
+    }
 });
 const Item = styled(View).attrs({ name: 'Item', block: true })(
     {
         position: 'relative',
-        cursor: 'pointer',
-        lineHeight: '32px',
+        lineHeight: props => (props.theme.mobile ? '67px' : '32px'),
+        textAlign: 'center',
         background: '#ffffff10',
-        padding: '0 6px 0 6px',
-        overflowX: 'hidden'
+        ...webOnlyProperties({
+            overflowX: 'hidden',
+            cursor: 'pointer'
+        })
     },
     ({ isActive, isSelected }) => {
         const styles = [];
@@ -44,13 +66,9 @@ const Item = styled(View).attrs({ name: 'Item', block: true })(
     }
 );
 
-const ControllerButton = styled(View)`
+let ControllerButton = styled(View)`
     background-color: transparent;
     border: none;
-    /* These do not work in react native */
-    cursor: pointer;
-    outline-width: 0;
-    /*************************************/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,6 +79,11 @@ const ControllerButton = styled(View)`
     margin: 0;
 `;
 
+ControllerButton = webOnlyStyles(ControllerButton)`
+    cursor: pointer;
+    outline-width: 0;
+`;
+
 function ArrowIcon({ isOpen }) {
     return rc(
         Svg,
@@ -69,43 +92,54 @@ function ArrowIcon({ isOpen }) {
             preserveAspectRatio: 'none',
             width: 16,
             fill: 'transparent',
-            stroke: '#979797',
+            // stroke: '#979797',
+            stroke: '#fff',
             strokeWidth: '1.1px',
             /* These do not work in react native */
-            transform: isOpen ? 'rotate(180)' : undefined
+            ...webOnlyProperties({
+                transform: isOpen ? 'rotate(90)' : undefined
+            }),
+            ...nativeOnlyProperties({
+                transform: isOpen ? [{ rotate: '90deg' }] : undefined
+            })
             /*************************************/
         },
         rc(Path, { d: 'M1,6 L10,15 L19,6' })
     );
 }
 
-const InputAndButton = styled(View).attrs({ name: 'InputAndButton' })`
+let InputAndButton = styled(View).attrs({ name: 'InputAndButton' })`
     display: flex;
     flex-direction: row;
-    background-color: white;
-    border-radius: ${props => (props.isOpen ? '3px 3px 0 0' : '0')};
-    width: SELECT_WIDTH;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: ${props => (props.isOpen ? '0' : '3px')};
+    border-bottom-right-radius: ${props => (props.isOpen ? '0' : '3px')};
+    width: ${SELECT_WIDTH};
 `;
 
-const Input = styled(TextInput)({
-    flexGrow: 1,
-    background: 'transparent',
-    /* These do not work in react native */
-    outlineWidth: 0
-    /*************************************/
-});
+let Input = styled(TextInput)`
+    background-color: transparent;
+`;
+Input = webOnlyStyles(Input)`
+    outline-width: 0;
+`;
 
 const FlexLabel = styled(Label).attrs({ name: 'FlexLabel' })({
+    flex: 1,
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap'
 });
 
-const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })({
-    marginLeft: 6
-});
+const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })`
+    margin-left: 6px;
+    min-width: 300px;
+`;
 
 export default function DropDown(props) {
+    const { mobile } = useContext(ThemeContext);
     const { title, value, setValue, disabled, _id } = useFormControl(props);
     const { defaultValue, otherRecordType } = props || {};
     const [criteria, setCriteria] = useState({ sort: 'title' });
@@ -154,33 +188,92 @@ export default function DropDown(props) {
     // downshift expect the dom event format
     const tempOnChange = inputProps.onChange;
     inputProps.onChange = value => tempOnChange({ target: { value } });
-    // prettier-ignore
-    return rc(FlexLabel, getLabelProps(),
-        'Choose an element:',
-        rc(SansLabel, null,
-            rc(InputAndButton, {
-                    ...getComboboxProps(),
-                    isOpen
-                },
-                rc(Input, inputProps),
-                rc(ControllerButton, {type:'button', ...getToggleButtonProps()},
-                    rc(ArrowIcon, {isOpen})
+
+    let comboboxProps = getComboboxProps();
+    let { ref } = comboboxProps;
+    if (mobile && isOpen) {
+        // prettier-ignore
+        return rc(ErrorBoundary, null,
+            rc(Modal, {visible: true, ...comboboxProps, ref},
+                rc(Input, {
+                    ...inputProps,
+                    ...nativeOnlyProperties({
+                        onKeyPress: inputProps.onKeyDown,
+                        onKeyDown: undefined,
+                        'aria-autocomplete': undefined,
+                        'aria-controls': undefined,
+                        'aria-labellby': undefined,
+                        autoComplete: undefined
+                    })
+                }),
+                rc(Menu, { itemCount, ...getMenuProps(), mobile},
+                    rc(List, {
+                            itemCount,
+                            data: items,
+                            Row: Item,
+                            highlightedIndex,
+                            selectedItem,
+                            getItemProps,
+                            itemHeightPixels: mobile ? 70 : 35,
+                            style: {
+                                ...webOnlyProperties({
+                                    minHeight: mobile ? '100%' : '200px'
+                                }),
+                                ...nativeOnlyProperties({
+                                    minHeight: mobile ? '100%' : 200
+                                })
+                            }
+                        },
+                        RowDetail
+                    )
                 )
-            ),
-            rc(Menu, { itemCount, ...getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} })},
-                isOpen && rc(List, {
-                        itemCount,
-                        data: items,
-                        Row: Item,
-                        highlightedIndex,
-                        selectedItem,
-                        getItemProps,
-                        style: {
-                            // This will not work in react-native
-                            minHeight: '300px'
-                        }
+            )
+        );
+    }
+    // prettier-ignore
+    return rc(ErrorBoundary, null,
+        rc(FlexLabel, getLabelProps(),
+            title,
+            rc(SansLabel, null,
+                rc(InputAndButton, {
+                        ...comboboxProps,
+                        ref,
+                        isOpen
                     },
-                    RowDetail
+                    rc(Input, {
+                        ...inputProps,
+                        ...nativeOnlyProperties({
+                            onKeyPress: inputProps.onKeyDown,
+                            onKeyDown: undefined,
+                            'aria-autocomplete': undefined,
+                            'aria-controls': undefined,
+                            'aria-labellby': undefined,
+                            autoComplete: undefined
+                        })
+                    }),
+                    rc(ControllerButton, {type:'button', ...getToggleButtonProps()},
+                        rc(ArrowIcon, {isOpen})
+                    )
+                ),
+                rc(Menu, { itemCount, ...getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} })},
+                    isOpen && rc(List, {
+                            itemCount,
+                            data: items,
+                            Row: Item,
+                            highlightedIndex,
+                            selectedItem,
+                            getItemProps,
+                            style: {
+                                ...webOnlyProperties({
+                                    minHeight: '200px'
+                                }),
+                                ...nativeOnlyProperties({
+                                    minHeight: 200
+                                })
+                            }
+                        },
+                        RowDetail
+                    )
                 )
             )
         )

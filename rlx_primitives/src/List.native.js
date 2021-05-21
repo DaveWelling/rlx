@@ -20,7 +20,8 @@ const ItemRenderer = (
     children,
     highlightedIndex,
     selectedItem,
-    getItemProps
+    getItemProps,
+    index
 ) => {
     if (Array.isArray(children)) {
         throw new Error(
@@ -40,8 +41,7 @@ const ItemRenderer = (
         rowProps = {
             ...rowProps,
             ...getItemProps({
-                style,
-                item: items[index],
+                item,
                 index,
                 isActive: highlightedIndex === index,
                 isSelected: selectedItem === item
@@ -61,7 +61,7 @@ export default props => {
             style: {height: '100%', width: '100%'},
             name: 'list',
             data,
-            renderItem: ({ item }) => ItemRenderer(item, onClick, Row, children, highlightedIndex, selectedItem, getItemProps),
+            renderItem: ({ item, index }) => ItemRenderer(item, onClick, Row, children, highlightedIndex, selectedItem, getItemProps, index),
             keyExtractor: item => item._id
         }),
         // Shadow = Scroll Hint for top

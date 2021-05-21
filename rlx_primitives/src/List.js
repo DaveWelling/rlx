@@ -10,21 +10,21 @@ const BottomScrollHint = styled(View)`
     overflow: hidden;
     position: absolute;
     bottom: 0;
-    margin-bottom: -18px;
+    margin-bottom: -19px;
     z-index: 1;
     width: 100%;
     height: 18px;
-    box-shadow: 0px -8px 18px 3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px -8px 18px 3px rgba(255, 255, 255, 0.08);
 `;
 const TopScrollHint = styled(View)`
     overflow: hidden;
     position: absolute;
     top: 0;
-    margin-top: -18px;
+    margin-top: -19px;
     z-index: 1;
     width: 100%;
     height: 18px;
-    box-shadow: 0px 8px 18px 3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 8px 18px 3px rgba(255, 255, 255, 0.08);
 `;
 
 const ItemRenderer = (
@@ -81,7 +81,8 @@ export default function List(props) {
         highlightedIndex,
         selectedItem,
         getItemProps,
-        style: listStyle
+        style: listStyle,
+        itemHeightPixels
     } = props;
 
     const wrappedItemRenderer = useCallback(
@@ -110,7 +111,7 @@ export default function List(props) {
                     height,
                     width,
                     itemCount,
-                    itemSize: 35,
+                    itemSize: itemHeightPixels ?? 35,
                     // Fixed Size List expects 'itemData' to include any data neeed by the item renderer
                     // In our case, the item renderer is wrapped below
                     itemData: {items, onClick}

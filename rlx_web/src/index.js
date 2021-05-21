@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as components from 'rlx_components-native';
+import dialogPolyfill from 'dialog-polyfill';
 const { App } = components;
 const rc = React.createElement;
 
@@ -15,6 +16,9 @@ async function startup() {
         const inspector = await import('@xstate/inspect');
         inspector.inspect({ iframe: false });
     }
+    const dialog = document.querySelector('dialog');
+    dialogPolyfill.registerDialog(dialog);
+
     ReactDOM.render(rc(App, null), document.getElementById('root'));
 }
 

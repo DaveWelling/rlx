@@ -129,7 +129,10 @@ module.exports = {
             'react-native-drop-shadow': path.resolve(
                 './node_modules/react-native-drop-shadow'
             ),
-            'react-native-svg': path.resolve('./node_modules/react-native-svg')
+            'react-native-svg': path.resolve('./node_modules/react-native-svg'),
+            'react-native-exception-handler': path.resolve(
+                './node_modules/react-native-exception-handler'
+            )
         }
     },
     /**

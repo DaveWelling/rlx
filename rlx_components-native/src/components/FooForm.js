@@ -15,16 +15,16 @@ export default function FooForm() {
             propertyName: 'title',
             defaultValue: ''
         }),
-        rc(ShortText, {
-            title: 'Description',
-            propertyName: 'description',
-            defaultValue: ''
-        }),
         rc(DropDown, {
             title: 'Widget',
             propertyName: 'widget',
             defaultValue: {_id: 'none', title: 'Select a widget'},
             otherRecordType: 'widget'
+        }),
+        rc(ShortText, {
+            title: 'Description',
+            propertyName: 'description',
+            defaultValue: ''
         })
     );
 }
