@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import { Text } from 'react-native';
 import react from 'react';
-const { createElement: ce } = react;
+const { createElement: rc } = react;
 // export default props => {
 //     return ce(Text, { style: { color: 'white' } }, props.children);
 // };
 
-export default styled.Text.attrs({ name: 'text' })`
+const TextStyle = styled.Text.attrs({
+    name: 'text'
+})`
     color: white;
     font-size: 16px;
 `;
+
+export default props => {
+    const { children, ...otherProps } = props;
+    return rc(TextStyle, otherProps, children);
+};

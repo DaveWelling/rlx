@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import { createElement } from 'react';
+import styled, { ThemeContext } from 'styled-components';
+import { createElement, useContext } from 'react';
 import useActiveRecord from '../../hooks/useActiveRecord';
-import useWindowDimensions from '../../utilities/useWindowDimensions';
 import { View } from 'rlx_primitives';
 import StyledSummaryDetail from './StyledSummaryDetail';
 
@@ -38,12 +37,12 @@ export default function SummaryDetail({ children }) {
         );
     }
     const activeRecord = useActiveRecord();
-    const dimensions = useWindowDimensions();
+    const theme = useContext(ThemeContext);
     if (activeRecord.record == null) {
         return rc(SummaryOnly, { name: 'summary-only' }, children[0]);
     }
 
-    if (dimensions.width < MOBILE_BREAKPOINT || dimensions.height < MOBILE_BREAKPOINT) {
+    if (theme.mobile) {
         return rc(DetailOnly, null, children[1]);
     } else {
         return rc(

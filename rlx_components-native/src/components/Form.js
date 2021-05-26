@@ -21,8 +21,12 @@ const Title = styled(h3)`
 `;
 
 const FormFooter = styled(View)`
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
     flex-direction: row;
     justify-content: flex-end;
+    min-height: 32px;
 `;
 
 export default function Form({ children, title }) {

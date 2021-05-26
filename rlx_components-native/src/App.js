@@ -9,9 +9,7 @@ import EventBoundary from './components/EventBoundary';
 import ActiveRecord from './components/ActiveRecord';
 import ActionButton from './components/ActionButton';
 import { View, h1, App } from 'rlx_primitives';
-import useWindowDimensions from './utilities/useWindowDimensions';
-// TODO: Extract this as part of theming.
-const MOBILE_BREAKPOINT = 479;
+import useTheme from './hooks/useTheme';
 
 const AppTitle = styled(h1)`
     margin: 6px;
@@ -26,11 +24,9 @@ const Summary = styled(View).attrs({ name: 'Summary' })`
 const rc = createElement;
 const recordType0 = 'widget';
 const recordType1 = 'foo';
-const theme = {};
 
 export default function Application() {
-    const { height, width } = useWindowDimensions();
-    theme.mobile = height < MOBILE_BREAKPOINT || width < MOBILE_BREAKPOINT;
+    const theme = useTheme();
     // prettier-ignore
     return rc(ThemeProvider, {theme},
         rc(App, {name: 'app'},

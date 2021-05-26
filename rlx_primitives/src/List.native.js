@@ -1,37 +1,37 @@
 import react from 'react';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import reactNative from 'react-native';
 import View from './View';
 import DropShadow from 'react-native-drop-shadow';
 
 const { FlatList } = reactNative;
 
-const { Fragment, createElement: rc } = react;
+const { Fragment, createElement: rc, useContext } = react;
 
-const BoundedFlatList = styled(FlatList).attrs({ name: 'BoundedFlatList' })`
+const BoundedFlatList = styled(FlatList).attrs({
+    name: 'BoundedFlatList',
+    initialNumToRender: 50
+})`
     flex-grow: 0;
     flex: 1;
 `;
 
-const ItemRenderer = (
-    item,
-    onClick,
-    Row,
-    children,
-    highlightedIndex,
-    selectedItem,
-    getItemProps,
-    index
-) => {
-    if (Array.isArray(children)) {
-        throw new Error(
-            "You've passed an array for children, but only one component is allowed for RowDetail (children) of a List.  Maybe enclose your components in a container component."
-        );
-    }
+const ItemRenderer = props => {
+    const {
+        item,
+        onClick,
+        Row,
+        highlightedIndex,
+        selectedItem,
+        getItemProps,
+        index,
+        theme,
+        RowDetail
+    } = props;
     let rowProps = {
-        name: 'grid-row',
+        name: 'list-row',
         onPress: () => {
-            onClick(item._id);
+            onClick(item);
         }
     };
 
@@ -49,19 +49,34 @@ const ItemRenderer = (
         };
     }
 
-    return rc(Row, rowProps, children(item));
+    return rc(
+        Row,
+        rowProps,
+        rc(RowDetail, {
+            item,
+            theme
+        })
+    );
 };
 
 export default props => {
-    const { data, onClick, Row, children, highlightedIndex, selectedItem, getItemProps } =
-        props;
+    const {
+        data,
+        onClick,
+        Row,
+        RowDetail,
+        highlightedIndex,
+        selectedItem,
+        getItemProps
+    } = props;
+    const theme = useContext(ThemeContext);
     // prettier-ignore
     return rc(Fragment, null,
         rc(BoundedFlatList, {
             style: {height: '100%', width: '100%'},
             name: 'list',
             data,
-            renderItem: ({ item, index }) => ItemRenderer(item, onClick, Row, children, highlightedIndex, selectedItem, getItemProps, index),
+            renderItem: ({ item, index }) => rc(ItemRenderer, {item, onClick, Row, highlightedIndex, selectedItem, getItemProps, index, theme, RowDetail}),
             keyExtractor: item => item._id
         }),
         // Shadow = Scroll Hint for top

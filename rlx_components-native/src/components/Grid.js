@@ -39,19 +39,19 @@ const Row = styled(Text)`
     border-bottom-color: gray;
 `;
 
-const RowDetail = item => rc(Text, null, item.title);
+const RowDetail = ({ item }) => rc(Text, null, item.title);
 
 function Grid({ recordType, title }) {
     const [data, itemCount] = useLokiView(recordType, `${recordType}_default`);
     const [, publish] = useEventSink();
-    function onClick(_id) {
-        publish(`edit_${recordType}`, _id);
+    function onClick(item) {
+        publish(`edit_${recordType}`, item._id);
     }
     // prettier-ignore
     return rc(StyledGrid, {name: 'grid'},
         rc(GridTitle, {name: 'grid-title'}, title),
         rc(GridBody, {name: 'grid-body'},
-            rc(List, { data, itemCount, onClick, Row }, RowDetail)
+            rc(List, { data, itemCount, onClick, Row, RowDetail })
         )
     );
 }

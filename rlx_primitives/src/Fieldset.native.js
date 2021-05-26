@@ -1,5 +1,10 @@
+import react from 'react';
 import styled from 'styled-components';
+import View from './View';
 import { ScrollView } from 'react-native';
+
+const { createElement: rc } = react;
+
 // export default styled.View.attrs({ name: 'fieldset', overflow: 'scroll' })`
 //     padding: 6px;
 //     margin: 4px 8px 4px 8px;
@@ -9,11 +14,17 @@ import { ScrollView } from 'react-native';
 //     flex-grow: 1;
 // `;
 
-export default styled(ScrollView).attrs({ name: 'fieldset' })`
+const FieldSetStyle = styled(View).attrs({ name: 'fieldset' })`
     padding: 6px;
     margin: 4px 8px 4px 8px;
     border-radius: 2px;
     border: none;
     background-color: rgba(255, 255, 255, 0.05);
-    /* flex-grow: 1; */
+    flex-grow: 1;
+    flex-shrink: 1;
 `;
+
+export default function FieldSet(props) {
+    const { children, ...otherProps } = props;
+    return rc(FieldSetStyle, otherProps, rc(ScrollView, null, children));
+}

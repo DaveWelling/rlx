@@ -1,10 +1,10 @@
 import react from 'react';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import View from './View';
 
-const { createElement: rc, useCallback } = react;
+const { createElement: rc, useContext } = react;
 
 const BottomScrollHint = styled(View)`
     overflow: hidden;
@@ -27,31 +27,26 @@ const TopScrollHint = styled(View)`
     box-shadow: 0px 8px 18px 3px rgba(255, 255, 255, 0.08);
 `;
 
-const ItemRenderer = (
-    data,
-    index,
-    style,
-    Row,
-    children,
-    highlightedIndex,
-    selectedItem,
-    getItemProps
-) => {
-    const { items, onClick } = data;
-    if (Array.isArray(children)) {
-        throw new Error(
-            "You've passed an array for children, but only one component is allowed for RowDetail (children) of a List.  Maybe enclose your components in a container component."
-        );
-    }
+const ItemRenderer = ({ data, index, style }) => {
+    const {
+        items,
+        onClick,
+        Row,
+        RowDetail,
+        highlightedIndex,
+        selectedItem,
+        getItemProps,
+        theme
+    } = data;
     // Most of these properties are used by the FixedSizedList to control what is rendered
     // in the list's visible area.
     const item = items[index];
     let rowProps = {
-        name: 'grid-row',
+        name: 'list-row',
         id: item._id,
         key: item._id,
         'data-id': item._id,
-        onClick: e => onClick(e.target.dataset.id),
+        onClick: e => onClick(item),
         style
     };
     // if getItemProps is passed, it means this is a dropdown list created using downshift.
@@ -68,7 +63,7 @@ const ItemRenderer = (
             })
         };
     }
-    return rc(Row, rowProps, children(items[index]));
+    return rc(Row, rowProps, rc(RowDetail, { item: items[index], theme, onClick }));
 };
 
 export default function List(props) {
@@ -76,7 +71,7 @@ export default function List(props) {
         itemCount,
         data: items,
         Row,
-        children,
+        RowDetail,
         onClick,
         highlightedIndex,
         selectedItem,
@@ -84,21 +79,7 @@ export default function List(props) {
         style: listStyle,
         itemHeightPixels
     } = props;
-
-    const wrappedItemRenderer = useCallback(
-        ({ data, index, style }) =>
-            ItemRenderer(
-                data,
-                index,
-                style,
-                Row,
-                children,
-                highlightedIndex,
-                selectedItem,
-                getItemProps
-            ),
-        [Row, children]
-    );
+    const theme = useContext(ThemeContext);
     // prettier-ignore
     return rc(View, {style: {width: '100%', overflow: 'hidden', ...listStyle}},
         rc(TopScrollHint),
@@ -112,11 +93,10 @@ export default function List(props) {
                     width,
                     itemCount,
                     itemSize: itemHeightPixels ?? 35,
-                    // Fixed Size List expects 'itemData' to include any data neeed by the item renderer
-                    // In our case, the item renderer is wrapped below
-                    itemData: {items, onClick}
+                    // Fixed Size List expects 'itemData' to include any data needed by the item renderer
+                    itemData: {items, onClick, Row, RowDetail, theme, selectedItem, highlightedIndex, getItemProps}
                 },
-                wrappedItemRenderer
+                ItemRenderer
             )
         ),
         rc(BottomScrollHint)

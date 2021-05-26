@@ -18,4 +18,5 @@ export { default as nativeOnlyProperties } from './nativeOnlyProperties';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as App } from './App';
 export { default as Modal } from './Modal';
+export { default as Pressable } from './Pressable';
 export * from './headers';

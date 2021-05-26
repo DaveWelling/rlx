@@ -6,7 +6,7 @@ const rc = react.createElement;
 const { TextInput } = reactNative;
 
 const Input = styled(TextInput).attrs({
-    name: 'TextInput',
+    name: 'text-input',
     color: 'white'
 })`
     font-size: 16px;

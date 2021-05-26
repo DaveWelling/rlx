@@ -2,10 +2,10 @@ import react from 'react';
 import styled from 'styled-components';
 const rc = react.createElement;
 
-const Input = styled.input.attrs({ name: 'text', type: 'textbox' })`
+const Input = styled.input.attrs({ name: 'text-input', type: 'textbox' })`
     font-size: 16px;
     margin: 6px;
-    padding: 3px;
+    padding: 6px;
     border-radius: 3px;
     border: none;
     color: white;

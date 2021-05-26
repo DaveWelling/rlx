@@ -9,17 +9,15 @@ const Container = styled(View).attrs({ name: 'label' })`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: baseline;
+    max-width: 350px;
 `;
-const Label = styled.label`
-    padding-bottom: 5px;
-    line-height: 35px;
-`;
+
 export default props => {
     const [title, ...children] = props.children;
     // prettier-ignore
     return rc(Container, null,
-        rc(Label, null, title),
+        rc('label', null, title),
         children
     );
 };
