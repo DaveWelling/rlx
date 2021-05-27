@@ -10,7 +10,7 @@ const { Fragment, createElement: rc, useContext } = react;
 
 const BoundedFlatList = styled(FlatList).attrs({
     name: 'BoundedFlatList',
-    initialNumToRender: 50
+    initialNumToRender: 12
 })`
     flex-grow: 0;
     flex: 1;

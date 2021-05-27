@@ -18,7 +18,7 @@ export default function FooForm() {
         rc(DropDown, {
             title: 'Widget',
             propertyName: 'widget',
-            defaultValue: {_id: 'none', title: 'Select a widget'},
+            placeholder: 'Select a widget',
             otherRecordType: 'widget'
         }),
         rc(ShortText, {

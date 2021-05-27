@@ -31,6 +31,7 @@ const RowDetailStyle = styled(Text).attrs({
     name: 'row-detail'
 })`
     line-height: ${props => props.theme.listLineHeight};
+    text-align: center;
 `;
 
 const RowDetail = ({ item, theme }) => {
@@ -44,6 +45,7 @@ const Menu = styled(View).attrs({ name: 'Menu', block: true })({
         if (props?.theme.mobile) return '100%';
         return props.itemCount < 5 ? props.itemCount * 42 + 'px' : '200px';
     },
+    width: '100%',
     flexGrow: props => (props?.style?.visibility === 'collapse' ? 0 : 1)
 });
 const Item = styled(Pressable).attrs({ name: 'Item', block: true })(
@@ -51,6 +53,10 @@ const Item = styled(Pressable).attrs({ name: 'Item', block: true })(
         position: 'relative',
         lineHeight: props => props.theme.listLineHeight,
         textAlign: 'center',
+        borderColor: 'transparent',
+        borderStyle: 'solid',
+        borderBottomWidth: '1px',
+        borderBottomColor: 'gray',
         background: '#ffffff10',
         ...webOnlyProperties({
             overflowX: 'hidden',
@@ -146,14 +152,13 @@ const FlexLabel = styled(Label).attrs({ name: 'FlexLabel' })({
 
 const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })`
     margin: 6px;
-    /* min-width: 300px; */
     flex-grow: 1;
 `;
 
 export default function DropDown(props) {
     const { mobile } = useContext(ThemeContext);
     const { title, value, setValue, disabled, _id } = useFormControl(props);
-    const { defaultValue, otherRecordType } = props || {};
+    const { defaultValue, otherRecordType, placeholder } = props || {};
     const [criteria, setCriteria] = useState({ sort: 'title' });
     const [items, itemCount] = useLokiView(
         otherRecordType,
@@ -201,7 +206,7 @@ export default function DropDown(props) {
             setValue(selectedItem);
         }
     });
-    const inputProps = getInputProps({ type: 'text' });
+    const inputProps = getInputProps({ type: 'text', placeholder });
     // Open the menu if the input gets focus.
     inputProps.onFocus = () => !isOpen && openMenu();
     inputProps.onBlur = () => {};

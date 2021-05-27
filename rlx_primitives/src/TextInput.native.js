@@ -5,10 +5,11 @@ import styled from 'styled-components';
 const rc = react.createElement;
 const { TextInput } = reactNative;
 
-const Input = styled(TextInput).attrs({
+const Input = styled(TextInput).attrs(({ theme }) => ({
     name: 'text-input',
-    color: 'white'
-})`
+    color: theme.defaultFontColor,
+    placeholderTextColor: theme.disabledFontColor
+}))`
     font-size: 16px;
     margin: 6px;
     padding: 6px;

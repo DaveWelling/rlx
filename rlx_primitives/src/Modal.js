@@ -40,6 +40,7 @@ export default forwardRef((props, ref) => {
         dialog.style.width = '100%';
         dialog.style.maxHeight = '100%';
         dialog.style.maxWidth = '100%';
+        dialog.style.border = 'none';
     }, [dialog]);
     return ReactDOM.createPortal(rc(ModalContent, { ref }, props.children), dialog);
 });

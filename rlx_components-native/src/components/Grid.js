@@ -31,8 +31,8 @@ const GridBody = styled(View).attrs({ name: 'GridBody' })`
 const Row = styled(Text)`
     background-color: rgba(255, 255, 255, 0.1);
     text-align: center;
-    height: 36px;
-    line-height: 36px;
+    height: ${({ theme }) => theme.listLineHeight};
+    line-height: ${({ theme }) => theme.listLineHeight};
     border-color: transparent;
     border-style: solid;
     border-bottom-width: 1px;

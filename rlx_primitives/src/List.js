@@ -92,7 +92,7 @@ export default function List(props) {
                     height,
                     width,
                     itemCount,
-                    itemSize: itemHeightPixels ?? 35,
+                    itemSize: itemHeightPixels ?? theme.listLineHeightPixels,
                     // Fixed Size List expects 'itemData' to include any data needed by the item renderer
                     itemData: {items, onClick, Row, RowDetail, theme, selectedItem, highlightedIndex, getItemProps}
                 },

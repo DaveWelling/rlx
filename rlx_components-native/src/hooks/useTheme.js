@@ -11,7 +11,9 @@ export default function useTheme() {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         defaultFontColor: 'white',
         defaultFont: 'Arial',
+        disabledFontColor: 'gray',
         listLineHeight: '32px',
+        listLineHeightPixels: 32, // react-window FixedSizeList requires numeric value.
         borderRadius: '3px',
         defaultMargin: '6px',
         button: {
@@ -26,6 +28,7 @@ export default function useTheme() {
         theme = {
             ...theme,
             listLineHeight: '67px',
+            listLineHeightPixels: 67, // react-window FixedSizeList requires numeric value.
             borderRadius: '6px',
             button: {
                 ...theme.button,
