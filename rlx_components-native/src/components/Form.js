@@ -12,7 +12,7 @@ const rc = react.createElement;
 export const FormContext = react.createContext();
 
 const StyledForm = styled(PrimitiveForm).attrs({ name: 'StyledForm' })`
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
     flex-grow: 1;
 `;
 

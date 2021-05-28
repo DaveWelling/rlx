@@ -4,7 +4,7 @@ export default styled.fieldset.attrs({ name: 'fieldset' })`
     margin: 4px 8px 4px 8px;
     border-radius: 2px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: ${({ theme }) => theme.backgroundColor};
     flex-grow: 1;
     overflow-y: auto;
 `;

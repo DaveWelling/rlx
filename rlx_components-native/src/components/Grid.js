@@ -6,7 +6,7 @@ import { View, h3, List, Text } from 'rlx_primitives';
 const rc = React.createElement;
 
 const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
-    background-color: black;
+    background-color: ${({ theme }) => theme.backgroundColor};
     padding-top: 2px;
     padding-bottom: 2px;
     border-style: solid;
@@ -17,7 +17,7 @@ const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
 `;
 const GridTitle = styled(h3)`
     margin: 6px;
-    color: rgba(255, 255, 255, 0.8);
+    color: ${({ theme }) => theme.defaultFontColor};
 `;
 
 const GridBody = styled(View).attrs({ name: 'GridBody' })`

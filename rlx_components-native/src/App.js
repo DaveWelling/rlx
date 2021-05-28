@@ -20,6 +20,14 @@ const Summary = styled(View).attrs({ name: 'Summary' })`
     flex-direction: column;
     flex-grow: 1;
 `;
+const ButtonBar = styled(View)`
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    /* min-height: 32px; */
+`;
 
 const rc = createElement;
 const recordType0 = 'widget';
@@ -47,7 +55,9 @@ export default function Application() {
                     rc(SummaryDetail, null,
                         rc(Summary, null,
                             rc(Grid, {title: `Select a ${recordType1}`, recordType: recordType1}),
-                            rc(ActionButton, {actionType: 'new', title: 'Add Foo'})
+                            rc(ButtonBar, null,
+                                rc(ActionButton, {actionType: 'new', title: 'Add Foo'})
+                            )
                         ),
                         rc(FooForm)
                     )

@@ -15,7 +15,7 @@ const Input = styled(TextInput).attrs(({ theme }) => ({
     padding: 6px;
     border-radius: 3px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 export default react.forwardRef(function TextInput(props, ref) {

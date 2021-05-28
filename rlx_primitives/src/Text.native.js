@@ -9,7 +9,7 @@ const { createElement: rc } = react;
 const TextStyle = styled.Text.attrs({
     name: 'text'
 })`
-    color: white;
+    color: ${({ theme }) => theme.defaultFontColor};
     font-size: 16px;
 `;
 

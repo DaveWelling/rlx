@@ -6,7 +6,7 @@ export default styled(KeyboardAvoidingView).attrs({
     behavior: Platform.OS === 'ios' ? 'padding' : 'height'
 })`
     flex: 1;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: ${({ theme }) => theme.baseBackgroundColor};
     color: white;
     height: 100%;
     flex-direction: column;

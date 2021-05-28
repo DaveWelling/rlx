@@ -9,7 +9,7 @@ const Input = styled.input.attrs({ name: 'text-input', type: 'textbox' })`
     border-radius: 3px;
     border: none;
     color: white;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 // downshift dropdowns require a ref

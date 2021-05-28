@@ -57,7 +57,7 @@ const Item = styled(Pressable).attrs({ name: 'Item', block: true })(
         borderStyle: 'solid',
         borderBottomWidth: '1px',
         borderBottomColor: 'gray',
-        background: '#ffffff10',
+        background: props => props.theme.backgroundColor,
         ...webOnlyProperties({
             overflowX: 'hidden',
             cursor: 'pointer'
@@ -127,7 +127,7 @@ let InputAndButton = styled(View).attrs({ name: 'InputAndButton' })`
     display: flex;
     flex-direction: row;
     flex-grow: 0;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-left-radius: ${props => (props.isOpen ? '0' : '3px')};

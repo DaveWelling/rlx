@@ -13,3 +13,20 @@ body {
 #root {
     height: 100%;
 }
+
+/* for Material Design ripples */
+span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 300ms linear;
+    background-color: rgba(255, 255, 255, 0.7);
+    /* background-color: red; */
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

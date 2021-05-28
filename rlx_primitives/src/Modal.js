@@ -9,7 +9,7 @@ const ModalContent = styled(View).attrs({
     name: 'modal'
 })`
     top: 0;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: ${({ theme }) => theme.baseBackgroundColor};
     color: white;
     height: 100%;
     flex-direction: column;
