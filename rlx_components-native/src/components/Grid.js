@@ -2,16 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView';
 import useEventSink from '../hooks/useEventSink';
-import { View, h3, List, Text } from 'rlx_primitives';
+import { View, h3, List, Text, fromTheme } from 'rlx_primitives';
 const rc = React.createElement;
 
 const StyledGrid = styled(View).attrs({ name: 'StyledGrid' })`
-    background-color: ${({ theme }) => theme.backgroundColor};
     padding-top: 2px;
     padding-bottom: 2px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgba(255, 255, 255, 0.1);
+    border: none;
     flex-grow: 1;
     flex-direction: column;
 `;
@@ -29,10 +26,10 @@ const GridBody = styled(View).attrs({ name: 'GridBody' })`
 `;
 
 const Row = styled(Text)`
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
     text-align: center;
-    height: ${({ theme }) => theme.listLineHeight};
-    line-height: ${({ theme }) => theme.listLineHeight};
+    height: ${fromTheme('listLineHeight')};
+    line-height: ${fromTheme('listLineHeight')};
     border-color: transparent;
     border-style: solid;
     border-bottom-width: 1px;
@@ -49,7 +46,7 @@ function Grid({ recordType, title }) {
     }
     // prettier-ignore
     return rc(StyledGrid, {name: 'grid'},
-        rc(GridTitle, {name: 'grid-title'}, title),
+        title && title.length && rc(GridTitle, {name: 'grid-title'}, title),
         rc(GridBody, {name: 'grid-body'},
             rc(List, { data, itemCount, onClick, Row, RowDetail })
         )

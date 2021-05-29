@@ -24,7 +24,7 @@ const TopScrollHint = styled(View)`
     z-index: 1;
     width: 100%;
     height: 18px;
-    box-shadow: 0px 8px 18px 3px rgba(255, 255, 255, 0.08);
+    box-shadow: 0px 8px 18px 3px rgba(0, 0, 0, 0.08);
 `;
 
 const ItemRenderer = ({ data, index, style }) => {
@@ -76,12 +76,12 @@ export default function List(props) {
         highlightedIndex,
         selectedItem,
         getItemProps,
-        style: listStyle,
-        itemHeightPixels
+        itemHeightPixels,
+        className
     } = props;
     const theme = useContext(ThemeContext);
     // prettier-ignore
-    return rc(View, {style: {width: '100%', overflow: 'hidden', ...listStyle}},
+    return rc(View, {style: {width: '100%', overflow: 'hidden'}, className},
         rc(TopScrollHint),
         rc(AutoSizer, { name: 'auto-sizer' }, ({ height, width }) =>
             rc(
@@ -92,7 +92,7 @@ export default function List(props) {
                     height,
                     width,
                     itemCount,
-                    itemSize: itemHeightPixels ?? theme.listLineHeightPixels,
+                    itemSize: itemHeightPixels ?? theme.listLineHeight,
                     // Fixed Size List expects 'itemData' to include any data needed by the item renderer
                     itemData: {items, onClick, Row, RowDetail, theme, selectedItem, highlightedIndex, getItemProps}
                 },

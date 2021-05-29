@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Text from './Text';
 import react from 'react';
+import fromTheme from '../fromTheme';
 const rc = react.createElement;
 
 const Container = styled.View.attrs({ name: 'label' })`
@@ -8,7 +9,7 @@ const Container = styled.View.attrs({ name: 'label' })`
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
-    max-width: 350px;
+    max-width: ${fromTheme('form', 'entryMaxWidth')};
 `;
 
 export default props => {

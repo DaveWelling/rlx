@@ -8,10 +8,11 @@ import FooForm from './components/FooForm';
 import EventBoundary from './components/EventBoundary';
 import ActiveRecord from './components/ActiveRecord';
 import ActionButton from './components/ActionButton';
-import { View, h1, App } from 'rlx_primitives';
+import Profile from './components/Profile';
+import { View, h2, App, Button } from 'rlx_primitives';
 import useTheme from './hooks/useTheme';
 
-const AppTitle = styled(h1)`
+const AppTitle = styled(h2)`
     margin: 6px;
 `;
 
@@ -26,7 +27,15 @@ const ButtonBar = styled(View)`
     flex-shrink: 0;
     flex-direction: row;
     justify-content: flex-end;
-    /* min-height: 32px; */
+    ${({ theme }) => theme.backgroundColor};
+`;
+const Header = styled(View)`
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const rc = createElement;
@@ -38,7 +47,10 @@ export default function Application() {
     // prettier-ignore
     return rc(ThemeProvider, {theme},
         rc(App, {name: 'app'},
-            rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),
+            rc(Header, null,
+                rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),
+                rc(Profile)
+            ),
             // rc(EventBoundary, {logEvents: true},
             //     rc(ActiveRecord, {recordType: recordType0},
             //         rc(SummaryDetail, null,

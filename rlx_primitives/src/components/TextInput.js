@@ -1,15 +1,16 @@
 import react from 'react';
 import styled from 'styled-components';
+import fromTheme from '../fromTheme';
 const rc = react.createElement;
 
 const Input = styled.input.attrs({ name: 'text-input', type: 'textbox' })`
-    font-size: 16px;
-    margin: 6px;
-    padding: 6px;
-    border-radius: 3px;
+    font-size: ${fromTheme('fontSize')};
+    margin: ${fromTheme('textMargin')};
+    padding: ${fromTheme('textPadding')};
+    border-radius: ${fromTheme('form', 'inputBorderRadius')};
     border: none;
-    color: white;
-    background-color: ${({ theme }) => theme.backgroundColor};
+    color: ${fromTheme('defaultFontColor')};
+    background-color: ${fromTheme('backgroundColor')};
 `;
 
 // downshift dropdowns require a ref

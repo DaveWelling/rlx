@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Text from './Text';
 import View from './View';
 import react from 'react';
+import fromTheme from '../fromTheme';
 const rc = react.createElement;
 
 // TODO:  link label to input with `for`, `forHtml` or whatever.
@@ -10,7 +11,7 @@ const Container = styled(View).attrs({ name: 'label' })`
     flex-wrap: wrap;
     flex-direction: row;
     align-items: baseline;
-    max-width: 350px;
+    max-width: ${fromTheme('form', 'entryMaxWidth')};
 `;
 
 export default props => {

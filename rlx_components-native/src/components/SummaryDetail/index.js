@@ -12,22 +12,22 @@ const rc = createElement;
 // between RN and web?
 
 const DetailOnly = styled(View).attrs({ name: 'DetailOnly' })`
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
     display: flex;
     margin: 8px;
     flex-direction: row;
     flex-grow: 1;
-    border: 4px solid rgba(255, 255, 255, 0.075);
+    border: none;
 `;
 
 const SummaryOnly = styled(View).attrs({ name: 'SummaryOnly' })`
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ theme }) => theme.backgroundColor};
     display: flex;
     margin: 8px;
     flex-direction: row;
     flex-grow: 1;
     min-width: 300px;
-    border: 4px solid rgba(255, 255, 255, 0.075);
+    border: none;
 `;
 
 export default function SummaryDetail({ children }) {

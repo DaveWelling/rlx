@@ -6,7 +6,6 @@ import styled from 'styled-components';
 // really using RN for tablet stuff though, so maybe not
 // a big deal.
 export default styled(Split).attrs({ name: 'StyledSummaryDetail' })`
-    background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     margin: 8px;
     flex-direction: row;
@@ -31,5 +30,5 @@ export default styled(Split).attrs({ name: 'StyledSummaryDetail' })`
         border-top: none;
         border-bottom: none;
     }
-    border: 4px solid rgba(255, 255, 255, 0.075);
+    border: none;
 `;

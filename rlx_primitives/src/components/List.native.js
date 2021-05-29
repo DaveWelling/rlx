@@ -91,7 +91,7 @@ export default props => {
             shadowOffset: { width: 0, height: 3},
             shadowRadius: 3
           }},
-          rc(View, {style:{height: 2, backgroundColor: 'white'}})
+          rc(View, {style:{height: 2, backgroundColor: 'gray'}})
         ),
         // Shadow = Scroll hint for bottom
         rc(DropShadow, {style: {

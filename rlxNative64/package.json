@@ -12,7 +12,9 @@
         "**GENKEY COMMENT**": "genKey will only be used to create new APK signing keys",
         "genKey": "\"C:/Program Files/Java/jdk1.8.0_251/bin/keytool\" -genkey -v -keystore rlx-release-key.keystore -alias rlx -keyalg RSA -keysize 2048 -validity 10000",
         "runRelease": "npx react-native run-android --variant=release",
-        "deploy": "adb install -r android/app/build/outputs/apk/release/app-release.apk"
+        "deploy": "adb install -r android/app/build/outputs/apk/release/app-release.apk",
+        "add": "npm install --legacy-peer-deps --package-lock-only --no-package-lock --prefix",
+        "postadd": "npm install --legacy-peer-deps "
     },
     "dependencies": {
         "react": "17.0.1",
@@ -20,6 +22,7 @@
         "react-native-drop-shadow": "^0.0.2",
         "react-native-exception-handler": "^2.10.10",
         "react-native-svg": "^12.1.1",
+        "react-native-vector-icons": "^8.1.0",
         "styled-components": "^5.3.0"
     },
     "devDependencies": {

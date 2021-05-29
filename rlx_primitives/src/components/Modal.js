@@ -1,5 +1,5 @@
-import react, { useLayoutEffect } from 'react';
-import styled from 'styled-components';
+import react, { useLayoutEffect, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import View from './View';
 import ReactDOM from 'react-dom';
 
@@ -9,7 +9,8 @@ const ModalContent = styled(View).attrs({
     name: 'modal'
 })`
     top: 0;
-    background-color: ${({ theme }) => theme.baseBackgroundColor};
+    background-color: ${({ theme, fullScreen }) =>
+        fullScreen ?? true ? theme.baseBackgroundColor : 'transparent'};
     color: white;
     height: 100%;
     flex-direction: column;
@@ -20,6 +21,8 @@ const ModalContent = styled(View).attrs({
 export default forwardRef((props, ref) => {
     const dialog = document.querySelector('dialog');
     const { visible } = props;
+    const theme = useContext(ThemeContext);
+
     useEffect(() => {
         if (visible && !dialog.open) {
             dialog.showModal();
@@ -40,7 +43,12 @@ export default forwardRef((props, ref) => {
         dialog.style.width = '100%';
         dialog.style.maxHeight = '100%';
         dialog.style.maxWidth = '100%';
+        dialog.style.background = '#ffffff60'; // Gray out the background
         dialog.style.border = 'none';
     }, [dialog]);
-    return ReactDOM.createPortal(rc(ModalContent, { ref }, props.children), dialog);
+    const { children, ...otherProps } = props;
+    return ReactDOM.createPortal(
+        rc(ModalContent, { ref, ...otherProps }, children),
+        dialog
+    );
 });

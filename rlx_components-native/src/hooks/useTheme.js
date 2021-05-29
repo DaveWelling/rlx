@@ -9,22 +9,35 @@ export default function useTheme() {
     const { height, width } = useWindowDimensions();
     const mobile = height < MOBILE_BREAKPOINT || width < MOBILE_BREAKPOINT;
     let theme = {
+        height,
+        width,
         mobile,
-        baseBackgroundColor: darkMode ? scheme['background-dark'] : scheme.background,
+        baseBackgroundColor: darkMode ? '#000' : scheme.background,
         // with each layer, progressively lightens/darkens the parent or baseBackgroundColor
-        backgroundColor: darkMode ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)',
         defaultFontColor: darkMode ? scheme['white-text'] : scheme['black-text'],
         defaultFont: 'Arial',
+        fontSize: 16,
         disabledFontColor: scheme['disabled-color'],
-        listLineHeight: '32px',
-        listLineHeightPixels: 32, // react-window FixedSizeList requires numeric value.
-        borderRadius: '3px',
-        defaultMargin: '6px',
+        listLineHeight: 35,
+        borderRadius: 3,
+        viewPadding: 6,
+        textMargin: 6,
+        textPadding: 6,
+        iconFont: 'material-icons',
+        iconSize: 24,
+        form: {
+            entryMaxWidth: 350,
+            inputBorderRadius: 3,
+            dropdownMinHeight: 200
+        },
         button: {
-            height: '32px',
-            maxWidth: '200px',
-            minWidth: '32px',
-            padding: '8px',
+            roundDiameter: 32,
+            fontColor: scheme['white-text'],
+            height: 32,
+            maxWidth: 200,
+            minWidth: 32,
+            padding: 8,
             primary: scheme['primary'],
             primaryHover: scheme['primary-hover'],
             primaryHighlight: scheme['primary-highlight'],
@@ -42,13 +55,24 @@ export default function useTheme() {
     if (mobile) {
         theme = {
             ...theme,
-            listLineHeight: '67px',
-            listLineHeightPixels: 67, // react-window FixedSizeList requires numeric value.
-            borderRadius: '6px',
+            listLineHeight: 70,
+            borderRadius: 6,
+            iconSize: 32,
+            form: {
+                ...theme.form,
+                dropdownMinHeight: '100%'
+            },
             button: {
                 ...theme.button,
-                height: '67px',
-                minWidth: '67px'
+                roundDiameter: 56,
+                roundBorderRadius: 28, // % doesn't work on react native
+                height: 64,
+                minWidth: 64,
+                // Remove hover states for mobile.
+                successHover: undefined,
+                primaryHover: undefined,
+                errorHover: undefined,
+                warnHover: undefined
             }
         };
     }

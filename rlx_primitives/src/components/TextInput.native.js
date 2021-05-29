@@ -1,6 +1,7 @@
 import reactNative from 'react-native';
 import react from 'react';
 import styled from 'styled-components';
+import fromTheme from '../fromTheme';
 
 const rc = react.createElement;
 const { TextInput } = reactNative;
@@ -10,12 +11,12 @@ const Input = styled(TextInput).attrs(({ theme }) => ({
     color: theme.defaultFontColor,
     placeholderTextColor: theme.disabledFontColor
 }))`
-    font-size: 16px;
-    margin: 6px;
-    padding: 6px;
-    border-radius: 3px;
+    font-size: ${fromTheme('fontSize')};
+    margin: ${fromTheme('textMargin')};
+    padding: ${fromTheme('textPadding')};
+    border-radius: ${fromTheme('form', 'inputBorderRadius')};
     border: none;
-    background-color: ${({ theme }) => theme.backgroundColor};
+    background-color: ${fromTheme('backgroundColor')};
 `;
 
 export default react.forwardRef(function TextInput(props, ref) {

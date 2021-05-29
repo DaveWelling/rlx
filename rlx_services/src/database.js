@@ -1,7 +1,7 @@
 import loki from 'lokijs';
 import cuid from 'cuid';
 
-const NUM_TEST_ROWS = 50;
+const NUM_TEST_ROWS = 5000;
 const shuffledSequence = shuffle();
 const db = new loki('rlx');
 const widgetCol = db.addCollection('widget', { indices: ['title'] });

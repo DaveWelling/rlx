@@ -3,7 +3,6 @@ import { createElement, useState, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import useLokiView from '../../hooks/useLokiView';
 import useFormControl from '../../hooks/useFormControl';
-
 import {
     View,
     Svg,
@@ -17,7 +16,8 @@ import {
     nativeOnlyProperties,
     ErrorBoundary,
     Modal,
-    Pressable
+    Pressable,
+    fromTheme
 } from 'rlx_primitives';
 
 // TODO: Move this to config?
@@ -30,7 +30,7 @@ const itemToString = item => (item == null ? '' : item.title);
 const RowDetailStyle = styled(Text).attrs({
     name: 'row-detail'
 })`
-    line-height: ${props => props.theme.listLineHeight};
+    line-height: ${fromTheme('listLineHeight')};
     text-align: center;
 `;
 
@@ -38,26 +38,34 @@ const RowDetail = ({ item, theme }) => {
     return rc(RowDetailStyle, { theme }, itemToString(item));
 };
 
-const Menu = styled(View).attrs({ name: 'Menu', block: true })({
-    // width: props => (props.theme.mobile ? '100%' : SELECT_WIDTH),
-    height: props => {
+const Menu = styled(View).attrs({ name: 'Menu', block: true })`
+    height: ${props => {
         if (props?.style?.visibility === 'collapse') return 0;
         if (props?.theme.mobile) return '100%';
         return props.itemCount < 5 ? props.itemCount * 42 + 'px' : '200px';
-    },
-    width: '100%',
-    flexGrow: props => (props?.style?.visibility === 'collapse' ? 0 : 1)
-});
+    }};
+    width: 100%;
+    flex-grow: ${props => (props?.style?.visibility === 'collapse' ? 0 : 1)};
+`;
+
+const DropdownList = styled(List)`
+    min-height: ${fromTheme('form', 'dropdownMinHeight')};
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: ${fromTheme('borderRadius')};
+    border-bottom-right-radius: ${fromTheme('borderRadius')};
+`;
+
 const Item = styled(Pressable).attrs({ name: 'Item', block: true })(
     {
         position: 'relative',
-        lineHeight: props => props.theme.listLineHeight,
+        lineHeight: fromTheme('listLineHeight'),
         textAlign: 'center',
         borderColor: 'transparent',
         borderStyle: 'solid',
         borderBottomWidth: '1px',
         borderBottomColor: 'gray',
-        background: props => props.theme.backgroundColor,
+        background: fromTheme('backgroundColor'),
         ...webOnlyProperties({
             overflowX: 'hidden',
             cursor: 'pointer'
@@ -128,10 +136,12 @@ let InputAndButton = styled(View).attrs({ name: 'InputAndButton' })`
     flex-direction: row;
     flex-grow: 0;
     background-color: ${({ theme }) => theme.backgroundColor};
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: ${props => (props.isOpen ? '0' : '3px')};
-    border-bottom-right-radius: ${props => (props.isOpen ? '0' : '3px')};
+    border-top-left-radius: ${fromTheme('borderRadius')};
+    border-top-right-radius: ${fromTheme('borderRadius')};
+    border-bottom-left-radius: ${props =>
+        props.isOpen ? '0' : props.theme.borderRadius + 'px'};
+    border-bottom-right-radius: ${props =>
+        props.isOpen ? '0' : props.theme.borderRadius + 'px'};
 `;
 
 let Input = styled(TextInput)`
@@ -151,12 +161,13 @@ const FlexLabel = styled(Label).attrs({ name: 'FlexLabel' })({
 });
 
 const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })`
-    margin: 6px;
+    margin: ${fromTheme('textMargin')};
     flex-grow: 1;
 `;
 
 export default function DropDown(props) {
-    const { mobile } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext);
+    const { mobile } = theme;
     const { title, value, setValue, disabled, _id } = useFormControl(props);
     const { defaultValue, otherRecordType, placeholder } = props || {};
     const [criteria, setCriteria] = useState({ sort: 'title' });
@@ -196,7 +207,7 @@ export default function DropDown(props) {
         scrollIntoView: () => {
             /* let list component do scrolling (if bother at all) */
         },
-        // TODO: Maybe inform list component when need to scroll because selected index changed
+        // TODO: Maybe (or maybe not) inform list component when need to scroll because selected index changed
         // onHighlightedIndexChange: event=>{
         //     const {highlightedIndex} = event;
         //     Maybe need to use a ref to list or something here and call a method on the list.
@@ -237,7 +248,7 @@ export default function DropDown(props) {
                     style: { flexGrow: 0 }
                 }),
                 rc(Menu, { itemCount, ...getMenuProps(), mobile},
-                    rc(List, {
+                    rc(DropdownList, {
                             itemCount,
                             data: items,
                             Row: Item,
@@ -245,15 +256,7 @@ export default function DropDown(props) {
                             highlightedIndex,
                             selectedItem,
                             getItemProps,
-                            itemHeightPixels: mobile ? 70 : 35,
-                            style: {
-                                ...webOnlyProperties({
-                                    minHeight: mobile ? '100%' : '200px'
-                                }),
-                                ...nativeOnlyProperties({
-                                    minHeight: mobile ? '100%' : 200
-                                })
-                            }
+                            itemHeightPixels: theme.listLineHeight
                         }
                     )
                 )
@@ -286,22 +289,14 @@ export default function DropDown(props) {
                     )
                 ),
                 rc(Menu, { itemCount, ...getMenuProps({ style: isOpen ? {} : {visibility: 'collapse'} })},
-                    isOpen && rc(List, {
+                    isOpen && rc(DropdownList, {
                             itemCount,
                             data: items,
                             Row: Item,
                             RowDetail,
                             highlightedIndex,
                             selectedItem,
-                            getItemProps,
-                            style: {
-                                ...webOnlyProperties({
-                                    minHeight: '200px'
-                                }),
-                                ...nativeOnlyProperties({
-                                    minHeight: 200
-                                })
-                            }
+                            getItemProps
                         }
                     )
                 )
