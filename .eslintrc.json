@@ -38,6 +38,7 @@
         "no-lone-blocks": 0,
         "no-only-tests/no-only-tests": 2,
         "no-prototype-builtins": 0,
+        "no-undef": "warn",
         "react/display-name": [
             1,
             {

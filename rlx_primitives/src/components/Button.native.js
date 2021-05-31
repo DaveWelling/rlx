@@ -6,6 +6,7 @@ import fromTheme from '../fromTheme';
 
 const { Pressable } = reactNative;
 const { createElement: rc, useContext, forwardRef } = react;
+
 const ButtonText = styled.Text`
     font-size: ${fromTheme('fontSize')};
     text-align: center;
@@ -13,6 +14,7 @@ const ButtonText = styled.Text`
     color: ${props =>
         props.disabled ? props.theme.disabledFontColor : props.theme.button.fontColor};
 `;
+
 const StyledButton = styled(Pressable).attrs({ name: 'button' })`
     max-width: ${fromTheme('button', 'maxWidth')};
     margin: ${fromTheme('textMargin')};
@@ -25,6 +27,7 @@ const StyledButton = styled(Pressable).attrs({ name: 'button' })`
     align-items: center;
     justify-content: center;
 `;
+
 const RoundButton = styled(StyledButton).attrs({ name: 'round-button' })`
     width: ${fromTheme('button', 'roundDiameter')};
     max-width: ${fromTheme('button', 'roundDiameter')};
@@ -32,10 +35,12 @@ const RoundButton = styled(StyledButton).attrs({ name: 'round-button' })`
     border-radius: ${fromTheme('button', 'roundBorderRadius')};
     flex-grow: 0;
 `;
+
 const StyledIcon = styled(Icon)`
     font-size: ${fromTheme('iconSize')};
     color: ${({ theme }) => theme.button.fontColor};
 `;
+
 export default forwardRef(function Button(props, ref) {
     const { value, disabled, icon, buttonStyle, onClick: onPress, children = [] } = props;
     const theme = useContext(ThemeContext);
