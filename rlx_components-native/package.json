@@ -14,6 +14,7 @@
         "@xstate/react": "^1.2.2",
         "cuid": "^2.1.8",
         "downshift": "file:../../downshift",
+        "localforage": "^1.9.0",
         "lodash.debounce": "^4.0.8",
         "lodash.get": "^4.4.2",
         "lodash.isequal": "^4.5.0",

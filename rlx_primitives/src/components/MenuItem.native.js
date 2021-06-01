@@ -1,8 +1,8 @@
 import { createElement } from 'react';
-import reactMenu from 'react-native-material-menu';
+import * as reactMenu from 'react-native-material-menu';
 const rc = createElement;
 
 export default function MenuItem(props) {
-    const { children, otherProps } = props;
-    return rc(reactMenu.MenuItem, otherProps, children);
+    const { children, onClick, ...otherProps } = props;
+    return rc(reactMenu.MenuItem, { onPress: onClick, ...otherProps }, children);
 }

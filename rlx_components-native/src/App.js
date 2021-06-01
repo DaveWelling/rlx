@@ -11,6 +11,7 @@ import ActionButton from './components/ActionButton';
 import Profile from './components/Profile';
 import { View, h2, App, Button } from 'rlx_primitives';
 import useTheme from './hooks/useTheme';
+import Theme from './components/Theme';
 
 const AppTitle = styled(h2)`
     margin: 6px;
@@ -43,9 +44,9 @@ const recordType0 = 'widget';
 const recordType1 = 'foo';
 
 export default function Application() {
-    const theme = useTheme();
+    //const theme = useTheme();
     // prettier-ignore
-    return rc(ThemeProvider, {theme},
+    return rc(Theme, null,
         rc(App, {name: 'app'},
             rc(Header, null,
                 rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),

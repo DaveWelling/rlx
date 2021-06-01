@@ -42,8 +42,20 @@ const StyledIcon = styled(Icon)`
 `;
 
 export default forwardRef(function Button(props, ref) {
-    const { value, disabled, icon, buttonStyle, onClick: onPress, children = [] } = props;
+    const {
+        value,
+        disabled,
+        icon,
+        buttonStyle,
+        onClick,
+        onPress: tempOnPress,
+        children = []
+    } = props;
     const theme = useContext(ThemeContext);
+    const onPress = e => {
+        onClick && onClick(e);
+        tempOnPress && tempOnPress(e);
+    };
     let adjustedChildren = [];
     if (icon) {
         // prettier-ignore

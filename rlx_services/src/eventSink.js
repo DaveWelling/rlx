@@ -8,6 +8,10 @@ export function logEvents(enable) {
  */
 export default function eventSink({ subscriptions, logEvents = false }) {
     shouldLogEvents = logEvents;
+    function unsubscribe(eventName, callback) {
+        const eventSubscriptions = subscriptions[eventName];
+        eventSubscriptions.splice(eventSubscriptions.indexOf(callback));
+    }
     function subscribe(eventName, callback) {
         subscriptions[eventName] = subscriptions[eventName] || [];
         const eventSubscriptions = subscriptions[eventName];
@@ -20,13 +24,15 @@ export default function eventSink({ subscriptions, logEvents = false }) {
         if (shouldLogEvents) {
             console.info(
                 `type: ${eventName}, payload: ${
-                    typeof payload === 'object' ? JSON.stringify(payload, null, 3) : payload
+                    typeof payload === 'object'
+                        ? JSON.stringify(payload, null, 3)
+                        : payload
                 }`
             );
         }
         const eventSubscriptions = subscriptions[eventName] || [];
-        eventSubscriptions.forEach((callback) => callback(payload));
+        eventSubscriptions.forEach(callback => callback(payload));
     }
 
-    return [subscribe, publish];
+    return [subscribe, publish, unsubscribe];
 }

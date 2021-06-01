@@ -1,18 +1,24 @@
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+const rc = React.createElement;
 import useWindowDimensions from '../utilities/useWindowDimensions';
 import useDarkMode from '../utilities/useDarkMode';
 import { COMMON_COLOR_SCHEME } from 'rlx_primitives';
 //const { COLORS, BRAND_THEMES, COMMON_COLOR_SCHEME: scheme } = colorScheme;
 const scheme = COMMON_COLOR_SCHEME;
+
 const MOBILE_BREAKPOINT = 479;
 
-export default function useTheme() {
-    const darkMode = useDarkMode();
+export default function Theme({ children }) {
+    const [darkMode, setDarkMode] = useDarkMode();
     const { height, width } = useWindowDimensions();
     const mobile = height < MOBILE_BREAKPOINT || width < MOBILE_BREAKPOINT;
     let theme = {
         height,
         width,
         mobile,
+        darkMode,
+        setDarkMode,
         baseBackgroundColor: darkMode ? '#000' : scheme.background,
         // with each layer, progressively lightens/darkens the parent or baseBackgroundColor
         backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)',
@@ -82,5 +88,5 @@ export default function useTheme() {
             }
         };
     }
-    return theme;
+    return rc(ThemeProvider, { theme }, children);
 }

@@ -1,54 +1,54 @@
-import {
-    useRef,
-    useCallback,
-    useState,
-    createElement,
-    useEffect,
-    useContext
-} from 'react';
+import { useContext, useCallback, useState, createElement } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import { Modal, View, Text, Button, fromTheme, webOnlyStyles } from 'rlx_primitives';
+import {
+    Menu,
+    MenuItem,
+    Switch,
+    View,
+    Text,
+    Button,
+    fromTheme,
+    webOnlyStyles,
+    nativeOnlyStyles
+} from 'rlx_primitives';
+import ActionSwitch from './ActionSwitch';
 const rc = createElement;
 
-let Menu = styled(View)`
-    background-color: ${({ theme }) => theme.baseBackgroundColor};
-    color: ${({ theme }) => theme.defaultFontColor};
+let MenuStyle = styled(Menu)`
+    background-color: ${fromTheme('menu', 'backgroundColor')};
+    padding: ${fromTheme('viewPadding')};
+    margin-right: ${fromTheme('textMargin')};
     border-radius: ${fromTheme('borderRadius')};
-    position: absolute;
-    width: auto;
-    height: auto;
-    padding: 16px;
 `;
-Menu = webOnlyStyles(Menu)`
-    box-shadow: 4px 4px 4px 0px darkgray;
-`;
-export default function Profile(props) {
-    const buttonRef = useRef();
-    const theme = useContext(ThemeContext);
-    const [menuPosition, setMenuPosition] = useState({ right: 0, top: 0 });
-    const [isMenuVisible, setIsMenuVisible] = useState(false);
-    const toggleDisplayMenu = useCallback(e => {
-        e.stopPropagation();
-        setIsMenuVisible(value => !value);
-    });
-    useEffect(() => {
-        if (buttonRef.current) {
-            const b = buttonRef.current;
-            setMenuPosition({
-                right: theme.width - b.offsetLeft,
-                top: b.offsetTop + b.offsetHeight
-            });
-        }
-    }, [buttonRef.current]);
 
+MenuStyle = webOnlyStyles(MenuStyle)`
+    list-style-type: none;
+`;
+
+MenuStyle = nativeOnlyStyles(MenuStyle)`
+    margin-top: 52px;
+`;
+
+const ProfileStyle = styled(View)`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+`;
+
+export default function Profile(props) {
+    const { darkMode, setDarkMode } = useContext(ThemeContext);
+    const onClick = checked => {
+        setDarkMode(checked);
+    };
     // prettier-ignore
-    return rc(Button, { ref: buttonRef, icon: 'person', buttonStyle: 'round', onClick: toggleDisplayMenu},
-        // If you don't include the isMenuVisible, this modal will always render, it just won't be visible
-        // until you try to render some other modal and wonder why this is showing.
-        isMenuVisible && rc(Modal, {visible: isMenuVisible, fullScreen: false, onClick: toggleDisplayMenu },
-            rc(Menu, {style: {right: menuPosition.right, top: menuPosition.top}},
-                rc(Text, null, 'Dark Mode')
+    return rc(ProfileStyle, null,
+        rc(MenuStyle, {
+                direction: 'bottom',
+                menuButton: rc(Button, { icon: 'person', buttonStyle: 'round' })
+            },
+            rc(MenuItem, null,
+                rc(ActionSwitch, {onClick, value: darkMode, falseLabel: 'Dark Mode', trueLabel: ''})
             )
         )
-    )
+    );
 }
