@@ -5,6 +5,7 @@ const osPreference = getOsDarkModePreference();
 
 export default () => {
     const [darkModePreference, setDarkModePreference] = useState(osPreference);
+    // Check for a previous preference override the first time only
     useEffect(async () => {
         const prefersDarkMode = await localForage.getItem('prefersDarkMode');
         if (prefersDarkMode != null) {
@@ -15,15 +16,16 @@ export default () => {
                 return prev;
             });
         }
-    });
-    const overrideDarkMode = prefersDarkMode => {
-        setDarkModePreference(async prev => {
+    }, []);
+    const overrideDarkMode = async prefersDarkMode => {
+        setDarkModePreference(prev => {
             if (prefersDarkMode !== prev) {
-                await localForage.setItem('prefersDarkMode', prefersDarkMode);
                 return prefersDarkMode;
             }
             return prev;
         });
+        // Store preference overrides for recall on startup (see useEffect above).
+        await localForage.setItem('prefersDarkMode', prefersDarkMode);
     };
     return [darkModePreference, overrideDarkMode];
 };

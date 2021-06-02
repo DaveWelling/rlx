@@ -19,6 +19,9 @@ let MenuStyle = styled(Menu)`
     padding: ${fromTheme('viewPadding')};
     margin-right: ${fromTheme('textMargin')};
     border-radius: ${fromTheme('borderRadius')};
+    border-style: solid;
+    border-width: 1px;
+    border-color: ${fromTheme('menu', 'borderColor')};
 `;
 
 MenuStyle = webOnlyStyles(MenuStyle)`
