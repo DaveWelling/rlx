@@ -1,7 +1,0 @@
-{
-    "reporter": "spec",
-    "recursive": true,
-    "colors": true,
-    "spec": "./**/*.unit.js",
-    "extension": "mjs"
-}
