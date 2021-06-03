@@ -8,7 +8,8 @@ import {
     webOnlyProperties,
     webOnlyStyles,
     Pressable,
-    fromTheme
+    fromTheme,
+    nativeOnlyStyles
 } from 'rlx_primitives';
 
 export const RowDetailStyle = styled(Text).attrs({
@@ -115,14 +116,15 @@ export const FlexLabel = styled(Label).attrs({
     displayName: 'flex-label'
 })`
     flex: 1;
-    display: 'flex';
-    flex-direction: 'row';
-    flex-wrap: 'wrap';
-    margin-top: ${fromTheme('textMargin')};
-    margin-bottom: ${fromTheme('textMargin')};
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 `;
 
-export const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })`
+let PreSansLabel = styled(View).attrs({ name: 'SansLabel', block: true })`
     margin-left: ${fromTheme('textMargin')};
     flex-grow: 1;
+`;
+export const SansLabel = nativeOnlyStyles(PreSansLabel)`
+    margin-right: ${fromTheme('textMargin')};
 `;

@@ -19,7 +19,7 @@ const StyledButton = styled(Pressable).attrs({ name: 'button' })`
     max-width: ${fromTheme('button', 'maxWidth')};
     margin: ${fromTheme('textMargin')};
     border-radius: ${fromTheme('borderRadius')};
-    background-color: ${fromTheme('button', 'primary')};
+    background-color: ${({ theme, color }) => theme.button[color]};
     display: flex;
     flex-grow: 0;
     flex-direction: row;
@@ -49,6 +49,7 @@ export default forwardRef(function Button(props, ref) {
         buttonStyle,
         onClick,
         onPress: tempOnPress,
+        color = 'primary',
         children = []
     } = props;
     const theme = useContext(ThemeContext);
@@ -75,6 +76,7 @@ export default forwardRef(function Button(props, ref) {
         // prettier-ignore
         return rc(RoundButton, {
                 ref,
+                color,
                 onPress,
                 disabled,
                 android_ripple: { color: theme.button.primaryHighlight }
@@ -85,6 +87,7 @@ export default forwardRef(function Button(props, ref) {
     // prettier-ignore
     return rc(StyledButton, {
             ref,
+            color,
             onPress,
             disabled,
             android_ripple: { color: theme.button.primaryHighlight }

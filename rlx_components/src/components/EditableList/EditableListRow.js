@@ -11,6 +11,7 @@ const ListRow = styled(View).attrs({ name: 'list-row' })`
 const ListSubForm = styled(View).attrs({ displayName: 'list-subform' })`
     display: flex;
     flex-direction: column;
+    width: 100%;
 `;
 
 const rc = createElement;

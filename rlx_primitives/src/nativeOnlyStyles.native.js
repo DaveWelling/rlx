@@ -11,7 +11,7 @@ export default existingStyle => {
     /**
      * returns styled
      */
-    return function tagged(templateString) {
-        return styled(existingStyle)(templateString);
+    return function tagged(...args) {
+        return styled(existingStyle)(...args);
     };
 };

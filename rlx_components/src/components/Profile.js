@@ -22,7 +22,7 @@ let MenuStyle = styled(Menu)`
     border-style: solid;
     border-width: 1px;
     border-color: ${fromTheme('menu', 'borderColor')};
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: ${fromTheme('font')};
 `;
 
 MenuStyle = webOnlyStyles(MenuStyle)`

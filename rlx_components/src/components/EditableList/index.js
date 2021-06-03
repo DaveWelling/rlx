@@ -13,6 +13,7 @@ const StyledEditableList = styled(View)`
 const Header = styled(View).attrs({ name: 'header' })`
     align-items: center;
     justify-content: space-between;
+    flex-direction: row;
 `;
 export default function EditableList(props) {
     const { childrenHNodes, propertyName } = props;
