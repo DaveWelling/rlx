@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 import SummaryDetail from './components/SummaryDetail/index';
 import Grid from './components/Grid';
@@ -10,7 +10,6 @@ import ActiveRecord from './components/ActiveRecord';
 import ActionButton from './components/ActionButton';
 import Profile from './components/Profile';
 import { View, h2, App, Button } from 'rlx_primitives';
-import useTheme from './hooks/useTheme';
 import Theme from './components/Theme';
 
 const AppTitle = styled(h2)`

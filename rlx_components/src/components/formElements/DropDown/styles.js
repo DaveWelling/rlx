@@ -110,14 +110,19 @@ export const Input = webOnlyStyles(PreInput)`
     outline-width: 0;
 `;
 
-export const FlexLabel = styled(Label).attrs({ name: 'FlexLabel' })({
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-});
+export const FlexLabel = styled(Label).attrs({
+    name: 'flex-label',
+    displayName: 'flex-label'
+})`
+    flex: 1;
+    display: 'flex';
+    flex-direction: 'row';
+    flex-wrap: 'wrap';
+    margin-top: ${fromTheme('textMargin')};
+    margin-bottom: ${fromTheme('textMargin')};
+`;
 
 export const SansLabel = styled(View).attrs({ name: 'SansLabel', block: true })`
-    margin: ${fromTheme('textMargin')};
+    margin-left: ${fromTheme('textMargin')};
     flex-grow: 1;
 `;

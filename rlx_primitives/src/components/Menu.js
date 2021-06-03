@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 import * as reactMenu from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
 const rc = createElement;
 
 export default function Menu(props) {
@@ -10,5 +11,5 @@ export default function Menu(props) {
             'A menuButton prop containing a component must be passed into the Menu primitive.'
         );
     }
-    return rc(reactMenu.Menu, otherProps, children);
+    return rc(reactMenu.Menu, { portal: true, ...otherProps }, children);
 }

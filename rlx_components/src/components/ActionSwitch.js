@@ -10,12 +10,17 @@ const SwitchLayout = styled(View).attrs({ displayName: 'switch-layout' })`
     padding: ${fromTheme('textPadding')};
 `;
 
+const SwitchWithMargin = styled(Switch)`
+    margin-left: ${fromTheme('textPadding')};
+    margin-right: ${fromTheme('textPadding')};
+`;
+
 export default function ActionSwitch(props) {
     const { falseLabel = 'No', trueLabel = 'Yes', value = false, onClick } = props;
     // prettier-ignore
     return rc(SwitchLayout, null,
         rc(Text, null, falseLabel),
-        rc(Switch, {value, onClick}),
+        rc(SwitchWithMargin, {value, onClick}),
         rc(Text, null, trueLabel)
     );
 }

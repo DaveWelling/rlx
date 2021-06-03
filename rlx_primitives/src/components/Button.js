@@ -29,9 +29,9 @@ const StyledButton = styled.button.attrs(props => {
     padding: ${fromTheme('button', 'padding')};
     flex-grow: 0;
     flex-basis: auto;
-    background-color: ${({ theme }) => theme.button.primary};
+    background-color: ${({ theme, color }) => theme.button[color]};
     &:hover {
-        background-color: ${({ theme }) => theme.button.primaryHover};
+        background-color: ${({ theme, color }) => theme.button[color + 'Hover']};
     }
     color: ${props =>
         props.disabled ? props.theme.disabledFontColor : props.theme.button.fontColor};
@@ -53,6 +53,7 @@ export default forwardRef(function Button(props, ref) {
         alt,
         buttonStyle,
         value,
+        color = 'primary',
         ...otherProps
     } = props;
     const theme = useContext(ThemeContext);
@@ -72,9 +73,9 @@ export default forwardRef(function Button(props, ref) {
             : (adjustedChildren = [...adjustedChildren, children]);
     }
     if (buttonStyle === 'round') {
-        return rc(RoundButton, { ref, ...otherProps }, adjustedChildren);
+        return rc(RoundButton, { ref, color, ...otherProps }, adjustedChildren);
     }
-    return rc(StyledButton, { ref, ...otherProps }, adjustedChildren);
+    return rc(StyledButton, { ref, color, ...otherProps }, adjustedChildren);
 });
 
 function createRipple(event) {

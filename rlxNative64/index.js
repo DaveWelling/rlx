@@ -3,7 +3,7 @@
  */
 
 import { AppRegistry } from 'react-native';
-import { App } from 'rlx_components-native';
+import { App } from 'rlx_components';
 import { name as appName } from './app.json';
 
 import { setNativeExceptionHandler } from 'react-native-exception-handler';

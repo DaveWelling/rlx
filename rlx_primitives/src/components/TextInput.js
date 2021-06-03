@@ -5,7 +5,7 @@ const rc = react.createElement;
 
 const Input = styled.input.attrs({ name: 'text-input', type: 'textbox' })`
     font-size: ${fromTheme('fontSize')};
-    margin: ${fromTheme('textMargin')};
+    margin-left: ${fromTheme('textMargin')};
     padding: ${fromTheme('textPadding')};
     border-radius: ${fromTheme('form', 'inputBorderRadius')};
     border: none;

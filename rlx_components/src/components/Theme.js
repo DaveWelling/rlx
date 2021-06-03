@@ -23,7 +23,7 @@ export default function Theme({ children }) {
         // with each layer, progressively lightens/darkens the parent or baseBackgroundColor
         backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)',
         defaultFontColor: darkMode ? scheme['white-text'] : scheme['black-text'],
-        defaultFont: 'Arial',
+        font: 'Arial',
         fontSize: 16,
         disabledFontColor: scheme['disabled-color'],
         disabledBackgroundColor: scheme['disabled-background'],

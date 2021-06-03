@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import View from './View';
+import fromTheme from '../fromTheme';
 
 export default styled(View).attrs({ name: 'App', scroll: true })`
     background-color: ${({ theme }) => theme.baseBackgroundColor};
@@ -7,5 +8,5 @@ export default styled(View).attrs({ name: 'App', scroll: true })`
     height: 100%;
     flex-direction: column;
     align-items: ${props => (props.theme.mobile ? 'stretch' : 'flex-start')};
-    font-family: Arial;
+    font-family: ${fromTheme('font')};
 `;

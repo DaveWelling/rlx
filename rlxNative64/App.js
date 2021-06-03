@@ -14,7 +14,7 @@ import {
     Grid,
     ActionButton,
     WidgetForm
-} from 'rlx_components-native';
+} from 'rlx_components';
 import React from 'react';
 
 const rc = React.createElement;

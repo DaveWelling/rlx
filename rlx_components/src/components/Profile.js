@@ -22,6 +22,7 @@ let MenuStyle = styled(Menu)`
     border-style: solid;
     border-width: 1px;
     border-color: ${fromTheme('menu', 'borderColor')};
+    font-family: Arial, Helvetica, sans-serif;
 `;
 
 MenuStyle = webOnlyStyles(MenuStyle)`

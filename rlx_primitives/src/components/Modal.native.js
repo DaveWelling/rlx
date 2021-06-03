@@ -9,7 +9,7 @@ const ModalContent = styled(View).attrs({ name: 'modal' })`
     width: 100%;
     background-color: ${props => props.theme.baseBackgroundColor};
     color: ${props => props.theme.defaultFontColor};
-    font-family: ${props => props.theme.defaultFont};
+    font-family: ${props => props.theme.font};
 `;
 
 export default forwardRef((props, ref) => {

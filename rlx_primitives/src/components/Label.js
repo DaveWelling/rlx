@@ -12,6 +12,8 @@ const Container = styled(View).attrs({ name: 'label' })`
     flex-direction: row;
     align-items: baseline;
     max-width: ${fromTheme('form', 'entryMaxWidth')};
+    margin-top: ${fromTheme('textMargin')};
+    margin-bottom: ${fromTheme('textMargin')};
 `;
 
 export default props => {

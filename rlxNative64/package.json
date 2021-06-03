@@ -43,8 +43,7 @@
     "workspaces": [
         "../rlx_components",
         "../rlx_services",
-        "../rlx_primitives",
-        "../rlx_components-native"
+        "../rlx_primitives"
     ],
     "jest": {
         "preset": "react-native"

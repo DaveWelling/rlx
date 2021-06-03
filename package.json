@@ -10,7 +10,12 @@
         "android": "react-native start",
         "ADD SCRIPT (below) USAGE": "npm run add -- submodule0 somepackage",
         "add": "npm install --legacy-peer-deps --package-lock-only --no-package-lock --prefix",
-        "postadd": "npm install --legacy-peer-deps "
+        "postadd": "npm install --legacy-peer-deps ",
+        "clean": "npm-run-all cleanModules0 cleanPackageLocks0 cleanPackageLocks1 cleanModules1",
+        "cleanModules0": "rimraf ./**/node_modules",
+        "cleanModules1": "rimraf node_modules",
+        "cleanPackageLocks0": "rimraf ./**/package-lock.json",
+        "cleanPackageLocks1": "rimraf package-lock.json"
     },
     "keywords": [],
     "author": "",
@@ -19,8 +24,7 @@
         "rlx_components",
         "rlx_services",
         "rlx_web",
-        "rlx_primitives",
-        "rlx_components-native"
+        "rlx_primitives"
     ],
     "dependencies": {
         "react-error-boundary": "^3.1.0"

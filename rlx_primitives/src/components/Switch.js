@@ -53,10 +53,10 @@ const Input = styled.input`
 `;
 
 export default function Switch(props) {
-    const { value, onClick } = props;
+    const { value, onClick, className } = props;
     const onChange = e => onClick(e.target.checked);
     // prettier-ignore
-    return rc(Label, null,
+    return rc(Label, {className},
         rc(Input, { type: 'checkbox', checked: value, onChange }),
         rc(Slider)
     );
