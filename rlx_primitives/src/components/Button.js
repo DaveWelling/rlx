@@ -33,8 +33,10 @@ const StyledButton = styled.button.attrs(props => {
     &:hover {
         background-color: ${({ theme, color }) => theme.button[color + 'Hover']};
     }
-    color: ${props =>
-        props.disabled ? props.theme.disabledFontColor : props.theme.button.fontColor};
+    color: ${({ theme, color, disabled }) => {
+        if (color === 'base') return theme.defaultFontColor;
+        return disabled ? theme.disabledFontColor : theme.button.fontColor;
+    }};
 `;
 const RoundButton = styled(StyledButton).attrs({ name: 'round-button' })`
     width: ${fromTheme('button', 'roundDiameter')};

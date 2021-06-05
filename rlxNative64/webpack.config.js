@@ -132,6 +132,9 @@ module.exports = {
             'react-native-svg': path.resolve('./node_modules/react-native-svg'),
             'react-native-exception-handler': path.resolve(
                 './node_modules/react-native-exception-handler'
+            ),
+            'react-native-swipe-gestures': path.resolve(
+                './node_modules/react-native-swipe-gestures'
             )
         }
     },
@@ -191,6 +194,9 @@ module.exports = {
                     /node_modules(.*[/\\])+@expo/,
                     /node_modules(.*[/\\])+pretty-format/,
                     /node_modules(.*[/\\])+metro/,
+                    /node_modules(.*[/\\])+rlx_primitives/,
+                    /node_modules(.*[/\\])+rlx_services/,
+                    /node_modules(.*[/\\])+rlx_components/,
                     /node_modules(.*[/\\])+abort-controller/
                 ],
                 use: 'babel-loader'

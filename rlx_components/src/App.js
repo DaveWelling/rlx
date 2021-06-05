@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, useState } from 'react';
 import styled from 'styled-components';
 
 import SummaryDetail from './components/SummaryDetail/index';
@@ -9,6 +9,7 @@ import EventBoundary from './components/EventBoundary';
 import ActiveRecord from './components/ActiveRecord';
 import ActionButton from './components/ActionButton';
 import Profile from './components/Profile';
+import SideNav from './components/SideNav';
 import { View, h2, App, Button } from 'rlx_primitives';
 import Theme from './components/Theme';
 
@@ -43,11 +44,19 @@ const recordType0 = 'widget';
 const recordType1 = 'foo';
 
 export default function Application() {
-    //const theme = useTheme();
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const onSwipeLeft = () => setDrawerOpen(false);
+    const onSwipeRight = () => setDrawerOpen(true);
+    const toggleDrawer = () => setDrawerOpen(isOpen => !isOpen);
+    const onCloseSideNav = () => setDrawerOpen(false);
+
     // prettier-ignore
     return rc(Theme, null,
-        rc(App, {name: 'app'},
+        rc(App, {name: 'app', onSwipeLeft, onSwipeRight},
+            rc(SideNav, {open:drawerOpen, onClose: onCloseSideNav}),
             rc(Header, null,
+                rc(Button, {onClick: toggleDrawer, icon: 'menu', color: 'base'}),
                 rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),
                 rc(Profile)
             ),

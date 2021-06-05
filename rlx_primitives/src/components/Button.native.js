@@ -11,8 +11,12 @@ const ButtonText = styled.Text`
     font-size: ${fromTheme('fontSize')};
     text-align: center;
     padding: ${fromTheme('button', 'padding')};
-    color: ${props =>
-        props.disabled ? props.theme.disabledFontColor : props.theme.button.fontColor};
+    color: ${props => {
+        if (props.color === 'base') return theme.defaultFontColor;
+        return props.disabled
+            ? props.theme.disabledFontColor
+            : props.theme.button.fontColor;
+    }};
 `;
 
 const StyledButton = styled(Pressable).attrs({ name: 'button' })`
@@ -38,7 +42,10 @@ const RoundButton = styled(StyledButton).attrs({ name: 'round-button' })`
 
 const StyledIcon = styled(Icon)`
     font-size: ${fromTheme('iconSize')};
-    color: ${({ theme }) => theme.button.fontColor};
+    color: ${({ theme, color, disabled }) => {
+        if (color === 'base') return theme.defaultFontColor;
+        return disabled ? theme.disabledFontColor : theme.button.fontColor;
+    }};
 `;
 
 export default forwardRef(function Button(props, ref) {
@@ -60,12 +67,16 @@ export default forwardRef(function Button(props, ref) {
     let adjustedChildren = [];
     if (icon) {
         // prettier-ignore
-        adjustedChildren = [rc(StyledIcon, { key: 'icon', name: icon })];
+        adjustedChildren = [rc(StyledIcon, { key: 'icon', name: icon, color })];
         if (value && value.length) {
-            adjustedChildren.push(rc(ButtonText, { key: 'buttonText', disabled }, value));
+            adjustedChildren.push(
+                rc(ButtonText, { key: 'buttonText', disabled, color }, value)
+            );
         }
     } else {
-        adjustedChildren = [rc(ButtonText, { key: 'buttonText', disabled }, value)];
+        adjustedChildren = [
+            rc(ButtonText, { key: 'buttonText', disabled, color }, value)
+        ];
     }
     if (children) {
         Array.isArray(children)

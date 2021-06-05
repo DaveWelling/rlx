@@ -1,7 +1,10 @@
+import { createElement } from 'react';
 import styled from 'styled-components';
 import { Platform, KeyboardAvoidingView } from 'react-native';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
-export default styled(KeyboardAvoidingView).attrs({
+const rc = createElement;
+const BaseApp = styled(KeyboardAvoidingView).attrs({
     name: 'App',
     behavior: Platform.OS === 'ios' ? 'padding' : 'height'
 })`
@@ -13,3 +16,21 @@ export default styled(KeyboardAvoidingView).attrs({
     align-items: ${props => (props.theme.mobile ? 'stretch' : 'flex-start')};
     font-family: Arial;
 `;
+
+const swipeConfig = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 50
+};
+
+export default function App(props) {
+    const { onSwipeLeft, onSwipeRight, children } = props;
+    // prettier-ignore
+    return rc(GestureRecognizer, {
+            style:{height: '100%', width: '100%'},
+            onSwipeLeft,
+            onSwipeRight,
+            config: swipeConfig
+        },
+        rc(BaseApp, null, children)
+    );
+}

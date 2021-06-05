@@ -4,7 +4,7 @@ const rc = React.createElement;
 import useWindowDimensions from '../utilities/useWindowDimensions';
 import useDarkMode from '../utilities/useDarkMode';
 import { COMMON_COLOR_SCHEME } from 'rlx_primitives';
-//const { COLORS, BRAND_THEMES, COMMON_COLOR_SCHEME: scheme } = colorScheme;
+
 const scheme = COMMON_COLOR_SCHEME;
 
 const MOBILE_BREAKPOINT = 479;
@@ -22,6 +22,7 @@ export default function Theme({ children }) {
         baseBackgroundColor: darkMode ? '#000' : scheme.background,
         // with each layer, progressively lightens/darkens the parent or baseBackgroundColor
         backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)',
+        boxShadowColor: darkMode ? 'rgb(225, 225, 225)' : 'rgb(30, 30, 30)',
         defaultFontColor: darkMode ? scheme['white-text'] : scheme['black-text'],
         font: 'Arial',
         fontSize: 16,
@@ -62,7 +63,10 @@ export default function Theme({ children }) {
             warnHighlight: scheme['warn-highlight'],
             error: scheme.error,
             errorHover: scheme['error-hover'],
-            errorHighlight: scheme['error-highlight']
+            errorHighlight: scheme['error-highlight'],
+            base: darkMode ? '#000' : scheme.background,
+            baseHover: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+            baseHighlight: darkMode ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'
         }
     };
     if (mobile) {
