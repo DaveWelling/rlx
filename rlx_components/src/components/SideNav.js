@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { createElement } from 'react';
-import { Drawer, View, Button } from 'rlx_primitives';
+import { createElement, useContext, useEffect, useState } from 'react';
+import { Drawer, View, Button, App, GestureContext } from 'rlx_primitives';
+
 const rc = createElement;
 
 const Header = styled(View)`
@@ -14,12 +15,29 @@ const Header = styled(View)`
 `;
 
 function SideNav(props) {
-    const { open, children = [], onClose } = props;
-    return rc(Drawer, { open }, [
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const { onSwipeLeft, onSwipeRight } = useContext(GestureContext);
+    useEffect(() => {
+        let unsubscribes = [
+            onSwipeLeft(() => setDrawerOpen(false)),
+            onSwipeRight(() => setDrawerOpen(true))
+        ];
+        return () => unsubscribes.forEach(u => u());
+    });
+    const toggleDrawer = () => setDrawerOpen(isOpen => !isOpen);
+    const onCloseSideNav = () => setDrawerOpen(false);
+
+    const { children = [] } = props;
+
+    if (!drawerOpen) {
+        return rc(Button, { onClick: toggleDrawer, icon: 'menu', color: 'base' });
+    }
+
+    return rc(Drawer, { open: drawerOpen }, [
         rc(
             Header,
             { key: 'header' },
-            rc(Button, { color: 'base', icon: 'clear', onClick: onClose })
+            rc(Button, { color: 'base', icon: 'clear', onClick: onCloseSideNav })
         ),
         ...children
     ]);

@@ -4,15 +4,13 @@ import react from 'react';
 import fromTheme from '../fromTheme';
 
 const { createElement: rc } = react;
-// export default props => {
-//     return ce(Text, { style: { color: 'white' } }, props.children);
-// };
 
+// Text can be rendered before the Theme has finished loading, so provide defaults for this primitive.
 const TextStyle = styled.Text.attrs({
     name: 'text'
 })`
-    color: ${({ theme }) => theme.defaultFontColor};
-    font-size: ${fromTheme('fontSize')};
+    color: ${({ theme }) => theme?.defaultFontColor ?? '#000'};
+    font-size: ${({ theme }) => (theme?.fontSize ?? '16') + 'px'};
 `;
 
 export default props => {

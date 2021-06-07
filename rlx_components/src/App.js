@@ -44,19 +44,11 @@ const recordType0 = 'widget';
 const recordType1 = 'foo';
 
 export default function Application() {
-    const [drawerOpen, setDrawerOpen] = useState(false);
-
-    const onSwipeLeft = () => setDrawerOpen(false);
-    const onSwipeRight = () => setDrawerOpen(true);
-    const toggleDrawer = () => setDrawerOpen(isOpen => !isOpen);
-    const onCloseSideNav = () => setDrawerOpen(false);
-
     // prettier-ignore
     return rc(Theme, null,
-        rc(App, {name: 'app', onSwipeLeft, onSwipeRight},
-            rc(SideNav, {open:drawerOpen, onClose: onCloseSideNav}),
+        rc(App, {name: 'app'},
             rc(Header, null,
-                rc(Button, {onClick: toggleDrawer, icon: 'menu', color: 'base'}),
+                rc(SideNav),
                 rc(AppTitle, {name: 'app-title'}, 'Hello React Loki XState'),
                 rc(Profile)
             ),

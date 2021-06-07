@@ -25,6 +25,7 @@ const closed = props => keyframes`
 `;
 
 const SideNavStyled = styled.div`
+    top: 0;
     position: absolute;
     height: ${({ theme }) => theme.height + 'px'};
     z-index: 2;
@@ -33,18 +34,7 @@ const SideNavStyled = styled.div`
     background-color: ${fromTheme('baseBackgroundColor')};
     box-shadow: 10px 0px 24px 0px ${fromTheme('boxShadowColor')};
     animation: ${props => (props.open ? open(props) : closed(props))}
-        ${({ animationTime, skipAnimation }) =>
-            skipAnimation ? 0 : animationTime + 'ms'}
-        linear forwards;
-`;
-
-const SideNavStyledNoAnimation = styled.div`
-    position: absolute;
-    height: ${({ theme }) => theme.height + 'px'};
-    z-index: 2;
-    width: ${({ theme }) => theme.width + 'px'};
-    left: ${({ theme }) => theme.width * -1 + 'px'};
-    background-color: ${fromTheme('baseBackgroundColor')};
+        ${({ animationTime }) => animationTime + 'ms'} linear forwards;
 `;
 
 function MenuDrawer(props) {
@@ -53,23 +43,12 @@ function MenuDrawer(props) {
     const SCREEN_WIDTH = theme.width;
     const isLeftPosition = position === 'left';
     const DRAWER_WIDTH = SCREEN_WIDTH * (drawerPercentage / 100);
-    const skipAnimation = useRef(true);
-    useLayoutEffect(() => {
-        skipAnimation.current = false;
-    });
 
     const openPosition = isLeftPosition ? DRAWER_WIDTH : SCREEN_WIDTH;
     const closedPosition = isLeftPosition ? 0 : SCREEN_WIDTH + DRAWER_WIDTH;
 
-    if (skipAnimation.current) {
-        // prettier-ignore
-        return rc(SideNavStyledNoAnimation, { openPosition, closedPosition, open, animationTime, skipAnimation: skipAnimation.current },
-            children
-        );
-    }
-
     // prettier-ignore
-    return rc(SideNavStyled, { openPosition, closedPosition, open, animationTime, skipAnimation: skipAnimation.current },
+    return rc(SideNavStyled, { openPosition, closedPosition, open, animationTime },
         children
     );
 }

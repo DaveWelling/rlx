@@ -44,6 +44,7 @@ function MenuDrawer(props) {
     const style = {
         transform: [{ translateX: leftOffset }],
         position: 'absolute',
+        top: 0,
         height: SCREEN_HEIGHT,
         zIndex: 1,
         width: DRAWER_WIDTH,
