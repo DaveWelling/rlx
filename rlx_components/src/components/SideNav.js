@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { createElement, useContext, useEffect, useState } from 'react';
-import { Drawer, View, Button, App, GestureContext } from 'rlx_primitives';
+import { Drawer, View, Button, GestureContext } from 'rlx_primitives';
 
 const rc = createElement;
 

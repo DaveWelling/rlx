@@ -25,7 +25,6 @@ export { default as Menu } from './components/Menu';
 export { default as MenuItem } from './components/MenuItem';
 export { default as Switch } from './components/Switch';
 export { default as Drawer } from './components/Drawer';
-export * from './components/App';
-
+export * from './components/GestureRecognizer';
 export * from './colorScheme';
 export * from './components/headers';
