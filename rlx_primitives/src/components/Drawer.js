@@ -6,38 +6,45 @@ import PropTypes from 'prop-types';
 
 const rc = React.createElement;
 const open = props => keyframes`
-    from {
+    0% {
         transform: translateX(${props.closedPosition + 'px'});
-        box-shadown: none;
+        box-shadow: none;
     }
-    to {
+    100% {
         transform: translateX(${props.openPosition + 'px'});
-        box-shadow: 10px 0px 24px 0px ${fromTheme('boxShadowColor')};
     }
 `;
 const closed = props => keyframes`
     0% {
         transform: translateX(${props.openPosition + 'px'});
     }
-    0% {
-        box-shadow: 10px 0px 24px 0px ${fromTheme('boxShadowColor')};
-    }
     100% {
         transform: translateX(${props.closedPosition + 'px'});
+        box-shadow: none;
     }
 `;
 
 const SideNavStyled = styled.div`
     position: absolute;
     height: ${({ theme }) => theme.height + 'px'};
-    z-index: 1;
+    z-index: 2;
     width: ${({ theme }) => theme.width + 'px'};
     left: ${({ theme }) => theme.width * -1 + 'px'};
     background-color: ${fromTheme('baseBackgroundColor')};
+    box-shadow: 10px 0px 24px 0px ${fromTheme('boxShadowColor')};
     animation: ${props => (props.open ? open(props) : closed(props))}
         ${({ animationTime, skipAnimation }) =>
             skipAnimation ? 0 : animationTime + 'ms'}
         linear forwards;
+`;
+
+const SideNavStyledNoAnimation = styled.div`
+    position: absolute;
+    height: ${({ theme }) => theme.height + 'px'};
+    z-index: 2;
+    width: ${({ theme }) => theme.width + 'px'};
+    left: ${({ theme }) => theme.width * -1 + 'px'};
+    background-color: ${fromTheme('baseBackgroundColor')};
 `;
 
 function MenuDrawer(props) {
@@ -54,12 +61,19 @@ function MenuDrawer(props) {
     const openPosition = isLeftPosition ? DRAWER_WIDTH : SCREEN_WIDTH;
     const closedPosition = isLeftPosition ? 0 : SCREEN_WIDTH + DRAWER_WIDTH;
 
+    if (skipAnimation.current) {
+        // prettier-ignore
+        return rc(SideNavStyledNoAnimation, { openPosition, closedPosition, open, animationTime, skipAnimation: skipAnimation.current },
+            children
+        );
+    }
+
     // prettier-ignore
     return rc(SideNavStyled, { openPosition, closedPosition, open, animationTime, skipAnimation: skipAnimation.current },
         children
     );
 }
-
+MenuDrawer.whyDidYouRender = true;
 MenuDrawer.defaultProps = {
     open: false,
     drawerPercentage: 75,

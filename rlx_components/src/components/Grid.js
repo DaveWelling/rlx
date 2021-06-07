@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import useLokiView from '../hooks/useLokiView';
 import useEventSink from '../hooks/useEventSink';
@@ -41,9 +41,15 @@ const RowDetail = ({ item }) => rc(Text, null, item.title);
 function Grid({ recordType, title }) {
     const [data, itemCount] = useLokiView(recordType, `${recordType}_default`);
     const [, publish] = useEventSink();
-    function onClick(item) {
-        publish(`edit_${recordType}`, item._id);
-    }
+
+    // useCallback avoids rerenders of List
+    const onClick = useCallback(
+        item => {
+            publish(`edit_${recordType}`, item._id);
+        },
+        [recordType]
+    );
+
     // prettier-ignore
     return rc(StyledGrid, {name: 'grid'},
         title && title.length && rc(GridTitle, {name: 'grid-title'}, title),

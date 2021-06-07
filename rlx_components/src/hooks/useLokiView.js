@@ -3,6 +3,8 @@ import { database } from 'rlx_services';
 import throttle from 'lodash.throttle';
 import cuid from 'cuid';
 import isEqual from 'lodash.isequal';
+import memoize from 'memoizee';
+
 const { useLayoutEffect, useReducer } = react;
 /**
  * Similar to useSelector from react-redux but with a loki backing store
@@ -40,26 +42,44 @@ export default function useLokiView(collectionName, viewName, viewCriteria) {
     if (pageSize != null) {
         data = getPage(view, viewCriteria) || [];
     } else {
-        data = view.data() || [];
+        data = getData(view) || [];
     }
 
     return [data, view.count(), view];
 }
 
-function getPage(view, viewCriteria) {
-    const { pageSize, page = 0 } = viewCriteria || {};
-
-    if (view.sortDirty || view.resultsdirty) {
-        view.performSortPhase({
-            suppressRebuildEvent: true
-        });
+// Cache view.data() result to avoid rerenders.
+let cacheData;
+const getData = view => {
+    if (cacheData == null || view.sortDirty || view.resultsdirty) {
+        cacheData = view.data();
+        return cacheData;
     }
-    const resultSet = view.branchResultset('pagingTransform', {
-        pageSize,
-        pageStart: pageSize * page
-    });
-    return resultSet.data();
-}
+    return cacheData;
+};
+
+const getPage = memoize(
+    function (view, viewCriteria) {
+        const { pageSize, page = 0 } = viewCriteria || {};
+
+        if (view.sortDirty || view.resultsdirty) {
+            view.performSortPhase({
+                suppressRebuildEvent: true
+            });
+        }
+        const resultSet = view.branchResultset('pagingTransform', {
+            pageSize,
+            pageStart: pageSize * page
+        });
+        return resultSet.data();
+    },
+    {
+        normalizer: function (args) {
+            const [view, viewCriteria] = args;
+            return `${view.sortDirty}${view.resultsdirty}${viewCriteria.pageSize}${viewCriteria.page}`;
+        }
+    }
+);
 
 function ensureIndexIfPaging(view, viewCriteria) {
     const { sort = '_id', pageSize } = viewCriteria || {};

@@ -1,17 +1,26 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 const rc = React.createElement;
 import useWindowDimensions from '../utilities/useWindowDimensions';
 import useDarkMode from '../utilities/useDarkMode';
-import { COMMON_COLOR_SCHEME } from 'rlx_primitives';
+import { COMMON_COLOR_SCHEME, h1, View } from 'rlx_primitives';
 
 const scheme = COMMON_COLOR_SCHEME;
 
 const MOBILE_BREAKPOINT = 479;
-
+const LoadingThemeStyle = styled(View)`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
 export default function Theme({ children }) {
     const [darkMode, setDarkMode] = useDarkMode();
     const { height, width } = useWindowDimensions();
+    if (darkMode === 'loading') {
+        // TODO: Something prettier than this would be nice.
+        return rc(LoadingThemeStyle, null, rc(h1, null, 'Loading Theme Preference'));
+    }
     const mobile = height < MOBILE_BREAKPOINT || width < MOBILE_BREAKPOINT;
     let theme = {
         height,

@@ -1,4 +1,5 @@
-import react from 'react';
+import react, { memo } from 'react';
+import memoize from 'memoizee';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import styled, { ThemeContext } from 'styled-components';
@@ -66,7 +67,7 @@ const ItemRenderer = ({ data, index, style }) => {
     return rc(Row, rowProps, rc(RowDetail, { item: items[index], theme, onClick }));
 };
 
-export default function List(props) {
+export default memo(function List(props) {
     const {
         itemCount,
         data: items,
@@ -80,25 +81,35 @@ export default function List(props) {
         className
     } = props;
     const theme = useContext(ThemeContext);
+    const FixedList = memoize(({ height, width }) =>
+        rc(
+            FixedSizeList,
+            {
+                name: 'List',
+                style: { overflowX: 'hidden' },
+                height,
+                width,
+                itemCount,
+                itemSize: itemHeightPixels ?? theme.listLineHeight,
+                // Fixed Size List expects 'itemData' to include any data needed by the item renderer
+                itemData: {
+                    items,
+                    onClick,
+                    Row,
+                    RowDetail,
+                    theme,
+                    selectedItem,
+                    highlightedIndex,
+                    getItemProps
+                }
+            },
+            ItemRenderer
+        )
+    );
     // prettier-ignore
     return rc(View, {style: {width: '100%', overflow: 'hidden'}, className},
         rc(TopScrollHint),
-        rc(AutoSizer, { name: 'auto-sizer' }, ({ height, width }) =>
-            rc(
-                FixedSizeList,
-                {
-                    name: 'List',
-                    style: { overflowX: 'hidden' },
-                    height,
-                    width,
-                    itemCount,
-                    itemSize: itemHeightPixels ?? theme.listLineHeight,
-                    // Fixed Size List expects 'itemData' to include any data needed by the item renderer
-                    itemData: {items, onClick, Row, RowDetail, theme, selectedItem, highlightedIndex, getItemProps}
-                },
-                ItemRenderer
-            )
-        ),
+        rc(AutoSizer, { name: 'auto-sizer' }, FixedList),
         rc(BottomScrollHint)
     );
-}
+});
