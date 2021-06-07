@@ -197,7 +197,8 @@ module.exports = {
                     /node_modules(.*[/\\])+rlx_primitives/,
                     /node_modules(.*[/\\])+rlx_services/,
                     /node_modules(.*[/\\])+rlx_components/,
-                    /node_modules(.*[/\\])+abort-controller/
+                    /node_modules(.*[/\\])+abort-controller/,
+                    /node_modules(.*[/\\])+@callstack[/\\]nativepack/
                 ],
                 use: 'babel-loader'
             },
