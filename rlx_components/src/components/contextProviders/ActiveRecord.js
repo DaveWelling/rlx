@@ -1,6 +1,6 @@
 import react from 'react';
 import cuid from 'cuid';
-import useEventSink from '../hooks/useEventSink';
+import useEventSink from '../../hooks/useEventSink';
 import { database } from 'rlx_services';
 // Avoid `Can't import the named export '<function name>' from non EcmaScript module`
 // by doing the

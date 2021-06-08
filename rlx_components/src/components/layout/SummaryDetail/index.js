@@ -1,11 +1,8 @@
 import styled, { ThemeContext } from 'styled-components';
 import { createElement, useContext } from 'react';
-import useActiveRecord from '../../hooks/useActiveRecord';
+import useActiveRecord from '../../../hooks/useActiveRecord';
 import { View } from 'rlx_primitives';
 import StyledSummaryDetail from './StyledSummaryDetail';
-
-// TODO: Extract this as part of theming.
-const MOBILE_BREAKPOINT = 479;
 
 const rc = createElement;
 // TODO: Handle small screen sizes - how to measure consistently

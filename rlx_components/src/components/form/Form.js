@@ -1,7 +1,7 @@
 import react from 'react';
-import useFormMachine from '../hooks/useFormMachine';
+import useFormMachine from '../../hooks/useFormMachine';
 import styled from 'styled-components';
-import ActionButton from './ActionButton';
+import ActionButton from '../ActionButton';
 // eslint-disable-next-line
 import * as primitives from 'rlx_primitives';
 // eslint-disable-next-line

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import useLokiView from '../hooks/useLokiView';
-import useEventSink from '../hooks/useEventSink';
+import useLokiView from '../../hooks/useLokiView';
+import useEventSink from '../../hooks/useEventSink';
 import { View, h3, List, Text, fromTheme } from 'rlx_primitives';
 const rc = React.createElement;
 

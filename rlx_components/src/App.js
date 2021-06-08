@@ -1,12 +1,12 @@
 import { createElement, useState } from 'react';
 import styled from 'styled-components';
 
-import SummaryDetail from './components/SummaryDetail/index';
-import Grid from './components/Grid';
+import SummaryDetail from './components/layout/SummaryDetail/index';
+import Grid from './components/list/Grid';
 import WidgetForm from './components/WidgetForm';
 import FooForm from './components/FooForm';
-import EventBoundary from './components/EventBoundary';
-import ActiveRecord from './components/ActiveRecord';
+import EventBoundary from './components/contextProviders/EventBoundary';
+import ActiveRecord from './components/contextProviders/ActiveRecord';
 import ActionButton from './components/ActionButton';
 import Profile from './components/Profile';
 import SideNav from './components/SideNav';

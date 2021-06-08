@@ -1,8 +1,8 @@
 import React from 'react';
-import Form from './Form';
-import ShortText from './formElements/ShortText';
-import DropDown from './formElements/DropDown';
-import EditableList from './EditableList';
+import Form from './form/Form';
+import ShortText from './formElement/ShortText';
+import DropDown from './formElement/DropDown';
+import EditableList from './formElement/EditableList';
 
 const rc = React.createElement;
 

@@ -8,21 +8,21 @@ h5 is 12.8px (0.8em)
 h6 is 11.2px (0.7em)
 */
 
-export const h1 = styled.p.attrs({ name: 'h1' })`
+export const h1 = styled.p.attrs(props => ({ name: props.name || 'h1' }))`
     font-size: 32px;
 `;
-export const h2 = styled.p.attrs({ name: 'h2' })`
+export const h2 = styled.p.attrs(props => ({ name: props.name || 'h2' }))`
     font-size: 24px;
 `;
-export const h3 = styled.p.attrs({ name: 'h3' })`
+export const h3 = styled.p.attrs(props => ({ name: props.name || 'h3' }))`
     font-size: 20.8px;
 `;
-export const h4 = styled.p.attrs({ name: 'h4' })`
+export const h4 = styled.p.attrs(props => ({ name: props.name || 'h4' }))`
     font-size: 16px;
 `;
-export const h5 = styled.p.attrs({ name: 'h5' })`
+export const h5 = styled.p.attrs(props => ({ name: props.name || 'h5' }))`
     font-size: 12.8px;
 `;
-export const h6 = styled.p.attrs({ name: 'h6' })`
+export const h6 = styled.p.attrs(props => ({ name: props.name || 'h6' }))`
     font-size: 11.2px;
 `;

@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import { View, h3, Button, fromTheme } from 'rlx_primitives';
-import useFormControl from '../../hooks/useFormControl';
+import useFormControl from '../../../hooks/useFormControl';
 import EditableListRow from './EditableListRow';
 import styled from 'styled-components';
 

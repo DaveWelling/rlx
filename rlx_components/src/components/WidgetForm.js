@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from './Form';
-import ShortText from './formElements/ShortText';
+import Form from './form/Form';
+import ShortText from './formElement/ShortText';
 
 const rc = React.createElement;
 

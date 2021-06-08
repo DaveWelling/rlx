@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import fromTheme from '../fromTheme';
 const rc = react.createElement;
 
-const Input = styled.input.attrs({ name: 'text-input', type: 'textbox' })`
+const Input = styled.input.attrs(props => ({
+    name: props.name || 'text',
+    type: 'textbox'
+}))`
     font-size: ${fromTheme('fontSize')};
     margin-left: ${fromTheme('textMargin')};
     padding: ${fromTheme('textPadding')};
